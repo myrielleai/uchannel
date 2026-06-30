@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;650&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Color Variables & Theme Tokens */
 :root {
@@ -19,8 +19,9 @@
   --grad-spectrum: linear-gradient(90deg, var(--color-teal) 0%, var(--color-yellow) 50%, var(--color-magenta) 100%);
   --grad-teal-blue: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
   
-  --font-sans: 'Outfit', sans-serif;
-  --font-mono: 'Space Grotesk', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Fraunces', serif;
+  --font-mono: 'Inter', sans-serif;
 }
 
 * {
@@ -78,17 +79,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+  padding: 13px 28px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.01em;
   color: #030814;
   background: var(--grad-spectrum);
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -116,20 +116,22 @@ body {
 }
 
 .sec-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   margin-bottom: 16px;
-  text-transform: uppercase;
 }
 
 .sec-subtitle {
-  font-family: var(--font-mono);
-  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--color-teal);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 8px;
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
 }
 
 /* Glassmorphism Panel style — premium layered glass */
@@ -205,18 +207,20 @@ header .logo-text {
 }
 
 header .brand-name {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1;
 }
 
 header .brand-tagline {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
   color: var(--color-text-gray);
-  letter-spacing: 0.18em;
-  margin-top: 4px;
+  letter-spacing: 0.16em;
+  margin-top: 5px;
 }
 
 header nav ul {
@@ -239,9 +243,10 @@ header nav a:hover, header nav a.active {
 }
 
 header .nav-cta {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   padding: 10px 20px;
   border: 1px solid var(--color-teal);
   border-radius: 4px;
@@ -359,9 +364,11 @@ header .nav-cta:hover {
 
 .hero-eyebrow {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-text-gray);
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.05);
@@ -374,9 +381,10 @@ header .nav-cta:hover {
 }
 
 .hero-content h1 {
-  font-size: 3.2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.18;
   margin-bottom: 22px;
 }
@@ -516,9 +524,9 @@ p.reveal-item { animation-delay: 0.32s; }
 }
 
 .stat-number {
-  font-size: 3.5rem;
-  font-weight: 800;
-  font-family: var(--font-mono);
+  font-size: 3.2rem;
+  font-weight: 600;
+  font-family: var(--font-display);
   color: var(--color-text-white);
   line-height: 1;
   margin-bottom: 8px;
@@ -529,9 +537,11 @@ p.reveal-item { animation-delay: 0.32s; }
 }
 
 .stat-label {
-  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--color-text-gray);
 }
 
@@ -813,10 +823,11 @@ p.reveal-item { animation-delay: 0.32s; }
 }
 
 .service-card h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  margin-bottom: 14px;
 }
 
 .service-card p {
@@ -943,9 +954,10 @@ footer {
 }
 
 .footer-links-col h4 {
-  font-size: 0.95rem;
-  font-family: var(--font-mono);
-  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 24px;
   color: var(--color-text-white);
@@ -983,10 +995,10 @@ footer {
 }
 
 .footer-form-col h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
   margin-bottom: 20px;
-  text-transform: uppercase;
 }
 
 .footer-form-col h4 span {
@@ -1029,15 +1041,15 @@ textarea.form-input {
 }
 
 .form-btn {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.01em;
   background: var(--grad-spectrum);
   color: #030814;
   border: none;
-  padding: 12px;
-  border-radius: 4px;
+  padding: 13px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
   box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
