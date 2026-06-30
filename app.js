@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 0. Scroll-triggered reveal animations
+  // 0. Signature 3D element — a faceted glass "spectrum gem" in the hero
+  initHeroGem();
+
+  // 1. Scroll-triggered reveal animations
   const revealEls = document.querySelectorAll('.reveal-on-scroll');
   if ('IntersectionObserver' in window && revealEls.length) {
     const revealObserver = new IntersectionObserver((entries) => {
@@ -16,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
 
-  // 1. Header Scroll Effect
+  // 2. Header Scroll Effect
   const header = document.querySelector('header');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -26,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Map Interaction Logic
+  // 3. Map Interaction Logic
   const mapPins = document.querySelectorAll('.map-pin');
   const tooltip = document.querySelector('.map-tooltip');
   const tooltipTitle = tooltip.querySelector('.map-tooltip-title');
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     defaultPin.click();
   }
 
-  // 3. Contact Form Submission Mockup
+  // 4. Contact Form Submission Mockup
   const quoteForm = document.querySelector('.footer-form');
   const statusMsg = document.querySelector('.form-status');
 
@@ -151,3 +154,99 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Signature 3D element: a faceted "spectrum gem" rendered with Three.js.
+// Built from nested icosahedra (a glass-like solid + a glowing wireframe edge),
+// echoing the brand's color spectrum and the idea of light refracted into a display.
+function initHeroGem() {
+  const canvas = document.getElementById('hero-gem-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const heroSection = document.getElementById('hero');
+  let width = heroSection.clientWidth;
+  let height = heroSection.clientHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+  camera.position.set(0, 0, 7);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(width, height);
+
+  // Group holds the gem so we can rotate/float it as one unit
+  const gemGroup = new THREE.Group();
+  scene.add(gemGroup);
+
+  const geometry = new THREE.IcosahedronGeometry(1.6, 0);
+
+  // Translucent glass-like solid faces
+  const glassMaterial = new THREE.MeshPhongMaterial({
+    color: 0x0c1a30,
+    transparent: true,
+    opacity: 0.35,
+    shininess: 120,
+    specular: 0x00f2fe,
+    flatShading: true,
+  });
+  const glassMesh = new THREE.Mesh(geometry, glassMaterial);
+  gemGroup.add(glassMesh);
+
+  // Glowing wireframe edges to read the gem's facets clearly
+  const edges = new THREE.EdgesGeometry(geometry);
+  const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x6fe9ff, transparent: true, opacity: 0.55 });
+  const edgeLines = new THREE.LineSegments(edges, edgeMaterial);
+  gemGroup.add(edgeLines);
+
+  // A second, smaller inner gem in a spectrum accent color for depth
+  const innerGeometry = new THREE.IcosahedronGeometry(0.85, 0);
+  const innerEdges = new THREE.EdgesGeometry(innerGeometry);
+  const innerEdgeMaterial = new THREE.LineBasicMaterial({ color: 0xfed136, transparent: true, opacity: 0.35 });
+  const innerEdgeLines = new THREE.LineSegments(innerEdges, innerEdgeMaterial);
+  gemGroup.add(innerEdgeLines);
+
+  gemGroup.position.set(3.4, 0.1, 0);
+  gemGroup.scale.setScalar(window.innerWidth < 1100 ? 0.8 : 1.05);
+
+  // Lighting: soft ambient plus two colored point lights matching the brand spectrum
+  scene.add(new THREE.AmbientLight(0x404040, 1.2));
+
+  const tealLight = new THREE.PointLight(0x00f2fe, 1.4, 20);
+  tealLight.position.set(-3, 2, 4);
+  scene.add(tealLight);
+
+  const magentaLight = new THREE.PointLight(0xe81c4f, 1.1, 20);
+  magentaLight.position.set(3, -2, 3);
+  scene.add(magentaLight);
+
+  function handleResize() {
+    width = heroSection.clientWidth;
+    height = heroSection.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+    gemGroup.scale.setScalar(window.innerWidth < 1100 ? 0.8 : 1.05);
+  }
+  window.addEventListener('resize', handleResize);
+
+  if (prefersReducedMotion) {
+    // Render a single static, gently-angled frame and stop — no continuous animation
+    gemGroup.rotation.set(0.4, 0.6, 0);
+    renderer.render(scene, camera);
+    return;
+  }
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    gemGroup.rotation.y = t * 0.18;
+    gemGroup.rotation.x = Math.sin(t * 0.25) * 0.15;
+    innerEdgeLines.rotation.y = -t * 0.3;
+    gemGroup.position.y = 0.1 + Math.sin(t * 0.5) * 0.12;
+    renderer.render(scene, camera);
+  }
+  animate();
+}
