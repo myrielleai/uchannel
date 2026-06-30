@@ -255,21 +255,8 @@ header .nav-cta:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('assets/hero_bg.png');
-  background-size: cover;
-  background-position: center;
+  background: var(--bg-main);
   overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(3, 8, 20, 0.4) 0%, rgba(3, 8, 20, 0.8) 70%, #030814 100%);
-  z-index: 1;
 }
 
 .hero::after {
@@ -281,37 +268,178 @@ header .nav-cta:hover {
   height: 2px;
   background: var(--grad-spectrum);
   z-index: 2;
+  opacity: 0.6;
+}
+
+/* Soft animated aurora backdrop — replaces the old busy photo background */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.35;
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 540px;
+  height: 540px;
+  top: -120px;
+  left: -100px;
+  background: var(--color-teal);
+  animation: drift-1 22s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 460px;
+  height: 460px;
+  bottom: -140px;
+  right: -80px;
+  background: var(--color-magenta);
+  opacity: 0.25;
+  animation: drift-2 26s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+  width: 380px;
+  height: 380px;
+  top: 35%;
+  left: 50%;
+  background: var(--color-yellow);
+  opacity: 0.14;
+  animation: drift-3 30s ease-in-out infinite alternate;
+}
+
+@keyframes drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.08); }
+}
+
+@keyframes drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -30px) scale(1.1); }
+}
+
+@keyframes drift-3 {
+  0%   { transform: translate(-50%, 0) scale(1); }
+  100% { transform: translate(-50%, -40px) scale(1.15); }
 }
 
 .hero-content {
   position: relative;
   z-index: 5;
   text-align: center;
-  max-width: 900px;
+  max-width: 760px;
   margin: 0 auto;
   padding-top: 80px;
 }
 
+.hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-gray);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+
 .hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 24px;
-  text-transform: uppercase;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  margin-bottom: 22px;
 }
 
 .hero-content p {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--color-text-gray);
-  max-width: 680px;
-  margin: 0 auto 40px auto;
+  max-width: 620px;
+  margin: 0 auto 36px auto;
   line-height: 1.7;
 }
 
 .hero-content p strong {
   color: var(--color-text-white);
   font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ghost-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  color: var(--color-text-white);
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.ghost-btn:hover {
+  border-color: var(--border-color-glow);
+  background: var(--bg-card);
+  transform: translateY(-2px);
+}
+
+/* Entrance animation for hero content */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: reveal-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-eyebrow.reveal-item { animation-delay: 0.05s; }
+h1.reveal-item { animation-delay: 0.18s; }
+p.reveal-item { animation-delay: 0.32s; }
+.hero-actions.reveal-item { animation-delay: 0.46s; }
+
+@keyframes reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll-triggered reveal for sections below the fold */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item, .reveal-on-scroll {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .aurora-blob {
+    animation: none !important;
+  }
 }
 
 /* --- Legacy Section --- */

@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. Scroll-triggered reveal animations
+  const revealEls = document.querySelectorAll('.reveal-on-scroll');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+  }
+
   // 1. Header Scroll Effect
   const header = document.querySelector('header');
   window.addEventListener('scroll', () => {
