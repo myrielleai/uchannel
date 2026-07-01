@@ -3,389 +3,570 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>U Channel - Dynamic LED Advertising | RUCS Konsult Corp. Venture</title>
-  <meta name="description" content="U Channel is the new frontier in dynamic LED advertising. A strategic expansion by RUCS Konsult Corp. with over 20 years of proven media impact in digital out-of-home landscapes.">
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- SEO & Accessibility -->
+  <title>U Channel — Premium Media &amp; Advertising | RUCS Konsult Corp.</title>
+  <meta name="description" content="U Channel is the next-generation media and advertising company. Billboard advertising, LED displays, digital campaigns, and large-scale brand activations across the Philippines.">
+  <meta property="og:title" content="U Channel — Premium Media &amp; Advertising">
+  <meta property="og:description" content="Next-generation media and advertising. Billboard, LED, digital campaigns, brand activations — at scale.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Space Grotesk (headlines) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <!-- Three.js for 3D model -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.min.js"></script>
+
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Floating Navigation Header -->
-  <header>
+  <!-- ══════════════════════════════════════ HEADER ══ -->
+  <header id="site-header">
     <div class="container nav-container">
-      <a href="#" class="logo-container" id="nav-brand-logo">
-        <img src="assets/logo.png" alt="U Channel Logo" class="logo-img">
+      <a href="#hero" class="logo-link" id="nav-brand-logo" aria-label="U Channel home">
+        <img src="assets/logo.png" alt="U Channel logo" class="logo-img">
+        <span class="logo-divider" aria-hidden="true"></span>
         <div class="logo-text">
           <span class="brand-name">U CHANNEL</span>
           <span class="brand-tagline">DIGITECH INNOVATION</span>
         </div>
       </a>
-      <nav>
-        <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#legacy">Legacy</a></li>
-          <li><a href="#network">Our Network Map</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+
+      <nav aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li><a href="#legacy" class="nav-link">Legacy</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#work" class="nav-link">Work</a></li>
+          <li><a href="#network" class="nav-link">Network</a></li>
         </ul>
       </nav>
-      <a href="#contact" class="nav-cta" id="header-cta-btn">GET A QUOTE</a>
+
+      <a href="#contact" class="nav-cta" id="header-cta-btn">Get a Quote</a>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+      <ul>
+        <li><a href="#legacy" class="nav-link">Legacy</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#work" class="nav-link">Work</a></li>
+        <li><a href="#network" class="nav-link">Network</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <a href="#contact" class="mobile-cta">Get a Quote</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- ══════════════════════════════════════ HERO ══ -->
   <section id="hero" class="hero">
-    <div class="hero-aurora" aria-hidden="true">
-      <span class="aurora-blob blob-1"></span>
-      <span class="aurora-blob blob-2"></span>
-      <span class="aurora-blob blob-3"></span>
+    <!-- Cinematic background layers -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-bg-img"></div>
+      <div class="hero-bg-vignette"></div>
+      <div class="hero-noise" aria-hidden="true"></div>
     </div>
-    <canvas id="hero-gem-canvas" aria-hidden="true"></canvas>
+
+    <!-- Ambient floating orbs -->
+    <div class="hero-orbs" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+      <span class="orb orb-4"></span>
+    </div>
+
     <div class="container hero-content">
-      <span class="hero-eyebrow reveal-item">A Strategic Expansion by RUCS Konsult Corp.</span>
-      <h1 class="reveal-item">Out-of-home advertising,<br><span class="text-gradient">brought to life</span></h1>
-      <p class="reveal-item">
-        Over 20 years of proven media impact, now reimagined. Flexible scheduling, stunning visual clarity, and premium placements across the city's most-traveled corridors.
+      <div class="hero-eyebrow reveal-item" style="--delay:0.05s">
+        <span class="eyebrow-dot"></span>
+        A Strategic Expansion by RUCS Konsult Corp.
+      </div>
+
+      <h1 class="hero-headline reveal-item" style="--delay:0.18s">
+        The Future of<br>
+        <span class="headline-accent">Out-of-Home</span><br>
+        Advertising
+      </h1>
+
+      <p class="hero-sub reveal-item" style="--delay:0.32s">
+        Over two decades of proven media impact — now reimagined.
+        Premium billboard, LED, and digital campaigns at metropolitan scale.
       </p>
-      <div class="hero-actions reveal-item">
-        <a href="#network" class="glow-btn" id="hero-cta-explore">View Our Network</a>
-        <a href="#contact" class="ghost-btn" id="hero-cta-contact">Get in Touch</a>
+
+      <div class="hero-actions reveal-item" style="--delay:0.46s">
+        <a href="#work" class="btn-primary" id="hero-cta-work">View Our Work</a>
+        <a href="#contact" class="btn-ghost" id="hero-cta-contact">Start a Campaign</a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator reveal-item" style="--delay:0.7s" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Scroll</span>
       </div>
     </div>
   </section>
 
-  <!-- Legacy Section -->
-  <section id="legacy" class="legacy">
-    <div class="container legacy-grid">
-      <div class="legacy-info reveal-on-scroll">
-        <span class="sec-subtitle">Evolving Out-of-Home Media</span>
-        <h2 class="sec-title">A Legacy of Trust, Evolved</h2>
-        <p>
-          Leveraging RUCS Konsult's 20+ years of pioneering expertise in Billboards & Transit, U Channel brings unparalleled flexibility, intelligence, and advanced digital technology to the out-of-home landscape.
-        </p>
-        <p style="font-size: 0.95rem; line-height: 1.7; color: var(--color-text-gray);">
-          We transition static structures into dynamic message centers, helping B2B brands scale advertisements, update campaigns in real time, and gain maximum visibility with targeted mobile and pedestrian audiences in prime metropolitan corridors.
-        </p>
+  <!-- ══════════════════════════════════════ STATS BAR ══ -->
+  <section class="stats-bar" aria-label="Key metrics">
+    <div class="container stats-grid">
+      <div class="stat-item reveal-on-scroll">
+        <span class="stat-num" data-count="20">0</span><span class="stat-suffix">+</span>
+        <span class="stat-label">Years of Media Impact</span>
       </div>
-      <div class="legacy-stats reveal-on-scroll">
-        <div class="stat-card glass-panel">
-          <div class="stat-number">20+</div>
-          <div class="stat-label">Years Media Impact</div>
-        </div>
-        <div class="stat-card glass-panel">
-          <div class="stat-number">98%</div>
-          <div class="stat-label">Client Retention</div>
-        </div>
-        <div class="stat-card glass-panel">
-          <div class="stat-number">2.4M</div>
-          <div class="stat-label">Daily Impressions</div>
-        </div>
-        <div class="stat-card glass-panel">
-          <div class="stat-number">100%</div>
-          <div class="stat-label">Programmable Slots</div>
-        </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal-on-scroll">
+        <span class="stat-num" data-count="2.4">0</span><span class="stat-suffix">M</span>
+        <span class="stat-label">Daily Impressions</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal-on-scroll">
+        <span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span>
+        <span class="stat-label">Client Retention</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal-on-scroll">
+        <span class="stat-num" data-count="6">0</span><span class="stat-suffix">+</span>
+        <span class="stat-label">Prime Metro Corridors</span>
       </div>
     </div>
   </section>
 
-  <!-- Network Map Section -->
-  <section id="network" class="network-map-sec">
+  <!-- ══════════════════════════════════════ LEGACY ══ -->
+  <section id="legacy" class="section-legacy">
     <div class="container">
-      <div class="reveal-on-scroll" style="text-align: center; margin-bottom: 50px;">
-        <span class="sec-subtitle">Real-Time Screen Placement</span>
-        <h2 class="sec-title">Premium OOH Screen Network</h2>
-        <p style="color: var(--color-text-gray); max-width: 600px; margin: 0 auto;">
-          Hover or click on our active digital LED nodes across key metropolitan corridors to see detailed display capabilities.
-        </p>
-      </div>
-
-      <div class="map-container reveal-on-scroll">
-        <!-- Grid and stylized SVG representing map routes -->
-        <div class="map-grid-overlay"></div>
-        <svg class="svg-map" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Stylized grid networks representing high traffic expressways/roads -->
-          <path d="M100 150 C 300 120, 450 180, 600 100 C 700 80, 900 150, 950 200" stroke="#00f2fe" stroke-width="1.5" stroke-dasharray="5 5" />
-          <path d="M150 400 C 250 350, 380 250, 380 200 C 380 150, 420 120, 500 80" stroke="#ff0844" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7" />
-          <path d="M50 250 H 950" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
-          <path d="M350 50 V 450" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
-          <path d="M700 50 V 450" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
-          <path d="M200 450 C 350 300, 500 200, 750 450" stroke="#fed136" stroke-width="1" stroke-dasharray="10 5" opacity="0.6" />
-          <!-- Stylized land contours -->
-          <path d="M250 80 H 300 V 130 H 250 Z" fill="rgba(0, 242, 254, 0.03)" stroke="rgba(0, 242, 254, 0.1)" />
-          <path d="M550 280 H 680 V 380 H 550 Z" fill="rgba(232, 28, 79, 0.02)" stroke="rgba(232, 28, 79, 0.08)" />
-          <path d="M780 120 H 880 V 220 H 780 Z" fill="rgba(254, 209, 54, 0.02)" stroke="rgba(254, 209, 54, 0.08)" />
-        </svg>
-
-        <!-- Dynamic Pins placed strategically -->
-        <div class="map-pin" style="top: 36%; left: 38%;" data-id="edsa-ortigas" title="EDSA - Ortigas Junction">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
+      <div class="legacy-grid">
+        <div class="legacy-text reveal-on-scroll">
+          <span class="label-tag">Our Foundation</span>
+          <h2 class="section-headline">
+            A Legacy of Trust,<br>Evolved for Today
+          </h2>
+          <p class="body-text">
+            Leveraging RUCS Konsult's 20+ years of pioneering expertise in Billboards &amp; Transit, U Channel brings
+            unparalleled flexibility, intelligence, and advanced digital technology to the out-of-home landscape.
+          </p>
+          <p class="body-text" style="margin-top:1rem;">
+            We transition static structures into dynamic message centers — helping brands scale campaigns,
+            update content in real time, and gain maximum visibility across the city's most-traveled corridors.
+          </p>
+          <a href="#services" class="btn-text-link">Explore Services →</a>
         </div>
 
-        <div class="map-pin" style="top: 52%; left: 45%;" data-id="bgc-lawton" title="BGC - Lawton Ave">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <div class="map-pin" style="top: 45%; left: 28%;" data-id="makati-ave" title="Makati Ave CBD">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <div class="map-pin" style="top: 65%; left: 22%;" data-id="roxas-blvd" title="Roxas Boulevard Highway">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <div class="map-pin" style="top: 50%; left: 70%;" data-id="cebu-it" title="Cebu IT Park Plaza">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <div class="map-pin" style="top: 72%; left: 82%;" data-id="davao-global" title="Davao Global City">
-          <div class="pin-pulse"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <!-- Sticky Tooltip Info Box -->
-        <div class="map-tooltip">
-          <div class="map-tooltip-title">EDSA - Ortigas Junction LED</div>
-          <div class="tooltip-spec">
-            <span class="tooltip-label">Display Spec:</span>
-            <span class="tooltip-val val-resolution">4K Ultra-HD (P10 LED)</span>
+        <div class="legacy-visual reveal-on-scroll" style="--delay:0.12s">
+          <!-- Layered glass cards -->
+          <div class="legacy-card legacy-card-back glass-card" aria-hidden="true"></div>
+          <div class="legacy-card legacy-card-mid glass-card">
+            <div class="glass-card-label">Display Network</div>
+            <div class="glass-card-metric">4K</div>
+            <div class="glass-card-sub">Ultra-HD LED Resolution</div>
           </div>
-          <div class="tooltip-spec">
-            <span class="tooltip-label">Ad Slots:</span>
-            <span class="tooltip-val val-slots">8 Flexible Slots</span>
+          <div class="legacy-card legacy-card-front glass-card">
+            <div class="glass-card-label">Campaign Reach</div>
+            <div class="glass-card-metric">380K+</div>
+            <div class="glass-card-sub">Daily vehicles — EDSA Corridor</div>
+            <div class="glass-card-bar">
+              <span class="glass-bar-fill" style="--fill:82%"></span>
+            </div>
           </div>
-          <div class="tooltip-spec">
-            <span class="tooltip-label">Daily Traffic:</span>
-            <span class="tooltip-val val-traffic">380,000+ daily vehicles</span>
-          </div>
-          <div class="tooltip-spec">
-            <span class="tooltip-label">Target Audience:</span>
-            <span class="tooltip-val val-audience">B2B Professionals & Commuters</span>
-          </div>
-          <div style="margin-top: 16px; font-size: 0.8rem; color: var(--color-yellow); font-family: var(--font-mono);">
-            * Instant Scheduling & Flexible Content Cycles
-          </div>
-        </div>
-
-        <div class="map-instructions">
-          <div class="dot"></div>
-          <span>Select a glowing 'U' node to view screen specs</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services / Features Section -->
-  <section id="services" class="services">
+  <!-- ══════════════════════════════════════ 3D MODEL SHOWCASE ══ -->
+  <section id="model-showcase" class="section-model-showcase">
     <div class="container">
-      <div style="text-align: center;">
-        <span class="sec-subtitle">Flexible Media Services</span>
-        <h2 class="sec-title">Engineered for Modern Campaigns</h2>
-        <p style="color: var(--color-text-gray); max-width: 600px; margin: 0 auto;">
-          U Channel introduces advanced technological capabilities to ensure your campaigns deliver maximum visual retention.
+      <div class="section-header reveal-on-scroll">
+        <span class="label-tag">The Display</span>
+        <h2 class="section-headline">Engineered to<br>Command Attention</h2>
+        <p class="section-sub">Scroll to explore. Our Ultra-HD LED structures are built to dominate any skyline — day or night, at any angle.</p>
+      </div>
+    </div>
+
+    <!-- 3D Canvas Stage -->
+    <div class="model-stage" id="model-stage" aria-hidden="true">
+      <canvas id="model-canvas"></canvas>
+
+      <!-- Floating spec badges -->
+      <div class="model-badge model-badge--tl reveal-on-scroll" style="--delay:0.1s">
+        <span class="badge-value">4K</span>
+        <span class="badge-label">Ultra-HD Resolution</span>
+      </div>
+      <div class="model-badge model-badge--tr reveal-on-scroll" style="--delay:0.2s">
+        <span class="badge-value">8</span>
+        <span class="badge-label">Flexible Ad Slots</span>
+      </div>
+      <div class="model-badge model-badge--br reveal-on-scroll" style="--delay:0.3s">
+        <span class="badge-value">P10</span>
+        <span class="badge-label">LED Pitch Grade</span>
+      </div>
+      <div class="model-badge model-badge--bl reveal-on-scroll" style="--delay:0.4s">
+        <span class="badge-value">24/7</span>
+        <span class="badge-label">Uptime Guarantee</span>
+      </div>
+
+      <!-- Scroll progress bar -->
+      <div class="model-scroll-hint" aria-hidden="true">
+        <span class="model-scroll-icon"></span>
+        <span>Scroll to rotate</span>
+      </div>
+    </div>
+
+    <!-- Bottom caption row -->
+    <div class="container model-caption reveal-on-scroll">
+      <div class="model-caption-stat">
+        <span class="model-caption-num">380K+</span>
+        <span class="model-caption-label">Daily vehicles — EDSA Corridor</span>
+      </div>
+      <div class="model-caption-divider"></div>
+      <div class="model-caption-stat">
+        <span class="model-caption-num">60m</span>
+        <span class="model-caption-label">Viewing distance</span>
+      </div>
+      <div class="model-caption-divider"></div>
+      <div class="model-caption-stat">
+        <span class="model-caption-num">7,500</span>
+        <span class="model-caption-label">nits peak brightness</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ SERVICES ══ -->
+  <section id="services" class="section-services">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="label-tag">What We Do</span>
+        <h2 class="section-headline">Engineered for<br>Modern Campaigns</h2>
+        <p class="section-sub">
+          Premium media formats designed to deliver maximum visual impact across every touchpoint.
         </p>
       </div>
 
       <div class="services-grid">
-        <!-- Service Card 1 -->
-        <div class="service-card reveal-on-scroll">
-          <div class="card-border-glow"></div>
-          <div class="service-card-content">
-            <div class="service-icon-box">
-              <!-- Monitor Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3>Dynamic LED Displays</h3>
-            <p>Maximum visual impact with 4K resolution screens. Schedule programmable content contextually by time of day, weather, or localized audience metrics.</p>
+        <!-- Card 1 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
           </div>
-        </div>
+          <h3 class="service-title">Dynamic LED Displays</h3>
+          <p class="service-desc">4K resolution programmable screens. Schedule contextual content by time of day, weather, or real-time audience signals.</p>
+          <span class="service-tag">Billboard · LED · OOH</span>
+        </article>
 
-        <!-- Service Card 2 -->
-        <div class="service-card reveal-on-scroll">
-          <div class="card-border-glow"></div>
-          <div class="service-card-content">
-            <div class="service-icon-box">
-              <!-- Truck/Transit Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-              </svg>
-            </div>
-            <h3>Transit Ad Integration</h3>
-            <p>Capture high-traffic mobile audiences. Integrate advertisements dynamically with transport routes, buses, and digital transit panels for moving engagement.</p>
+        <!-- Card 2 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0.08s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 7h18M3 12h18M3 17h18"/>
+              <circle cx="19" cy="7" r="3" fill="currentColor" stroke="none" opacity=".3"/>
+            </svg>
           </div>
-        </div>
+          <h3 class="service-title">Digital Campaigns</h3>
+          <p class="service-desc">Omnichannel campaign architecture bridging out-of-home and digital. Precision targeting, real-time analytics, and full creative support.</p>
+          <span class="service-tag">Campaigns · Analytics · Creative</span>
+        </article>
 
-        <!-- Service Card 3 -->
-        <div class="service-card reveal-on-scroll">
-          <div class="card-border-glow"></div>
-          <div class="service-card-content">
-            <div class="service-icon-box">
-              <!-- Adjustments Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-            </div>
-            <h3>Client Flexibility</h3>
-            <p>We break free from rigid corporate contracts. Access custom micro-packages, flexible slot splits, and campaign testing designed to fit diverse and scaling budgets.</p>
+        <!-- Card 3 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0.16s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
           </div>
-        </div>
+          <h3 class="service-title">Brand Activations</h3>
+          <p class="service-desc">Large-scale experiential media events. Immersive brand presence that commands attention and drives lasting consumer recall.</p>
+          <span class="service-tag">Activations · Experiential · Events</span>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0.24s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Transit Ad Integration</h3>
+          <p class="service-desc">Mobile audiences on buses, transit corridors, and high-traffic routes — captured with dynamically triggered display sequences.</p>
+          <span class="service-tag">Transit · Mobile · Dynamic</span>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0.32s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Media Exposure &amp; Scale</h3>
+          <p class="service-desc">National reach through a growing network of premium display locations spanning Metro Manila, Cebu, and Davao metro corridors.</p>
+          <span class="service-tag">National · Scale · Network</span>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="service-card reveal-on-scroll" style="--delay:0.4s">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Flexible Packages</h3>
+          <p class="service-desc">Custom micro-packages, flexible slot splits, and campaign testing — designed to fit diverse budgets without rigid lock-in contracts.</p>
+          <span class="service-tag">Flexible · Custom · Scalable</span>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Client Showcase Section -->
-  <section class="showcase">
+  <!-- ══════════════════════════════════════ FEATURED WORK ══ -->
+  <section id="work" class="section-work">
     <div class="container">
-      <div class="reveal-on-scroll" style="text-align: center; margin-bottom: 20px;">
-        <span class="sec-subtitle" style="font-size: 0.8rem; letter-spacing: 0.2em;">Trusted By Leading Brands</span>
+      <div class="section-header reveal-on-scroll">
+        <span class="label-tag">Featured Campaigns</span>
+        <h2 class="section-headline">Where Brands<br>Come Alive</h2>
       </div>
-      <div class="showcase-slider">
-        <div class="showcase-track">
-          <!-- Slide 1 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">SAMSUNG</text>
-            </svg>
+
+      <div class="work-grid">
+        <!-- Case Study 1 – large -->
+        <article class="work-card work-card--large reveal-on-scroll">
+          <div class="work-card-bg work-card-bg--1" aria-hidden="true"></div>
+          <div class="work-card-content">
+            <span class="work-tag">Billboard · EDSA Corridor</span>
+            <h3 class="work-title">EDSA Ortigas Junction LED</h3>
+            <p class="work-meta">380,000+ daily vehicles · 4K Ultra-HD P10 LED · 8 Flexible Slots</p>
+            <a href="#contact" class="btn-text-link work-link">Inquire about this location →</a>
           </div>
-          <!-- Slide 2 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">UNILEVER</text>
-            </svg>
+        </article>
+
+        <!-- Case Study 2 -->
+        <article class="work-card reveal-on-scroll" style="--delay:0.1s">
+          <div class="work-card-bg work-card-bg--2" aria-hidden="true"></div>
+          <div class="work-card-content">
+            <span class="work-tag">LED · BGC</span>
+            <h3 class="work-title">BGC Lawton Ave Landmark</h3>
+            <p class="work-meta">220,000+ daily vehicles · Full HD Dual-Face</p>
           </div>
-          <!-- Slide 3 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">TOYOTA</text>
-            </svg>
+        </article>
+
+        <!-- Case Study 3 -->
+        <article class="work-card reveal-on-scroll" style="--delay:0.2s">
+          <div class="work-card-bg work-card-bg--3" aria-hidden="true"></div>
+          <div class="work-card-content">
+            <span class="work-tag">LED · Cebu</span>
+            <h3 class="work-title">Cebu IT Park Plaza Screen</h3>
+            <p class="work-meta">140,000+ daily foot traffic · Portrait P6 HD</p>
           </div>
-          <!-- Slide 4 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">NESTLE</text>
-            </svg>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ NETWORK MAP ══ -->
+  <section id="network" class="section-network">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="label-tag">Screen Network</span>
+        <h2 class="section-headline">Premium OOH<br>Screen Network</h2>
+        <p class="section-sub">
+          Select an active display node to view detailed screen specifications and audience data.
+        </p>
+      </div>
+
+      <div class="map-container reveal-on-scroll">
+        <div class="map-grid-overlay" aria-hidden="true"></div>
+
+        <svg class="svg-map" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M100 150 C 300 120, 450 180, 600 100 C 700 80, 900 150, 950 200" stroke="rgba(196,160,80,0.18)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M150 400 C 250 350, 380 250, 380 200 C 380 150, 420 120, 500 80" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3 3"/>
+          <path d="M50 250 H 950" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <path d="M350 50 V 450" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <path d="M700 50 V 450" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <path d="M200 450 C 350 300, 500 200, 750 450" stroke="rgba(196,160,80,0.12)" stroke-width="1" stroke-dasharray="10 5"/>
+        </svg>
+
+        <!-- Map Pins -->
+        <div class="map-pin" style="top:36%;left:38%;" data-id="edsa-ortigas" role="button" tabindex="0" aria-label="EDSA Ortigas Junction LED screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+        <div class="map-pin" style="top:52%;left:45%;" data-id="bgc-lawton" role="button" tabindex="0" aria-label="BGC Lawton Ave screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+        <div class="map-pin" style="top:45%;left:28%;" data-id="makati-ave" role="button" tabindex="0" aria-label="Makati Ave CBD screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+        <div class="map-pin" style="top:65%;left:22%;" data-id="roxas-blvd" role="button" tabindex="0" aria-label="Roxas Boulevard Highway screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+        <div class="map-pin" style="top:50%;left:70%;" data-id="cebu-it" role="button" tabindex="0" aria-label="Cebu IT Park Plaza screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+        <div class="map-pin" style="top:72%;left:82%;" data-id="davao-global" role="button" tabindex="0" aria-label="Davao Global City screen">
+          <div class="pin-pulse" aria-hidden="true"></div>
+          <div class="pin-core">U</div>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="map-tooltip" role="status" aria-live="polite">
+          <div class="map-tooltip-header">
+            <div class="map-tooltip-title">Select a location</div>
+            <div class="map-tooltip-badge">LIVE</div>
           </div>
-          <!-- Slide 5 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">GRAB TAXI</text>
-            </svg>
-          </div>
-          <!-- Slide 6 -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">SM GROUP</text>
-            </svg>
-          </div>
-          <!-- Duplicate Slides for Infinite Loop -->
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">SAMSUNG</text>
-            </svg>
-          </div>
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">UNILEVER</text>
-            </svg>
-          </div>
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">TOYOTA</text>
-            </svg>
-          </div>
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">NESTLE</text>
-            </svg>
-          </div>
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">GRAB TAXI</text>
-            </svg>
-          </div>
-          <div class="client-logo-wrapper">
-            <svg class="client-logo" height="40" viewBox="0 0 200 50" fill="currentColor">
-              <text x="10" y="35" font-family="Outfit" font-size="28" font-weight="800" letter-spacing="1">SM GROUP</text>
-            </svg>
-          </div>
+          <div class="tooltip-spec"><span class="tooltip-label">Resolution</span><span class="tooltip-val val-resolution">—</span></div>
+          <div class="tooltip-spec"><span class="tooltip-label">Ad Slots</span><span class="tooltip-val val-slots">—</span></div>
+          <div class="tooltip-spec"><span class="tooltip-label">Daily Traffic</span><span class="tooltip-val val-traffic">—</span></div>
+          <div class="tooltip-spec"><span class="tooltip-label">Audience</span><span class="tooltip-val val-audience">—</span></div>
+        </div>
+
+        <div class="map-instructions" aria-hidden="true">
+          <span class="map-dot"></span>
+          Select a glowing node to view screen specs
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Us / Quote Footer Section -->
-  <footer id="contact">
-    <div class="container footer-grid">
-      <!-- Footer Brand Column -->
-      <div class="footer-brand-col reveal-on-scroll">
-        <a href="#" class="footer-logo">
-          <img src="assets/logo.png" alt="U Channel Logo">
+  <!-- ══════════════════════════════════════ CLIENTS ══ -->
+  <section class="section-clients" aria-label="Client showcase">
+    <div class="container">
+      <div class="clients-header reveal-on-scroll">
+        <span class="label-tag">Trusted By</span>
+        <p class="clients-sub">Leading brands that have chosen U Channel for their most important campaigns.</p>
+      </div>
+    </div>
+
+    <div class="clients-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">SAMSUNG</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">UNILEVER</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">TOYOTA</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">NESTLÉ</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">GRAB</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">SM GROUP</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">JOLLIBEE</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">GLOBE TELECOM</span>
+        <span class="marquee-sep">·</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item">SAMSUNG</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">UNILEVER</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">TOYOTA</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">NESTLÉ</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">GRAB</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">SM GROUP</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">JOLLIBEE</span>
+        <span class="marquee-sep">·</span>
+        <span class="marquee-item">GLOBE TELECOM</span>
+        <span class="marquee-sep">·</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ CONTACT / FOOTER ══ -->
+  <footer id="contact" class="site-footer">
+    <!-- Contact CTA strip -->
+    <div class="footer-cta-strip">
+      <div class="container footer-cta-inner reveal-on-scroll">
+        <div class="footer-cta-text">
+          <h2 class="footer-cta-headline">Ready to Dominate<br>the Skyline?</h2>
+          <p class="footer-cta-sub">Tell us about your campaign. A consultant will respond within 2 business hours.</p>
+        </div>
+        <form class="contact-form" id="quote-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-name" class="sr-only">Your Name</label>
+              <input type="text" id="f-name" class="form-input" placeholder="Your Name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="f-email" class="sr-only">Work Email</label>
+              <input type="email" id="f-email" class="form-input" placeholder="Work Email" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-message" class="sr-only">Campaign details</label>
+            <textarea id="f-message" class="form-input form-textarea" placeholder="Campaign details — locations, duration, target dates…" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="form-submit-btn">Get My Custom Proposal</button>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer bottom bar -->
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <a href="#hero" class="footer-logo-link" aria-label="Back to top">
+          <img src="assets/logo.png" alt="U Channel" class="footer-logo-img">
+          <span class="logo-divider" aria-hidden="true"></span>
           <div class="logo-text">
             <span class="brand-name">U CHANNEL</span>
             <span class="brand-tagline">DIGITECH INNOVATION</span>
           </div>
         </a>
-        <p class="footer-brand-desc">
-          A strategic out-of-home digital media expansion venture by RUCS Konsult Corp. Offering adaptive billboard exposure across key national corridors.
-        </p>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#legacy">Legacy</a>
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="#network">Network</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
         <div class="footer-socials">
-          <a href="#" class="social-icon" aria-label="Facebook">FB</a>
-          <a href="https://www.linkedin.com/company/uchannel/" class="social-icon" target="_blank" rel="noopener" aria-label="LinkedIn">LN</a>
-          <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/uchannel/" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- Quick Links Column -->
-      <div class="footer-links-col reveal-on-scroll">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="#network">Our Network Map</a></li>
-          <li><a href="#legacy">RUCS Konsult Legacy</a></li>
-          <li><a href="#services">Services & Formats</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-        </ul>
-      </div>
-
-      <!-- Get A Quote Form Column -->
-      <div class="footer-form-col reveal-on-scroll">
-        <h4>Get a <span>Customized Quote</span></h4>
-        <form class="footer-form" action="#" method="POST">
-          <div class="form-group">
-            <input type="text" class="form-input" placeholder="Your Name" required>
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-input" placeholder="Work Email" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-input" placeholder="Campaign details (e.g. locations of interest, duration, target dates)" required></textarea>
-          </div>
-          <button type="submit" class="form-btn">GET MY CUSTOM PROPOSAL</button>
-          <div class="form-status"></div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Copyright Footer Bottom -->
-    <div class="container footer-bottom">
-      <div class="footer-copyright">
-        U Channel – A <span>RUCS Konsult Corp.</span> Venture. © 2024. All Rights Reserved.
-      </div>
-      <div class="footer-legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <div class="container footer-legal">
+        <span>U Channel — A <strong>RUCS Konsult Corp.</strong> Venture. © 2025. All Rights Reserved.</span>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Scripts -->
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- App -->
   <script src="app.js"></script>
 </body>
 </html>
