@@ -15,13 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Lenis smooth scroll -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-  <!-- Three.js for 3D model -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.min.js"></script>
-
-
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -36,8 +30,8 @@
           <span class="brand-tagline">DIGITECH INNOVATION</span>
         </div>
       </a>
-
-      <nav aria-label="Primary navigation">
+      <nav aria-label="Primary navigation" class="nav-wrapper">
+        <div class="nav-hover-pill" aria-hidden="true"></div>
         <ul class="nav-list">
           <li><a href="#legacy" class="nav-link">Legacy</a></li>
           <li><a href="#services" class="nav-link">Services</a></li>
@@ -53,19 +47,22 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-
-    <!-- Mobile drawer -->
-    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
-      <ul>
-        <li><a href="#legacy" class="nav-link">Legacy</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#work" class="nav-link">Work</a></li>
-        <li><a href="#network" class="nav-link">Network</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <a href="#contact" class="mobile-cta">Get a Quote</a>
-    </div>
   </header>
+
+  <!-- Mobile drawer overlay -->
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <ul class="mobile-nav-list">
+      <li><a href="#legacy" class="mobile-nav-link">Legacy</a></li>
+      <li><a href="#services" class="mobile-nav-link">Services</a></li>
+      <li><a href="#work" class="mobile-nav-link">Work</a></li>
+      <li><a href="#network" class="mobile-nav-link">Network</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <a href="#contact" class="mobile-cta">Get a Quote</a>
+  </div>
 
   <!-- ══════════════════════════════════════ HERO ══ -->
   <section id="hero" class="hero">
@@ -84,32 +81,36 @@
       <span class="orb orb-4"></span>
     </div>
 
+    <!-- 3D Hero Canvas -->
+    <div class="hero-canvas-wrapper reveal-item" style="--delay:0.25s" aria-hidden="true">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+
     <div class="container hero-content">
-      <div class="hero-eyebrow reveal-item" style="--delay:0.05s">
-        <span class="eyebrow-dot"></span>
-        A Strategic Expansion by RUCS Konsult Corp.
-      </div>
+      <div class="hero-text-wrapper">
+        <div class="hero-eyebrow reveal-item" style="--delay:0.05s">
+          <span class="eyebrow-dot"></span>
+          <span>A Strategic Expansion by RUCS Konsult Corp.</span>
+        </div>
 
-      <h1 class="hero-headline reveal-item" style="--delay:0.18s">
-        The Future of<br>
-        <span class="headline-accent">Out-of-Home</span><br>
-        Advertising
-      </h1>
+        <h1 class="hero-headline reveal-item" style="--delay:0.18s">
+          <span class="headline-accent">U CHANNEL</span>
+        </h1>
 
-      <p class="hero-sub reveal-item" style="--delay:0.32s">
-        Over two decades of proven media impact — now reimagined.
-        Premium billboard, LED, and digital campaigns at metropolitan scale.
-      </p>
+        <p class="hero-sub reveal-item" style="--delay:0.32s">
+          Over two decades of proven media impact — now reimagined.
+          Premium billboard, LED, and digital campaigns at metropolitan scale.
+        </p>
 
-      <div class="hero-actions reveal-item" style="--delay:0.46s">
-        <a href="#work" class="btn-primary" id="hero-cta-work">View Our Work</a>
-        <a href="#contact" class="btn-ghost" id="hero-cta-contact">Start a Campaign</a>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="scroll-indicator reveal-item" style="--delay:0.7s" aria-hidden="true">
-        <span class="scroll-line"></span>
-        <span class="scroll-label">Scroll</span>
+        <div class="hero-actions reveal-item" style="--delay:0.46s">
+          <a href="#work" class="btn-primary" id="hero-cta-work">
+            <span>View Our Work</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+          <a href="#contact" class="btn-ghost" id="hero-cta-contact">Start a Campaign</a>
+        </div>
       </div>
     </div>
   </section>
@@ -180,42 +181,133 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ 3D MODEL SHOWCASE ══ -->
+  <!-- ══════════════════════════════════════ BILLBOARD SHOWCASE ══ -->
   <section id="model-showcase" class="section-model-showcase">
     <div class="container">
       <div class="section-header reveal-on-scroll">
         <span class="label-tag">The Display</span>
         <h2 class="section-headline">Engineered to<br>Command Attention</h2>
-        <p class="section-sub">Scroll to explore. Our Ultra-HD LED structures are built to dominate any skyline — day or night, at any angle.</p>
+        <p class="section-sub">Interact to explore. Switch campaigns and toggle night mode to see our Ultra-HD LED structures illuminate the skyline.</p>
       </div>
     </div>
 
-    <!-- 3D Canvas Stage -->
-    <div class="model-stage" id="model-stage" aria-hidden="true">
-      <canvas id="model-canvas"></canvas>
+    <!-- Interactive Billboard Container -->
+    <div class="billboard-container reveal-on-scroll">
+      <!-- Control Panel -->
+      <div class="billboard-controls">
+        <div class="control-group">
+          <span class="control-label">Time of Day</span>
+          <div class="control-buttons">
+            <button class="btn-control toggle-daytime active" id="btn-day" aria-label="Day Mode">
+              <svg class="control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              <span>Day</span>
+            </button>
+            <button class="btn-control toggle-daytime" id="btn-night" aria-label="Night Mode">
+              <svg class="control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+              <span>Night</span>
+            </button>
+          </div>
+        </div>
 
-      <!-- Floating spec badges -->
-      <div class="model-badge model-badge--tl reveal-on-scroll" style="--delay:0.1s">
-        <span class="badge-value">4K</span>
-        <span class="badge-label">Ultra-HD Resolution</span>
-      </div>
-      <div class="model-badge model-badge--tr reveal-on-scroll" style="--delay:0.2s">
-        <span class="badge-value">8</span>
-        <span class="badge-label">Flexible Ad Slots</span>
-      </div>
-      <div class="model-badge model-badge--br reveal-on-scroll" style="--delay:0.3s">
-        <span class="badge-value">P10</span>
-        <span class="badge-label">LED Pitch Grade</span>
-      </div>
-      <div class="model-badge model-badge--bl reveal-on-scroll" style="--delay:0.4s">
-        <span class="badge-value">24/7</span>
-        <span class="badge-label">Uptime Guarantee</span>
+        <div class="control-divider" aria-hidden="true"></div>
+
+        <div class="control-group">
+          <span class="control-label">Live Campaign</span>
+          <div class="campaign-tabs">
+            <button class="campaign-tab active" data-campaign="samsung">Samsung</button>
+            <button class="campaign-tab" data-campaign="toyota">Toyota</button>
+            <button class="campaign-tab" data-campaign="grab">Grab</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Scroll progress bar -->
-      <div class="model-scroll-hint" aria-hidden="true">
-        <span class="model-scroll-icon"></span>
-        <span>Scroll to rotate</span>
+      <!-- Physical Billboard Structure Wrapper -->
+      <div class="billboard-structure-wrapper">
+        <!-- Ambient spotlights pointing down at the billboard (visible in Night mode) -->
+        <div class="billboard-spotlights" aria-hidden="true">
+          <div class="spotlight spotlight-1"></div>
+          <div class="spotlight spotlight-2"></div>
+        </div>
+
+        <!-- Spec badges floating in 3D perspective -->
+        <div class="model-badge model-badge--tl" style="--delay:0.1s">
+          <span class="badge-value">4K</span>
+          <span class="badge-label">Ultra-HD Resolution</span>
+        </div>
+        <div class="model-badge model-badge--tr" style="--delay:0.2s">
+          <span class="badge-value">8</span>
+          <span class="badge-label">Flexible Ad Slots</span>
+        </div>
+        <div class="model-badge model-badge--br" style="--delay:0.3s">
+          <span class="badge-value">P10</span>
+          <span class="badge-label">LED Pitch Grade</span>
+        </div>
+        <div class="model-badge model-badge--bl" style="--delay:0.4s">
+          <span class="badge-value">24/7</span>
+          <span class="badge-label">Uptime Guarantee</span>
+        </div>
+
+        <!-- The actual physical billboard frame and support -->
+        <div class="billboard-structure" id="billboard-structure">
+          <!-- Main Frame -->
+          <div class="billboard-frame">
+            <!-- Screen Content Window -->
+            <div class="billboard-screen" id="billboard-screen">
+              <!-- Grid overlay to simulate LED display pitch -->
+              <div class="led-grid-overlay"></div>
+              
+              <!-- Ambient Screen Glow Overlay -->
+              <div class="screen-glow"></div>
+
+              <!-- Slides List -->
+              <div class="slides-container" id="slides-container">
+                <!-- Slide 1: Samsung -->
+                <div class="billboard-slide active" data-slide="samsung" style="--accent-glow: rgba(29, 92, 255, 0.45); --theme-color: #1d5cff;">
+                  <div class="slide-content samsung-slide">
+                    <div class="slide-brand-logo">SAMSUNG</div>
+                    <div class="slide-info">
+                      <span class="slide-tag">Campaign Focus: Innovation</span>
+                      <h3 class="slide-title">Reimagine What<br>A Phone Can Do</h3>
+                      <p class="slide-meta">EDSA Ortigas Landmark Display · 380K Daily Views</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 2: Toyota -->
+                <div class="billboard-slide" data-slide="toyota" style="--accent-glow: rgba(255, 149, 0, 0.45); --theme-color: #ff9500;">
+                  <div class="slide-content toyota-slide">
+                    <div class="slide-brand-logo">TOYOTA</div>
+                    <div class="slide-info">
+                      <span class="slide-tag">Campaign Focus: Eco-Drive</span>
+                      <h3 class="slide-title">Go Beyond Miles<br>In Perfect Silence</h3>
+                      <p class="slide-meta">Cebu IT Park Plaza Screen · 140K Daily Views</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3: Grab -->
+                <div class="billboard-slide" data-slide="grab" style="--accent-glow: rgba(52, 199, 89, 0.45); --theme-color: #34c759;">
+                  <div class="slide-content grab-slide">
+                    <div class="slide-brand-logo">Grab</div>
+                    <div class="slide-info">
+                      <span class="slide-tag">Campaign Focus: Food Fest</span>
+                      <h3 class="slide-title">Craving Satisfied<br>Delivered in Minutes</h3>
+                      <p class="slide-meta">BGC Lawton Ave Landmark · 220K Daily Views</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accent gold illuminated trim at the bottom -->
+            <div class="billboard-accent-trim"></div>
+          </div>
+
+          <!-- Supporting Steel Frame & Columns -->
+          <div class="billboard-neck"></div>
+          <div class="billboard-column"></div>
+          <div class="billboard-base"></div>
+        </div>
       </div>
     </div>
 
@@ -387,12 +479,52 @@
         <div class="map-grid-overlay" aria-hidden="true"></div>
 
         <svg class="svg-map" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M100 150 C 300 120, 450 180, 600 100 C 700 80, 900 150, 950 200" stroke="rgba(196,160,80,0.18)" stroke-width="1.5" stroke-dasharray="6 4"/>
-          <path d="M150 400 C 250 350, 380 250, 380 200 C 380 150, 420 120, 500 80" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3 3"/>
-          <path d="M50 250 H 950" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-          <path d="M350 50 V 450" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-          <path d="M700 50 V 450" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-          <path d="M200 450 C 350 300, 500 200, 750 450" stroke="rgba(196,160,80,0.12)" stroke-width="1" stroke-dasharray="10 5"/>
+          <!-- Background grid axes -->
+          <path d="M50 250 H 950" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <path d="M350 50 V 450" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="4 4"/>
+          <path d="M700 50 V 450" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="4 4"/>
+
+          <!-- Zoom Callout projection lines (connecting Manila Hub to zoomed Metro Manila detailed map) -->
+          <path d="M 670 175 L 470 150" stroke="rgba(61,126,255,0.3)" stroke-width="1" stroke-dasharray="3 3" class="map-callout-line"/>
+          <path d="M 670 175 L 470 380" stroke="rgba(61,126,255,0.3)" stroke-width="1" stroke-dasharray="3 3" class="map-callout-line"/>
+
+          <!-- METRO MANILA DETAIL MAP (Left side: X=150 to 500) -->
+          <g class="map-group map-group-manila">
+            <path class="map-land manila-land" d="M 180 430 C 170 390, 165 340, 175 300 C 180 270, 185 240, 190 200 C 210 180, 270 170, 310 175 C 350 185, 410 220, 470 270 C 485 295, 440 370, 380 410 C 320 420, 240 430, 180 430 Z" />
+            <path class="map-land-inner manila-land-inner" d="M 180 430 C 170 390, 165 340, 175 300 C 180 270, 185 240, 190 200 C 210 180, 270 170, 310 175 C 350 185, 410 220, 470 270 C 485 295, 440 370, 380 410 C 320 420, 240 430, 180 430 Z" />
+            <text x="325" y="130" fill="rgba(220,228,255,0.25)" font-family="Space Grotesk" font-size="11" letter-spacing="0.18em" text-anchor="middle" font-weight="500">METRO MANILA DETAIL</text>
+          </g>
+
+          <!-- PHILIPPINES NATIONWIDE MAP (Right side: X=600 to 920) -->
+          <g class="map-group map-group-philippines">
+            <!-- Luzon -->
+            <path class="map-land ph-land" d="M 640 100 C 670 90, 710 90, 730 100 C 750 120, 755 170, 750 200 C 745 220, 780 240, 790 260 C 780 275, 750 260, 740 245 C 725 240, 690 220, 675 200 C 670 190, 665 175, 665 170 C 660 150, 635 130, 640 100 Z" />
+            <!-- Mindoro -->
+            <path class="map-land ph-land" d="M 650 230 C 665 225, 670 240, 660 250 C 650 255, 640 245, 650 230 Z" />
+            <!-- Palawan -->
+            <path class="map-land ph-land" d="M 620 265 C 630 260, 635 270, 610 320 C 595 350, 580 370, 570 380 C 565 380, 560 370, 585 330 C 600 300, 610 275, 620 265 Z" />
+            <!-- Panay -->
+            <path class="map-land ph-land" d="M 665 235 C 680 230, 685 240, 675 260 C 665 270, 655 265, 655 255 Z" />
+            <!-- Negros -->
+            <path class="map-land ph-land" d="M 680 260 C 690 260, 695 275, 690 300 C 685 310, 675 305, 675 285 Z" />
+            <!-- Cebu -->
+            <path class="map-land ph-land" d="M 700 230 C 705 225, 707 240, 702 270 C 700 280, 697 280, 697 260 C 697 245, 697 235, 700 230 Z" />
+            <!-- Leyte & Samar -->
+            <path class="map-land ph-land" d="M 735 215 C 750 210, 755 230, 745 255 C 740 265, 730 260, 730 240 C 730 225, 730 220, 735 215 Z" />
+            <!-- Mindanao -->
+            <path class="map-land ph-land" d="M 730 330 C 760 320, 800 320, 820 330 C 840 335, 850 350, 850 370 C 850 380, 845 410, 840 420 C 835 420, 830 400, 825 375 C 820 375, 815 375, 810 400 C 805 430, 770 435, 740 420 C 730 400, 725 390, 680 380 C 675 390, 670 390, 675 375 C 700 365, 715 360, 725 350 C 730 330, 730 330, 730 330 Z" />
+
+            <!-- Labels -->
+            <text x="690" y="80" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">LUZON</text>
+            <text x="755" y="270" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">VISAYAS</text>
+            <text x="785" y="445" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">MINDANAO</text>
+          </g>
+
+          <!-- Metro Manila Hub on the national map -->
+          <g class="map-hub-marker">
+            <circle cx="670" cy="175" r="4" fill="var(--c-accent)" />
+            <circle class="sonar-ring" cx="670" cy="175" r="10" stroke="var(--c-accent)" stroke-width="1" fill="none" opacity="0.5" />
+          </g>
         </svg>
 
         <!-- Map Pins -->
@@ -563,10 +695,6 @@
   </footer>
 
   <!-- Scripts -->
-  <!-- GSAP -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <!-- App -->
-  <script src="app.js"></script>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

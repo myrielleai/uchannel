@@ -1,23 +1,18 @@
-/* ═══════════════════════════════════════════════════════════════
-   U CHANNEL — app.js
-   Lenis · GSAP + ScrollTrigger · Three.js 3D Billboard
-   Framer-like Motion Layer: spring physics · magnetic hover ·
-   cursor tilt · scroll velocity skew · split-text · word reveals
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── capability flags ──────────────────────────────────────── */
-const HAS_GSAP  = typeof gsap !== 'undefined';
-const HAS_ST    = typeof ScrollTrigger !== 'undefined';
-const HAS_THREE = typeof THREE !== 'undefined';
-const HAS_LENIS = typeof Lenis !== 'undefined';
-const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
 /* ─── register GSAP plugins immediately ─────────────────────── */
-if (HAS_GSAP && HAS_ST) {
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.defaults({ ease: 'expo.out', duration: 1.0 });
-}
+gsap.registerPlugin(ScrollTrigger);
+gsap.defaults({ ease: 'expo.out', duration: 1.0 });
+
+/* ─── capability flags (always true with bundle imports) ────── */
+const HAS_GSAP  = true;
+const HAS_ST    = true;
+const HAS_THREE = true;
+const HAS_LENIS = true;
+const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ─── Framer-like spring physics easing ─────────────────────── */
 /* Replicates Framer Motion's spring() easing presets via cubic
@@ -95,6 +90,7 @@ function initHeader() {
   gsap.set('.logo-link',         { opacity: 0, x: -20 });
   gsap.set('.nav-list .nav-link',{ opacity: 0, y: -10 });
   gsap.set('.nav-cta',           { opacity: 0, x: 16, scale: 0.9 });
+  gsap.set('.hamburger',         { opacity: 0, scale: 0.8 });
 
   const tl = gsap.timeline({ delay: 0.05 });
   tl.to('.logo-link', {
@@ -108,7 +104,86 @@ function initHeader() {
   .to('.nav-cta', {
     opacity: 1, x: 0, scale: 1,
     duration: 0.6, ease: SPRING,
-  }, 0.28);
+  }, 0.28)
+  .to('.hamburger', {
+    opacity: 1, scale: 1,
+    duration: 0.5, ease: SPRING,
+  }, 0.2);
+
+  initNavHoverPill();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   2.b NAV hover pill — sliding glass background on menu items
+   ───────────────────────────────────────────────────────────── */
+function initNavHoverPill() {
+  const navWrapper = document.querySelector('.nav-wrapper');
+  const navLinks   = document.querySelectorAll('.nav-link');
+  const hoverPill  = document.querySelector('.nav-hover-pill');
+  if (!navWrapper || !hoverPill || !navLinks.length) return;
+
+  const updatePillToActive = (immediate = false) => {
+    const activeLink = navWrapper.querySelector('.nav-link.active');
+    if (activeLink) {
+      const wrapperRect = navWrapper.getBoundingClientRect();
+      const linkRect    = activeLink.getBoundingClientRect();
+      const left        = linkRect.left - wrapperRect.left;
+      const width       = linkRect.width;
+
+      gsap.to(hoverPill, {
+        left,
+        width,
+        opacity: 1,
+        duration: immediate ? 0 : 0.35,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    } else {
+      gsap.to(hoverPill, {
+        opacity: 0,
+        width: 0,
+        duration: immediate ? 0 : 0.25,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    }
+  };
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      const wrapperRect = navWrapper.getBoundingClientRect();
+      const linkRect    = link.getBoundingClientRect();
+      const left        = linkRect.left - wrapperRect.left;
+      const width       = linkRect.width;
+
+      gsap.to(hoverPill, {
+        left,
+        width,
+        opacity: 1,
+        duration: 0.35,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    });
+
+    link.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        const hovered = navWrapper.querySelector('.nav-link:hover');
+        if (!hovered) {
+          updatePillToActive();
+        }
+      }, 50);
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (!navWrapper.matches(':hover')) {
+      updatePillToActive();
+    }
+  }, { passive: true });
+
+  // Initial setup delay to let layout stabilize and active highlights trigger
+  setTimeout(() => updatePillToActive(true), 250);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -168,7 +243,6 @@ function initHeroAnimations() {
   gsap.set('.hero-eyebrow', { opacity: 0, y: 24, filter: 'blur(8px)' });
   gsap.set('.hero-sub',     { opacity: 0, y: 32 });
   gsap.set('.hero-actions > *', { opacity: 0, y: 20, scale: 0.94 });
-  gsap.set('.scroll-indicator', { opacity: 0, x: -16 });
 
   const tl = gsap.timeline({ delay: 0.15 });
 
@@ -200,12 +274,6 @@ function initHeroAnimations() {
     duration: 0.65, ease: SPRING,
     stagger: 0.09,
   }, 0.72);
-
-  // Scroll indicator slides in from left
-  tl.to('.scroll-indicator', {
-    opacity: 1, x: 0,
-    duration: 0.6, ease: SPRING_SOFT,
-  }, 0.9);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -573,167 +641,296 @@ function initMarquee() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   19. THREE.JS 3D BILLBOARD — scroll-scrubbed via GSAP
+   18.b THREE.JS 3D HERO MODEL — Glass U CHANNEL & Glowing Neon Curves
    ───────────────────────────────────────────────────────────── */
-function initBillboardModel() {
+function initHeroModel() {
   if (!HAS_THREE || REDUCED) return;
 
-  const canvas = document.getElementById('model-canvas');
-  const stage  = document.getElementById('model-stage');
-  if (!canvas || !stage) return;
+  const canvas = document.getElementById('hero-canvas');
+  const wrapper = document.querySelector('.hero-canvas-wrapper');
+  if (!canvas || !wrapper) return;
 
   /* ── renderer ─────────────────────────────────────────── */
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.outputColorSpace   = THREE.SRGBColorSpace;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   /* ── scene & camera ───────────────────────────────────── */
-  const scene  = new THREE.Scene();
-  scene.fog    = new THREE.FogExp2(0x05060f, 0.045);
-
-  const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 100);
-  camera.position.set(0, 0.3, 5.8);
+  const scene = new THREE.Scene();
+  
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 4.8);
 
   /* ── lights ───────────────────────────────────────────── */
-  scene.add(new THREE.AmbientLight(0x0e1025, 2.4));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
 
-  const key = new THREE.DirectionalLight(0xffffff, 2.2);
-  key.position.set(4, 7, 5);
-  key.castShadow = true;
-  scene.add(key);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+  keyLight.position.set(5, 5, 4);
+  scene.add(keyLight);
 
-  const fill = new THREE.DirectionalLight(0x2030c0, 0.7);
-  fill.position.set(-5, 2, 3);
-  scene.add(fill);
+  const fillLight = new THREE.DirectionalLight(0x5856d6, 1.5);
+  fillLight.position.set(-5, -2, 2);
+  scene.add(fillLight);
 
-  const rim = new THREE.DirectionalLight(0x4050ff, 0.4);
-  rim.position.set(0, -4, -5);
-  scene.add(rim);
+  const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  rimLight.position.set(0, 4, -4);
+  scene.add(rimLight);
 
-  const goldPt = new THREE.PointLight(0xc4a050, 5, 9);
-  goldPt.position.set(0, 1.2, 2.5);
-  scene.add(goldPt);
+  const pointLight = new THREE.PointLight(0x3d7eff, 4, 10);
+  pointLight.position.set(0, 0, 1);
+  scene.add(pointLight);
 
-  /* ── procedural screen texture ────────────────────────── */
-  const tc  = document.createElement('canvas');
-  tc.width  = 1024;
-  tc.height = 512;
-  const cx  = tc.getContext('2d');
+  /* ── group ────────────────────────────────────────────── */
+  const heroGroup = new THREE.Group();
+  scene.add(heroGroup);
 
-  // background
-  const gbg = cx.createLinearGradient(0, 0, 0, 512);
-  gbg.addColorStop(0, '#05060f');
-  gbg.addColorStop(1, '#07081a');
-  cx.fillStyle = gbg; cx.fillRect(0, 0, 1024, 512);
+  /* ── extruded U shape ─────────────────────────────────── */
+  const shape = new THREE.Shape();
+  shape.moveTo(-0.7, 0.9);
+  shape.lineTo(-0.7, 0.0);
+  shape.quadraticCurveTo(-0.7, -1.0, 0.0, -1.0);
+  shape.quadraticCurveTo(0.7, -1.0, 0.7, 0.0);
+  shape.lineTo(0.7, 0.9);
+  shape.lineTo(0.35, 0.9);
+  shape.lineTo(0.35, 0.0);
+  shape.quadraticCurveTo(0.35, -0.62, 0.0, -0.62);
+  shape.quadraticCurveTo(-0.35, -0.62, -0.35, 0.0);
+  shape.lineTo(-0.35, 0.9);
+  shape.closePath();
 
-  // LED pixel grid
-  cx.strokeStyle = 'rgba(196,160,80,0.07)'; cx.lineWidth = 0.7;
-  for (let x = 0; x < 1024; x += 16) { cx.beginPath(); cx.moveTo(x,0); cx.lineTo(x,512); cx.stroke(); }
-  for (let y = 0; y < 512;  y += 16) { cx.beginPath(); cx.moveTo(0,y); cx.lineTo(1024,y); cx.stroke(); }
+  const extrudeSettings = {
+    depth: 0.24,
+    bevelEnabled: true,
+    bevelSegments: 7,
+    steps: 2,
+    bevelSize: 0.03,
+    bevelThickness: 0.03
+  };
 
-  // centre radial glow
-  const gg = cx.createRadialGradient(512,256,0, 512,256,390);
-  gg.addColorStop(0,   'rgba(196,160,80,0.30)');
-  gg.addColorStop(0.45,'rgba(70,40,200,0.14)');
-  gg.addColorStop(1,   'rgba(0,0,0,0)');
-  cx.fillStyle = gg; cx.fillRect(0,0,1024,512);
+  const uGeom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  uGeom.center();
 
-  // logotype
-  cx.textAlign = 'center'; cx.textBaseline = 'middle';
-  cx.font      = 'bold 96px sans-serif';
-  cx.fillStyle = '#ffffff'; cx.globalAlpha = 0.94;
-  cx.fillText('U CHANNEL', 512, 195);
-  cx.font      = '34px sans-serif';
-  cx.fillStyle = '#c4a050'; cx.globalAlpha = 0.88;
-  cx.fillText('DIGITECH INNOVATION', 512, 300);
-  cx.font      = '21px sans-serif';
-  cx.fillStyle = 'rgba(255,255,255,0.42)'; cx.globalAlpha = 1;
-  cx.fillText('EDSA ORTIGAS  ·  4K ULTRA-HD  ·  P10 LED', 512, 360);
-
-  // scanlines
-  for (let y = 0; y < 512; y += 4) { cx.fillStyle = 'rgba(0,0,0,0.055)'; cx.fillRect(0,y,1024,2); }
-
-  const screenTex = new THREE.CanvasTexture(tc);
-
-  /* ── materials ────────────────────────────────────────── */
-  const matSteel = new THREE.MeshStandardMaterial({ color:0x181a2c, metalness:0.92, roughness:0.22 });
-  const matFrame = new THREE.MeshStandardMaterial({ color:0x090a14, metalness:0.96, roughness:0.14 });
-  const matScreen = new THREE.MeshStandardMaterial({
-    map: screenTex, emissiveMap: screenTex,
-    emissive: new THREE.Color(0x2818a0), emissiveIntensity: 0.6,
-    metalness: 0.1, roughness: 0.55,
-  });
-  const matGold = new THREE.MeshStandardMaterial({
-    color:0xc4a050, metalness:0.82, roughness:0.18,
-    emissive: new THREE.Color(0xc4a050), emissiveIntensity: 0.45,
+  // Glass Material for the logo "U"
+  const uMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0.1,
+    roughness: 0.1,
+    transmission: 0.95,
+    thickness: 0.8,
+    ior: 1.52,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.1,
+    attenuationColor: 0x1d5cff,
+    attenuationDistance: 0.5,
+    transparent: true
   });
 
-  /* ── billboard group ──────────────────────────────────── */
-  const board = new THREE.Group();
-  scene.add(board);
+  const uMesh = new THREE.Mesh(uGeom, uMat);
+  uMesh.scale.setScalar(0.85);
+  uMesh.position.set(0, 0.45, 0);
+  heroGroup.add(uMesh);
 
-  // screen panel — box with per-face materials [right,left,top,bottom,front,back]
-  const PW=3.2, PH=1.72, PD=0.09;
-  const panel = new THREE.Mesh(new THREE.BoxGeometry(PW,PH,PD),
-    [matFrame,matFrame,matFrame,matFrame,matScreen,matFrame]);
-  panel.position.y = 1.18;
-  panel.castShadow = true;
-  board.add(panel);
+  /* ── Letter Shapes for "CHANNEL" ──────────────────────── */
+  const cShape = new THREE.Shape();
+  cShape.moveTo(0.4, 0.5);
+  cShape.lineTo(-0.4, 0.5);
+  cShape.lineTo(-0.5, 0.4);
+  cShape.lineTo(-0.5, -0.4);
+  cShape.lineTo(-0.4, -0.5);
+  cShape.lineTo(0.4, -0.5);
+  cShape.lineTo(0.4, -0.2);
+  cShape.lineTo(0.15, -0.2);
+  cShape.lineTo(0.15, -0.25);
+  cShape.lineTo(-0.15, -0.25);
+  cShape.lineTo(-0.25, -0.15);
+  cShape.lineTo(-0.25, 0.15);
+  cShape.lineTo(-0.15, 0.25);
+  cShape.lineTo(0.15, 0.25);
+  cShape.lineTo(0.15, 0.2);
+  cShape.lineTo(0.4, 0.2);
+  cShape.closePath();
 
-  // metallic outer frame bars
-  const FT = 0.075;
-  [
-    {w:PW+FT*2, h:FT,   d:PD+0.025, x:0,          y: PH/2+FT/2,  z:0.01},
-    {w:PW+FT*2, h:FT,   d:PD+0.025, x:0,          y:-PH/2-FT/2,  z:0.01},
-    {w:FT,      h:PH,   d:PD+0.025, x:-PW/2-FT/2, y:0,           z:0.01},
-    {w:FT,      h:PH,   d:PD+0.025, x: PW/2+FT/2, y:0,           z:0.01},
-  ].forEach(({w,h,d,x,y,z}) => {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), matSteel);
-    m.position.set(x, panel.position.y + y, z);
-    board.add(m);
+  const hShape = new THREE.Shape();
+  hShape.moveTo(-0.5, 0.5);
+  hShape.lineTo(-0.2, 0.5);
+  hShape.lineTo(-0.2, 0.15);
+  hShape.lineTo(0.2, 0.15);
+  hShape.lineTo(0.2, 0.5);
+  hShape.lineTo(0.5, 0.5);
+  hShape.lineTo(0.5, -0.5);
+  hShape.lineTo(0.2, -0.5);
+  hShape.lineTo(0.2, -0.15);
+  hShape.lineTo(-0.2, -0.15);
+  hShape.lineTo(-0.2, -0.5);
+  hShape.lineTo(-0.5, -0.5);
+  hShape.closePath();
+
+  const aShape = new THREE.Shape();
+  aShape.moveTo(0.15, 0.5);
+  aShape.lineTo(0.5, -0.5);
+  aShape.lineTo(0.22, -0.5);
+  aShape.lineTo(0.12, -0.15);
+  aShape.lineTo(-0.12, -0.15);
+  aShape.lineTo(-0.22, -0.5);
+  aShape.lineTo(-0.5, -0.5);
+  aShape.lineTo(-0.15, 0.5);
+  aShape.closePath();
+
+  const aHole = new THREE.Path();
+  aHole.moveTo(0, 0.25);
+  aHole.lineTo(-0.08, 0.05);
+  aHole.lineTo(0.08, 0.05);
+  aHole.closePath();
+  aShape.holes.push(aHole);
+
+  const nShape = new THREE.Shape();
+  nShape.moveTo(-0.5, 0.5);
+  nShape.lineTo(-0.2, 0.5);
+  nShape.lineTo(0.25, -0.22);
+  nShape.lineTo(0.25, 0.5);
+  nShape.lineTo(0.5, 0.5);
+  nShape.lineTo(0.5, -0.5);
+  nShape.lineTo(0.2, -0.5);
+  nShape.lineTo(-0.25, 0.22);
+  nShape.lineTo(-0.25, -0.5);
+  nShape.lineTo(-0.5, -0.5);
+  nShape.closePath();
+
+  const eShape = new THREE.Shape();
+  eShape.moveTo(-0.5, 0.5);
+  eShape.lineTo(0.5, 0.5);
+  eShape.lineTo(0.5, 0.25);
+  eShape.lineTo(-0.2, 0.25);
+  eShape.lineTo(-0.2, 0.12);
+  eShape.lineTo(0.4, 0.12);
+  eShape.lineTo(0.4, -0.12);
+  eShape.lineTo(-0.2, -0.12);
+  eShape.lineTo(-0.2, -0.25);
+  eShape.lineTo(0.5, -0.25);
+  eShape.lineTo(0.5, -0.5);
+  eShape.lineTo(-0.5, -0.5);
+  eShape.closePath();
+
+  const lShape = new THREE.Shape();
+  lShape.moveTo(-0.5, 0.5);
+  lShape.lineTo(-0.2, 0.5);
+  lShape.lineTo(-0.2, -0.22);
+  lShape.lineTo(0.5, -0.22);
+  lShape.lineTo(0.5, -0.5);
+  lShape.lineTo(-0.5, -0.5);
+  lShape.closePath();
+
+  const letterShapes = [cShape, hShape, aShape, nShape, nShape, eShape, lShape];
+
+  // Letter extrude settings: slightly shallower for sharper look
+  const letterExtrudeSettings = {
+    depth: 0.15,
+    bevelEnabled: true,
+    bevelSegments: 4,
+    steps: 1,
+    bevelSize: 0.015,
+    bevelThickness: 0.015
+  };
+
+  // Slightly frosted white glass for legibility
+  const letterMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0.1,
+    roughness: 0.25,
+    transmission: 0.85,
+    thickness: 0.4,
+    ior: 1.5,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.15,
+    attenuationColor: 0x3d7eff,
+    attenuationDistance: 0.5,
+    transparent: true
   });
 
-  // gold emissive accent strip (bottom edge)
-  const gs = new THREE.Mesh(new THREE.BoxGeometry(PW+FT*2, 0.028, PD+0.045), matGold);
-  gs.position.set(0, panel.position.y - PH/2 - FT - 0.014, 0.018);
-  board.add(gs);
+  const letterScale = 0.4;
+  const letterSpacing = 0.08;
+  const totalWidth = (7 * letterScale) + (6 * letterSpacing);
+  const startX = -totalWidth / 2 + letterScale / 2;
 
-  // support arm
-  const arm = new THREE.Mesh(new THREE.BoxGeometry(0.11,0.55,0.11), matSteel);
-  arm.position.set(0,0.52,-0.02); board.add(arm);
+  letterShapes.forEach((shapeVal, idx) => {
+    const geom = new THREE.ExtrudeGeometry(shapeVal, letterExtrudeSettings);
+    geom.center();
+    const mesh = new THREE.Mesh(geom, letterMat);
+    mesh.scale.setScalar(letterScale);
+    mesh.position.set(startX + idx * (letterScale + letterSpacing), -1.0, 0.08);
+    heroGroup.add(mesh);
+  });
 
-  // main column
-  const col = new THREE.Mesh(new THREE.CylinderGeometry(0.065,0.1,2.1,20), matSteel);
-  col.position.set(0,-0.82,-0.02); board.add(col);
+  /* ── glowing neon backlight curves ─────────────────────── */
+  const curvePoints1 = [
+    new THREE.Vector3(-2.2, 0.8, -0.5),
+    new THREE.Vector3(-1.0, -0.4, 0.1),
+    new THREE.Vector3(0.0, 0.6, 0.4),
+    new THREE.Vector3(1.0, -0.5, -0.2),
+    new THREE.Vector3(2.2, 0.8, -0.5)
+  ];
 
-  // base plate
-  const base = new THREE.Mesh(new THREE.BoxGeometry(0.55,0.065,0.44), matSteel);
-  base.position.set(0,-1.96,-0.02); board.add(base);
+  const curvePoints2 = [
+    new THREE.Vector3(-2.2, -0.8, -0.5),
+    new THREE.Vector3(-1.2, 0.5, -0.2),
+    new THREE.Vector3(0.0, -0.4, 0.3),
+    new THREE.Vector3(1.2, 0.6, -0.1),
+    new THREE.Vector3(2.2, -0.8, -0.5)
+  ];
 
-  // ground
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(14,14),
-    new THREE.MeshStandardMaterial({color:0x05060f,metalness:0.18,roughness:0.92})
-  );
-  ground.rotation.x = -Math.PI/2;
-  ground.position.y = -2.0;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  const neonColors = [
+    0x1d5cff, // Electric Blue
+    0x7856ff  // Indigo/Violet
+  ];
 
-  // glow ring under base
-  const ring = new THREE.Mesh(
-    new THREE.RingGeometry(0.14,1.1,56),
-    new THREE.MeshStandardMaterial({
-      color:0xc4a050, emissive: new THREE.Color(0xc4a050), emissiveIntensity:0.35,
-      transparent:true, opacity:0.20, side:THREE.DoubleSide,
-    })
-  );
-  ring.rotation.x = -Math.PI/2;
-  ring.position.set(0,-1.98,-0.02);
-  scene.add(ring);
+  const tubes = [];
+  const tubeMaterials = [];
 
-  /* ── resize ───────────────────────────────────────────── */
+  [curvePoints1, curvePoints2].forEach((points, i) => {
+    const curve = new THREE.CatmullRomCurve3(points);
+    const tubeGeom = new THREE.TubeGeometry(curve, 90, 0.035, 8, false);
+    const tubeMat = new THREE.MeshStandardMaterial({
+      color: neonColors[i],
+      emissive: neonColors[i],
+      emissiveIntensity: 2.2,
+      roughness: 0.1,
+      metalness: 0.2
+    });
+    const tubeMesh = new THREE.Mesh(tubeGeom, tubeMat);
+    heroGroup.add(tubeMesh);
+    tubes.push(tubeMesh);
+    tubeMaterials.push(tubeMat);
+  });
+
+  /* ── floating dust particles ──────────────────────────── */
+  const particleCount = 120;
+  const pGeom = new THREE.BufferGeometry();
+  const pPos = new Float32Array(particleCount * 3);
+  const pVel = [];
+
+  for (let k = 0; k < particleCount; k++) {
+    const idx = k * 3;
+    pPos[idx] = (Math.random() - 0.5) * 5;
+    pPos[idx + 1] = (Math.random() - 0.5) * 4;
+    pPos[idx + 2] = (Math.random() - 0.5) * 3;
+    pVel.push({
+      x: (Math.random() - 0.5) * 0.003,
+      y: (Math.random() - 0.5) * 0.003,
+      z: (Math.random() - 0.5) * 0.003
+    });
+  }
+  pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const pMat = new THREE.PointsMaterial({
+    color: 0x1d5cff,
+    size: 0.035,
+    transparent: true,
+    opacity: 0.65,
+    blending: THREE.NormalBlending
+  });
+  const pPoints = new THREE.Points(pGeom, pMat);
+  scene.add(pPoints);
+
+  /* ── resize handler ───────────────────────────────────── */
   function resize() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -745,46 +942,236 @@ function initBillboardModel() {
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  /* ── scroll-driven rotation via GSAP scrub ────────────── */
-  // scrollData is mutated by GSAP and read every frame by the render loop
-  const sd = { rotY: -0.7, lift: -0.18 };
+  /* ── mouse interactivity ──────────────────────────────── */
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+  }, { passive: true });
 
+  /* ── scroll-linked animations via GSAP ScrollTrigger ──── */
+  const scrollObj = { rotY: 0, scale: 1, posZ: 0 };
   if (HAS_GSAP && HAS_ST) {
-    gsap.to(sd, {
-      rotY:  2.0,   // ~115° total sweep  (-40° → +75°)
-      lift:  0.08,
+    gsap.to(scrollObj, {
+      rotY: Math.PI * 1.5,
+      scale: 0.8,
+      posZ: -1.0,
       ease: 'none',
       scrollTrigger: {
-        trigger:  stage,
-        start:    'top top',
-        end:      'bottom bottom',
-        scrub:    1.5,          // lag factor — feels heavier/physical
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2
       },
       onUpdate() {
-        board.rotation.y = sd.rotY;
-        board.position.y = sd.lift;
-      },
+        heroGroup.rotation.y = scrollObj.rotY;
+        heroGroup.scale.setScalar(scrollObj.scale);
+        heroGroup.position.z = scrollObj.posZ;
+      }
     });
   }
 
-  /* ── idle float animation ─────────────────────────────── */
+  /* ── animation loop ───────────────────────────────────── */
   let ft = 0;
-
-  /* ── render loop ──────────────────────────────────────── */
   function tick() {
     requestAnimationFrame(tick);
-    ft += 0.011;
+    ft += 0.012;
 
-    // subtle breathe layered on top of scroll rotation
-    board.position.y = sd.lift + Math.sin(ft) * 0.038;
-    board.rotation.x = Math.sin(ft * 0.65) * 0.016;
+    // Gentle hover float
+    heroGroup.position.y = Math.sin(ft) * 0.06;
+    heroGroup.rotation.z = Math.sin(ft * 0.5) * 0.025;
 
-    // pulsing gold glow
-    goldPt.intensity = 4.2 + Math.sin(ft * 1.35) * 1.0;
+    // Mouse parallax tilt lerp
+    const targetX = mouseY * 0.22;
+    const targetY = mouseX * 0.22;
+    heroGroup.rotation.x += (targetX - heroGroup.rotation.x) * 0.05;
+    heroGroup.rotation.y += (targetY - heroGroup.rotation.y) * 0.05;
+
+    // Pulse neon intensity
+    for (let i = 0; i < 2; i++) {
+      if (tubeMaterials[i]) {
+        tubeMaterials[i].emissiveIntensity = 2.0 + Math.sin(ft * 1.5 + i * 0.5) * 0.6;
+      }
+    }
+
+    // Update floating particles
+    const posAttr = pGeom.attributes.position;
+    for (let k = 0; k < particleCount; k++) {
+      const idx = k * 3;
+      posAttr.array[idx] += pVel[k].x;
+      posAttr.array[idx + 1] += pVel[k].y;
+      posAttr.array[idx + 2] += pVel[k].z;
+
+      // boundaries wrapping
+      if (Math.abs(posAttr.array[idx]) > 2.5) posAttr.array[idx] = -posAttr.array[idx];
+      if (Math.abs(posAttr.array[idx + 1]) > 2.0) posAttr.array[idx + 1] = -posAttr.array[idx + 1];
+      if (Math.abs(posAttr.array[idx + 2]) > 1.5) posAttr.array[idx + 2] = -posAttr.array[idx + 2];
+    }
+    posAttr.needsUpdate = true;
 
     renderer.render(scene, camera);
   }
   tick();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   19. INTERACTIVE BILLBOARD SHOWCASE (HTML/CSS & GSAP)
+   ───────────────────────────────────────────────────────────── */
+function initBillboardShowcase() {
+  const showcaseSec = document.getElementById('model-showcase');
+  const container   = document.querySelector('.billboard-container');
+  const structure   = document.getElementById('billboard-structure');
+  const frame       = document.querySelector('.billboard-frame');
+  const slidesCont  = document.getElementById('slides-container');
+  
+  const btnDay      = document.getElementById('btn-day');
+  const btnNight    = document.getElementById('btn-night');
+  const tabs        = document.querySelectorAll('.campaign-tab');
+  const slides      = document.querySelectorAll('.billboard-slide');
+
+  if (!container || !structure) return;
+
+  /* ─── Day/Night Switcher ─── */
+  const setNightMode = (isNight) => {
+    if (isNight) {
+      if (btnDay) btnDay.classList.remove('active');
+      if (btnNight) btnNight.classList.add('active');
+      if (showcaseSec) showcaseSec.classList.add('night-mode-bg');
+      container.classList.add('night-mode-active');
+    } else {
+      if (btnNight) btnNight.classList.remove('active');
+      if (btnDay) btnDay.classList.add('active');
+      if (showcaseSec) showcaseSec.classList.remove('night-mode-bg');
+      container.classList.remove('night-mode-active');
+    }
+    // Refresh scrolltrigger since layout/background might shift slightly
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
+    }
+  };
+
+  if (btnDay && btnNight) {
+    btnDay.addEventListener('click', () => setNightMode(false));
+    btnNight.addEventListener('click', () => setNightMode(true));
+  }
+
+  /* ─── Campaign Slider ─── */
+  const selectCampaign = (index) => {
+    tabs.forEach((t, idx) => t.classList.toggle('active', idx === index));
+    
+    // Animate slide translation
+    if (HAS_GSAP && slidesCont) {
+      gsap.to(slidesCont, {
+        x: `-${index * 33.3333}%`,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    } else if (slidesCont) {
+      slidesCont.style.transform = `translateX(-${index * 33.3333}%)`;
+    }
+
+    // Update glowing backdrop color in night mode
+    const activeSlide = slides[index];
+    if (activeSlide && frame) {
+      const glowColor = activeSlide.getAttribute('style').match(/--accent-glow:\s*([^;]+)/);
+      if (glowColor && glowColor[1]) {
+        frame.style.setProperty('--slide-glow', glowColor[1]);
+      }
+    }
+  };
+
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener('click', () => selectCampaign(idx));
+  });
+
+  // Set initial glow color based on the first slide
+  if (slides[0] && frame) {
+    const glowColor = slides[0].getAttribute('style').match(/--accent-glow:\s*([^;]+)/);
+    if (glowColor && glowColor[1]) {
+      frame.style.setProperty('--slide-glow', glowColor[1]);
+    }
+  }
+
+  /* ─── Mouse-Tracking 3D Perspective Tilt ─── */
+  if (REDUCED) return;
+
+  const wrapper = document.querySelector('.billboard-structure-wrapper');
+  if (!wrapper) return;
+
+  const handleMouseMove = (e) => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    // Normalize coordinates from -1 to 1
+    const nx = x / (rect.width / 2);
+    const ny = y / (rect.height / 2);
+
+    if (HAS_GSAP) {
+      gsap.to(structure, {
+        rotateY: nx * 14,  // sweep left/right
+        rotateX: -ny * 10, // pitch up/down
+        duration: 0.5,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+      
+      // Subtly offset spec badges based on tilt to simulate parallax depth
+      const badges = wrapper.querySelectorAll('.model-badge');
+      badges.forEach((badge, i) => {
+        const factor = (i % 2 === 0 ? 1 : -1) * 8;
+        gsap.to(badge, {
+          x: nx * factor,
+          y: ny * factor,
+          duration: 0.6,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (HAS_GSAP) {
+      gsap.to(structure, {
+        rotateY: 0,
+        rotateX: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+      
+      const badges = wrapper.querySelectorAll('.model-badge');
+      badges.forEach((badge) => {
+        gsap.to(badge, {
+          x: 0,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+    }
+  };
+
+  wrapper.addEventListener('mousemove', handleMouseMove, { passive: true });
+  wrapper.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+
+  // Optional: add a smooth entrance animation for the billboard structure
+  if (HAS_GSAP && HAS_ST) {
+    gsap.from(structure, {
+      scrollTrigger: {
+        trigger: showcaseSec,
+        start: 'top 75%',
+        once: true
+      },
+      opacity: 0,
+      y: 40,
+      rotateX: -10,
+      duration: 1.2,
+      ease: 'power3.out'
+    });
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -812,8 +1199,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initGlassBars();
   initMarquee();
 
-  /* — Three.js 3D model — */
-  initBillboardModel();
+  /* — Three.js 3D models — */
+  initHeroModel();
+
+  /* — Interactive HTML/CSS Billboard — */
+  initBillboardShowcase();
 
   /* — UI interactions — */
   initMapInteraction();
