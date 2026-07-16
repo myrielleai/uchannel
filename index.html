@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>U Channel — Premium Media &amp; Advertising | RUCS Konsult Corp.</title>
-  <meta name="description" content="U Channel is the next-generation media and advertising company. Billboard advertising, LED displays, digital campaigns, and large-scale brand activations across the Philippines.">
-  <meta property="og:title" content="U Channel — Premium Media &amp; Advertising">
-  <meta property="og:description" content="Next-generation media and advertising. Billboard, LED, digital campaigns, brand activations — at scale.">
+  <title>U Channel</title>
+  <meta name="description"
+    content="U Channel is the next-generation media and advertising company. Billboard advertising, LED displays, digital campaigns, and large-scale brand activations across the Philippines.">
+  <meta property="og:title" content="U Channel">
+  <meta property="og:description"
+    content="Next-generation media and advertising. Billboard, LED, digital campaigns, brand activations — at scale.">
   <meta property="og:type" content="website">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="icon" type="image/png" href="assets/favicon-circle.png">
 
   <!-- Google Fonts: Space Grotesk (headlines) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+
 
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
+
+  <!-- ══════════════════════════════════════ PRELOADER (Inspired by uchannel.png) ══ -->
+  <div id="preloader" class="preloader">
+    <!-- Solid sliding background panel -->
+    <div class="preloader-bg" aria-hidden="true"></div>
+
+    <!-- Ambient back light behind the sign -->
+    <div class="preloader-ambient-glow" aria-hidden="true"></div>
+
+    <!-- Fine grid overlay simulating LED board texture -->
+    <div class="preloader-grid-overlay" aria-hidden="true"></div>
+
+    <div class="preloader-wrapper">
+      <h1 class="preloader-tagline">Where great brands get <span class="preloader-word-seen">seen.</span></h1>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════ HEADER ══ -->
   <header id="site-header">
@@ -33,10 +57,10 @@
       <nav aria-label="Primary navigation" class="nav-wrapper">
         <div class="nav-hover-pill" aria-hidden="true"></div>
         <ul class="nav-list">
-          <li><a href="#legacy" class="nav-link">Legacy</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#work" class="nav-link">Work</a></li>
-          <li><a href="#network" class="nav-link">Network</a></li>
+          <li><a href="#hero-step-2" class="nav-link">Who We Are</a></li>
+          <li><a href="#hero-step-3" class="nav-link">Services</a></li>
+          <li><a href="#model-showcase" class="nav-link">Showcase</a></li>
+          <li><a href="#work" class="nav-link">Locations</a></li>
         </ul>
       </nav>
 
@@ -55,172 +79,231 @@
   <!-- Mobile drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <ul class="mobile-nav-list">
-      <li><a href="#legacy" class="mobile-nav-link">Legacy</a></li>
-      <li><a href="#services" class="mobile-nav-link">Services</a></li>
-      <li><a href="#work" class="mobile-nav-link">Work</a></li>
-      <li><a href="#network" class="mobile-nav-link">Network</a></li>
+      <li><a href="#hero-step-2" class="mobile-nav-link">Who We Are</a></li>
+      <li><a href="#hero-step-3" class="mobile-nav-link">Services</a></li>
+      <li><a href="#model-showcase" class="mobile-nav-link">Showcase</a></li>
+      <li><a href="#work" class="mobile-nav-link">Locations</a></li>
       <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
     </ul>
     <a href="#contact" class="mobile-cta">Get a Quote</a>
   </div>
 
-  <!-- ══════════════════════════════════════ HERO ══ -->
-  <section id="hero" class="hero">
-    <!-- Cinematic background layers -->
-    <div class="hero-bg" aria-hidden="true">
-      <div class="hero-bg-img"></div>
-      <div class="hero-bg-vignette"></div>
-      <div class="hero-noise" aria-hidden="true"></div>
-    </div>
-
-    <!-- Ambient floating orbs -->
-    <div class="hero-orbs" aria-hidden="true">
-      <span class="orb orb-1"></span>
-      <span class="orb orb-2"></span>
-      <span class="orb orb-3"></span>
-      <span class="orb orb-4"></span>
-    </div>
-
-    <!-- 3D Hero Canvas -->
-    <div class="hero-canvas-wrapper reveal-item" style="--delay:0.25s" aria-hidden="true">
-      <canvas id="hero-canvas"></canvas>
-    </div>
-
-    <div class="container hero-content">
-      <div class="hero-text-wrapper">
-        <div class="hero-eyebrow reveal-item" style="--delay:0.05s">
-          <span class="eyebrow-dot"></span>
-          <span>A Strategic Expansion by RUCS Konsult Corp.</span>
-        </div>
-
-        <h1 class="hero-headline reveal-item" style="--delay:0.18s">
-          <span class="headline-accent">U CHANNEL</span>
-        </h1>
-
-        <p class="hero-sub reveal-item" style="--delay:0.32s">
-          Over two decades of proven media impact — now reimagined.
-          Premium billboard, LED, and digital campaigns at metropolitan scale.
-        </p>
-
-        <div class="hero-actions reveal-item" style="--delay:0.46s">
-          <a href="#work" class="btn-primary" id="hero-cta-work">
-            <span>View Our Work</span>
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </a>
-          <a href="#contact" class="btn-ghost" id="hero-cta-contact">Start a Campaign</a>
-        </div>
+  <!-- ══════════════════════════════════════ HERO STACK WRAPPER ══ -->
+  <div class="hero-stack-container">
+    <!-- Step 1 -->
+    <section id="hero" class="hero-step">
+      <!-- Background Video -->
+      <video class="hero-video-bg" autoplay loop muted playsinline>
+        <source src="assets/hero.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <!-- Premium Abstract Glow Effect (Non-3D) -->
+      <div class="hero-ambient-glow" aria-hidden="true"></div>
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="hero-content-wrapper">
+        <h1 class="hero-step-headline step-1-title">U Channel</h1>
+        <p class="hero-step-subtitle step-1-subtitle">A Strategic Expansion by RUCS Konsult Corp.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ══════════════════════════════════════ STATS BAR ══ -->
-  <section class="stats-bar" aria-label="Key metrics">
-    <div class="container stats-grid">
-      <div class="stat-item reveal-on-scroll">
-        <span class="stat-num" data-count="20">0</span><span class="stat-suffix">+</span>
-        <span class="stat-label">Years of Media Impact</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item reveal-on-scroll">
-        <span class="stat-num" data-count="2.4">0</span><span class="stat-suffix">M</span>
-        <span class="stat-label">Daily Impressions</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item reveal-on-scroll">
-        <span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span>
-        <span class="stat-label">Client Retention</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item reveal-on-scroll">
-        <span class="stat-num" data-count="6">0</span><span class="stat-suffix">+</span>
-        <span class="stat-label">Prime Metro Corridors</span>
-      </div>
-    </div>
-  </section>
+    <!-- Spacer to allow the hero 3D scroll animation to finish before Step 2 enters -->
+    <div class="hero-scroll-spacer" aria-hidden="true"></div>
 
-  <!-- ══════════════════════════════════════ LEGACY ══ -->
-  <section id="legacy" class="section-legacy">
-    <div class="container">
-      <div class="legacy-grid">
-        <div class="legacy-text reveal-on-scroll">
-          <span class="label-tag">Our Foundation</span>
-          <h2 class="section-headline">
-            A Legacy of Trust,<br>Evolved for Today
+    <!-- Step 2 -->
+    <section id="hero-step-2" class="hero-step">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="who-we-are-container">
+        <!-- Left column: Content -->
+        <div class="who-we-are-content reveal-on-scroll">
+          <h2 class="who-we-are-title">
+            Who We Are
           </h2>
           <p class="body-text">
             Leveraging RUCS Konsult's 20+ years of pioneering expertise in Billboards &amp; Transit, U Channel brings
             unparalleled flexibility, intelligence, and advanced digital technology to the out-of-home landscape.
           </p>
-          <p class="body-text" style="margin-top:1rem;">
+          <p class="body-text">
             We transition static structures into dynamic message centers — helping brands scale campaigns,
             update content in real time, and gain maximum visibility across the city's most-traveled corridors.
           </p>
-          <a href="#services" class="btn-text-link">Explore Services →</a>
-        </div>
-
-        <div class="legacy-visual reveal-on-scroll" style="--delay:0.12s">
-          <!-- Layered glass cards -->
-          <div class="legacy-card legacy-card-back glass-card" aria-hidden="true"></div>
-          <div class="legacy-card legacy-card-mid glass-card">
-            <div class="glass-card-label">Display Network</div>
-            <div class="glass-card-metric">4K</div>
-            <div class="glass-card-sub">Ultra-HD LED Resolution</div>
+          <div class="who-we-are-stats">
+            <div class="stat-item">
+              <span class="stat-num">20</span>
+              <span class="stat-label">Years of Service</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">50+</span>
+              <span class="stat-label">Strategic Sites</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">100+</span>
+              <span class="stat-label">Brand Partnerships</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">1,000+</span>
+              <span class="stat-label">Completed Projects</span>
+            </div>
           </div>
-          <div class="legacy-card legacy-card-front glass-card">
-            <div class="glass-card-label">Campaign Reach</div>
-            <div class="glass-card-metric">380K+</div>
-            <div class="glass-card-sub">Daily vehicles — EDSA Corridor</div>
-            <div class="glass-card-bar">
-              <span class="glass-bar-fill" style="--fill:82%"></span>
+        </div>
+        <!-- Right column: 3 photos collage -->
+        <div class="who-we-are-photos reveal-on-scroll">
+          <div class="photo-collage">
+            <div class="collage-photo photo-1">
+              <span class="glow"></span>
+              <div class="glow-content">
+                <img src="assets/about1.png" alt="U Channel Billboard Showcase 1">
+              </div>
+            </div>
+            <div class="collage-photo photo-2">
+              <span class="glow"></span>
+              <div class="glow-content">
+                <img src="assets/about2.png" alt="U Channel Billboard Showcase 2">
+              </div>
+            </div>
+            <div class="collage-photo photo-3">
+              <span class="glow"></span>
+              <div class="glow-content">
+                <img src="assets/about3.png" alt="U Channel Billboard Showcase 3">
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Step 3 -->
+    <section id="hero-step-3" class="hero-step">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="capabilities-container">
+        <!-- Left Column -->
+        <div class="capabilities-text-col reveal-on-scroll">
+          <h2 class="capabilities-title">Our Services</h2>
+          <p class="capabilities-desc">
+            U Channel introduces advanced technological capabilities to ensure your campaigns deliver maximum visual
+            retention and premium brand authority.
+          </p>
+          <a href="#contact" class="btn-primary services-cta-btn">
+            <span>Start Your Campaign</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+          <div class="capabilities-progress">
+            <span class="cap-current-num">01</span>
+            <span class="cap-progress-bar"><span class="cap-progress-fill"></span></span>
+            <span class="cap-total-num">06</span>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="capabilities-stack">
+          <!-- Card 1: Dynamic LED Displays -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3>Dynamic LED Displays</h3>
+              <p>4K resolution programmable screens contextually scheduled by time of day, weather, or real-time
+                audience metrics.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Digital Campaigns -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3>Digital Campaigns</h3>
+              <p>Omnichannel precision targeting, cross-channel mobile syncing, and real-time performance analytics.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Brand Activations -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3>Brand Activations</h3>
+              <p>Immersive, large-scale experiential events integrating interactive tech and sensory triggers.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Transit Ad Integration -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3>Transit Ad Integration</h3>
+              <p>Mobile audiences captured through dynamically triggered transit display sequences synced on transport
+                routes.</p>
+            </div>
+          </div>
+
+          <!-- Card 5: Media Exposure & Scale -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+              </div>
+              <h3>Media Exposure & Scale</h3>
+              <p>National OOH footprint with premium display locations spanning key high-traffic metropolitan corridors.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 6: Flexible Packages -->
+          <div class="capability-card">
+            <span class="glow"></span>
+            <div class="glow-content">
+              <div class="capability-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+              </div>
+              <h3>Flexible Packages</h3>
+              <p>Custom micro-packages, flexible voice splits, and test runs without rigid long-term contracts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- ══════════════════════════════════════ BILLBOARD SHOWCASE ══ -->
-  <section id="model-showcase" class="section-model-showcase">
-    <div class="container">
+  <section id="model-showcase" class="section-model-showcase night-mode-bg">
+    <div class="container section-header-container">
       <div class="section-header reveal-on-scroll">
-        <span class="label-tag">The Display</span>
-        <h2 class="section-headline">Engineered to<br>Command Attention</h2>
-        <p class="section-sub">Interact to explore. Switch campaigns and toggle night mode to see our Ultra-HD LED structures illuminate the skyline.</p>
+        <h2 class="section-headline">Be Seen.<br>Be Remembered.</h2>
       </div>
     </div>
 
     <!-- Interactive Billboard Container -->
-    <div class="billboard-container reveal-on-scroll">
-      <!-- Control Panel -->
-      <div class="billboard-controls">
-        <div class="control-group">
-          <span class="control-label">Time of Day</span>
-          <div class="control-buttons">
-            <button class="btn-control toggle-daytime active" id="btn-day" aria-label="Day Mode">
-              <svg class="control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              <span>Day</span>
-            </button>
-            <button class="btn-control toggle-daytime" id="btn-night" aria-label="Night Mode">
-              <svg class="control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-              <span>Night</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="control-divider" aria-hidden="true"></div>
-
-        <div class="control-group">
-          <span class="control-label">Live Campaign</span>
-          <div class="campaign-tabs">
-            <button class="campaign-tab active" data-campaign="samsung">Samsung</button>
-            <button class="campaign-tab" data-campaign="toyota">Toyota</button>
-            <button class="campaign-tab" data-campaign="grab">Grab</button>
-          </div>
-        </div>
-      </div>
-
+    <div class="billboard-container reveal-on-scroll night-mode-active">
       <!-- Physical Billboard Structure Wrapper -->
       <div class="billboard-structure-wrapper">
         <!-- Ambient spotlights pointing down at the billboard (visible in Night mode) -->
@@ -249,54 +332,589 @@
 
         <!-- The actual physical billboard frame and support -->
         <div class="billboard-structure" id="billboard-structure">
+          <!-- Ambient backlight glow behind the frame -->
+          <div class="billboard-backlight" aria-hidden="true"></div>
+
           <!-- Main Frame -->
           <div class="billboard-frame">
             <!-- Screen Content Window -->
             <div class="billboard-screen" id="billboard-screen">
               <!-- Grid overlay to simulate LED display pitch -->
               <div class="led-grid-overlay"></div>
-              
+
               <!-- Ambient Screen Glow Overlay -->
               <div class="screen-glow"></div>
 
-              <!-- Slides List -->
-              <div class="slides-container" id="slides-container">
-                <!-- Slide 1: Samsung -->
-                <div class="billboard-slide active" data-slide="samsung" style="--accent-glow: rgba(29, 92, 255, 0.45); --theme-color: #1d5cff;">
-                  <div class="slide-content samsung-slide">
-                    <div class="slide-brand-logo">SAMSUNG</div>
-                    <div class="slide-info">
-                      <span class="slide-tag">Campaign Focus: Innovation</span>
-                      <h3 class="slide-title">Reimagine What<br>A Phone Can Do</h3>
-                      <p class="slide-meta">EDSA Ortigas Landmark Display · 380K Daily Views</p>
+              <!-- Trusted By Screen Overlay -->
+              <div class="billboard-trusted-overlay" id="billboard-trusted-overlay">
+                <div class="trusted-overlay-content">
+                  <h4 class="trusted-title">Trusted By Leading Brands</h4>
+                  <div class="trusted-marquee-container">
+                    <!-- Row 1: Left Scroll (Facing Left) -->
+                    <div class="marquee-row marquee-row--left">
+                      <div class="marquee-track">
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-samsung">SAMSUNG</div>
+                                <div class="ad-card-back ad-sony">SONY</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-unilever">UNILEVER</div>
+                                <div class="ad-card-back ad-pg">P&G</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-toyota">TOYOTA</div>
+                                <div class="ad-card-back ad-honda">HONDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-nestle">NESTLÉ</div>
+                                <div class="ad-card-back ad-coke">COKE</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-grab">GRAB</div>
+                                <div class="ad-card-back ad-panda">FOODPANDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-sm">SM GROUP</div>
+                                <div class="ad-card-back ad-ayala">AYALA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-jollibee">JOLLIBEE</div>
+                                <div class="ad-card-back ad-mcdo">MCDONALD'S</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-globe">GLOBE</div>
+                                <div class="ad-card-back ad-smart">SMART</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-samsung">SAMSUNG</div>
+                                <div class="ad-card-back ad-sony">SONY</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-unilever">UNILEVER</div>
+                                <div class="ad-card-back ad-pg">P&G</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-toyota">TOYOTA</div>
+                                <div class="ad-card-back ad-honda">HONDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-nestle">NESTLÉ</div>
+                                <div class="ad-card-back ad-coke">COKE</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-grab">GRAB</div>
+                                <div class="ad-card-back ad-panda">FOODPANDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-sm">SM GROUP</div>
+                                <div class="ad-card-back ad-ayala">AYALA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-jollibee">JOLLIBEE</div>
+                                <div class="ad-card-back ad-mcdo">MCDONALD'S</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--left">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-globe">GLOBE</div>
+                                <div class="ad-card-back ad-smart">SMART</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Slide 2: Toyota -->
-                <div class="billboard-slide" data-slide="toyota" style="--accent-glow: rgba(255, 149, 0, 0.45); --theme-color: #ff9500;">
-                  <div class="slide-content toyota-slide">
-                    <div class="slide-brand-logo">TOYOTA</div>
-                    <div class="slide-info">
-                      <span class="slide-tag">Campaign Focus: Eco-Drive</span>
-                      <h3 class="slide-title">Go Beyond Miles<br>In Perfect Silence</h3>
-                      <p class="slide-meta">Cebu IT Park Plaza Screen · 140K Daily Views</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Slide 3: Grab -->
-                <div class="billboard-slide" data-slide="grab" style="--accent-glow: rgba(52, 199, 89, 0.45); --theme-color: #34c759;">
-                  <div class="slide-content grab-slide">
-                    <div class="slide-brand-logo">Grab</div>
-                    <div class="slide-info">
-                      <span class="slide-tag">Campaign Focus: Food Fest</span>
-                      <h3 class="slide-title">Craving Satisfied<br>Delivered in Minutes</h3>
-                      <p class="slide-meta">BGC Lawton Ave Landmark · 220K Daily Views</p>
+                    <!-- Row 2: Right Scroll (Facing Right) -->
+                    <div class="marquee-row marquee-row--right">
+                      <div class="marquee-track">
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-globe">GLOBE</div>
+                                <div class="ad-card-back ad-smart">SMART</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-jollibee">JOLLIBEE</div>
+                                <div class="ad-card-back ad-mcdo">MCDONALD'S</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-sm">SM GROUP</div>
+                                <div class="ad-card-back ad-ayala">AYALA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-grab">GRAB</div>
+                                <div class="ad-card-back ad-panda">FOODPANDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-nestle">NESTLÉ</div>
+                                <div class="ad-card-back ad-coke">COKE</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-toyota">TOYOTA</div>
+                                <div class="ad-card-back ad-honda">HONDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-unilever">UNILEVER</div>
+                                <div class="ad-card-back ad-pg">P&G</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-samsung">SAMSUNG</div>
+                                <div class="ad-card-back ad-sony">SONY</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-globe">GLOBE</div>
+                                <div class="ad-card-back ad-smart">SMART</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-jollibee">JOLLIBEE</div>
+                                <div class="ad-card-back ad-mcdo">MCDONALD'S</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-sm">SM GROUP</div>
+                                <div class="ad-card-back ad-ayala">AYALA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-grab">GRAB</div>
+                                <div class="ad-card-back ad-panda">FOODPANDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-nestle">NESTLÉ</div>
+                                <div class="ad-card-back ad-coke">COKE</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-toyota">TOYOTA</div>
+                                <div class="ad-card-back ad-honda">HONDA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-unilever">UNILEVER</div>
+                                <div class="ad-card-back ad-pg">P&G</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                        <div class="marquee-bus marquee-bus--right">
+                          <div class="bus-body">
+                            <div class="bus-windows">
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                              <span class="bus-window"></span>
+                            </div>
+                            <div class="bus-ad-wrap">
+                              <div class="ad-card-inner">
+                                <div class="ad-card-front ad-samsung">SAMSUNG</div>
+                                <div class="ad-card-back ad-sony">SONY</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bus-wheels"><span class="bus-wheel"></span><span class="bus-wheel"></span></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Video Content -->
+              <video class="billboard-video-content" autoplay loop muted playsinline>
+                <source src="assets/Chickenjoy Sarap Savers_ Pinakamasarap na, Pinasulit pa!.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
             </div>
 
             <!-- Accent gold illuminated trim at the bottom -->
@@ -330,305 +948,87 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ SERVICES ══ -->
-  <section id="services" class="section-services">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="label-tag">What We Do</span>
-        <h2 class="section-headline">Engineered for<br>Modern Campaigns</h2>
-        <p class="section-sub">
-          Premium media formats designed to deliver maximum visual impact across every touchpoint.
-        </p>
-      </div>
 
-      <div class="services-grid">
-        <!-- Card 1 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <path d="M8 21h8M12 17v4"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Dynamic LED Displays</h3>
-          <p class="service-desc">4K resolution programmable screens. Schedule contextual content by time of day, weather, or real-time audience signals.</p>
-          <span class="service-tag">Billboard · LED · OOH</span>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0.08s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 7h18M3 12h18M3 17h18"/>
-              <circle cx="19" cy="7" r="3" fill="currentColor" stroke="none" opacity=".3"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Digital Campaigns</h3>
-          <p class="service-desc">Omnichannel campaign architecture bridging out-of-home and digital. Precision targeting, real-time analytics, and full creative support.</p>
-          <span class="service-tag">Campaigns · Analytics · Creative</span>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0.16s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Brand Activations</h3>
-          <p class="service-desc">Large-scale experiential media events. Immersive brand presence that commands attention and drives lasting consumer recall.</p>
-          <span class="service-tag">Activations · Experiential · Events</span>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0.24s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v4l3 3"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Transit Ad Integration</h3>
-          <p class="service-desc">Mobile audiences on buses, transit corridors, and high-traffic routes — captured with dynamically triggered display sequences.</p>
-          <span class="service-tag">Transit · Mobile · Dynamic</span>
-        </article>
-
-        <!-- Card 5 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0.32s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Media Exposure &amp; Scale</h3>
-          <p class="service-desc">National reach through a growing network of premium display locations spanning Metro Manila, Cebu, and Davao metro corridors.</p>
-          <span class="service-tag">National · Scale · Network</span>
-        </article>
-
-        <!-- Card 6 -->
-        <article class="service-card reveal-on-scroll" style="--delay:0.4s">
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-            </svg>
-          </div>
-          <h3 class="service-title">Flexible Packages</h3>
-          <p class="service-desc">Custom micro-packages, flexible slot splits, and campaign testing — designed to fit diverse budgets without rigid lock-in contracts.</p>
-          <span class="service-tag">Flexible · Custom · Scalable</span>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <!-- ══════════════════════════════════════ FEATURED WORK ══ -->
   <section id="work" class="section-work">
     <div class="container">
       <div class="section-header reveal-on-scroll">
-        <span class="label-tag">Featured Campaigns</span>
         <h2 class="section-headline">Where Brands<br>Come Alive</h2>
       </div>
 
       <div class="work-grid">
         <!-- Case Study 1 – large -->
         <article class="work-card work-card--large reveal-on-scroll">
-          <div class="work-card-bg work-card-bg--1" aria-hidden="true"></div>
-          <div class="work-card-content">
-            <span class="work-tag">Billboard · EDSA Corridor</span>
-            <h3 class="work-title">EDSA Ortigas Junction LED</h3>
-            <p class="work-meta">380,000+ daily vehicles · 4K Ultra-HD P10 LED · 8 Flexible Slots</p>
-            <a href="#contact" class="btn-text-link work-link">Inquire about this location →</a>
+          <span class="glow"></span>
+          <div class="glow-content">
+            <div class="work-card-bg work-card-bg--1" aria-hidden="true"></div>
+            <div class="work-card-content">
+              <span class="work-tag">Billboard · EDSA Corridor</span>
+              <h3 class="work-title">EDSA Ortigas Junction LED</h3>
+              <p class="work-meta">380,000+ daily vehicles · 4K Ultra-HD P10 LED · 8 Flexible Slots</p>
+              <a href="#contact" class="btn-text-link work-link">Inquire about this location →</a>
+            </div>
           </div>
         </article>
 
         <!-- Case Study 2 -->
         <article class="work-card reveal-on-scroll" style="--delay:0.1s">
-          <div class="work-card-bg work-card-bg--2" aria-hidden="true"></div>
-          <div class="work-card-content">
-            <span class="work-tag">LED · BGC</span>
-            <h3 class="work-title">BGC Lawton Ave Landmark</h3>
-            <p class="work-meta">220,000+ daily vehicles · Full HD Dual-Face</p>
+          <span class="glow"></span>
+          <div class="glow-content">
+            <div class="work-card-bg work-card-bg--2" aria-hidden="true"></div>
+            <div class="work-card-content">
+              <span class="work-tag">LED · BGC</span>
+              <h3 class="work-title">BGC Lawton Ave Landmark</h3>
+              <p class="work-meta">220,000+ daily vehicles · Full HD Dual-Face</p>
+            </div>
           </div>
         </article>
 
         <!-- Case Study 3 -->
         <article class="work-card reveal-on-scroll" style="--delay:0.2s">
-          <div class="work-card-bg work-card-bg--3" aria-hidden="true"></div>
-          <div class="work-card-content">
-            <span class="work-tag">LED · Cebu</span>
-            <h3 class="work-title">Cebu IT Park Plaza Screen</h3>
-            <p class="work-meta">140,000+ daily foot traffic · Portrait P6 HD</p>
+          <span class="glow"></span>
+          <div class="glow-content">
+            <div class="work-card-bg work-card-bg--3" aria-hidden="true"></div>
+            <div class="work-card-content">
+              <span class="work-tag">LED · Cebu</span>
+              <h3 class="work-title">Cebu IT Park Plaza Screen</h3>
+              <p class="work-meta">140,000+ daily foot traffic · Portrait P6 HD</p>
+            </div>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ NETWORK MAP ══ -->
-  <section id="network" class="section-network">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="label-tag">Screen Network</span>
-        <h2 class="section-headline">Premium OOH<br>Screen Network</h2>
-        <p class="section-sub">
-          Select an active display node to view detailed screen specifications and audience data.
-        </p>
-      </div>
 
-      <div class="map-container reveal-on-scroll">
-        <div class="map-grid-overlay" aria-hidden="true"></div>
-
-        <svg class="svg-map" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Background grid axes -->
-          <path d="M50 250 H 950" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <path d="M350 50 V 450" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="4 4"/>
-          <path d="M700 50 V 450" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="4 4"/>
-
-          <!-- Zoom Callout projection lines (connecting Manila Hub to zoomed Metro Manila detailed map) -->
-          <path d="M 670 175 L 470 150" stroke="rgba(61,126,255,0.3)" stroke-width="1" stroke-dasharray="3 3" class="map-callout-line"/>
-          <path d="M 670 175 L 470 380" stroke="rgba(61,126,255,0.3)" stroke-width="1" stroke-dasharray="3 3" class="map-callout-line"/>
-
-          <!-- METRO MANILA DETAIL MAP (Left side: X=150 to 500) -->
-          <g class="map-group map-group-manila">
-            <path class="map-land manila-land" d="M 180 430 C 170 390, 165 340, 175 300 C 180 270, 185 240, 190 200 C 210 180, 270 170, 310 175 C 350 185, 410 220, 470 270 C 485 295, 440 370, 380 410 C 320 420, 240 430, 180 430 Z" />
-            <path class="map-land-inner manila-land-inner" d="M 180 430 C 170 390, 165 340, 175 300 C 180 270, 185 240, 190 200 C 210 180, 270 170, 310 175 C 350 185, 410 220, 470 270 C 485 295, 440 370, 380 410 C 320 420, 240 430, 180 430 Z" />
-            <text x="325" y="130" fill="rgba(220,228,255,0.25)" font-family="Space Grotesk" font-size="11" letter-spacing="0.18em" text-anchor="middle" font-weight="500">METRO MANILA DETAIL</text>
-          </g>
-
-          <!-- PHILIPPINES NATIONWIDE MAP (Right side: X=600 to 920) -->
-          <g class="map-group map-group-philippines">
-            <!-- Luzon -->
-            <path class="map-land ph-land" d="M 640 100 C 670 90, 710 90, 730 100 C 750 120, 755 170, 750 200 C 745 220, 780 240, 790 260 C 780 275, 750 260, 740 245 C 725 240, 690 220, 675 200 C 670 190, 665 175, 665 170 C 660 150, 635 130, 640 100 Z" />
-            <!-- Mindoro -->
-            <path class="map-land ph-land" d="M 650 230 C 665 225, 670 240, 660 250 C 650 255, 640 245, 650 230 Z" />
-            <!-- Palawan -->
-            <path class="map-land ph-land" d="M 620 265 C 630 260, 635 270, 610 320 C 595 350, 580 370, 570 380 C 565 380, 560 370, 585 330 C 600 300, 610 275, 620 265 Z" />
-            <!-- Panay -->
-            <path class="map-land ph-land" d="M 665 235 C 680 230, 685 240, 675 260 C 665 270, 655 265, 655 255 Z" />
-            <!-- Negros -->
-            <path class="map-land ph-land" d="M 680 260 C 690 260, 695 275, 690 300 C 685 310, 675 305, 675 285 Z" />
-            <!-- Cebu -->
-            <path class="map-land ph-land" d="M 700 230 C 705 225, 707 240, 702 270 C 700 280, 697 280, 697 260 C 697 245, 697 235, 700 230 Z" />
-            <!-- Leyte & Samar -->
-            <path class="map-land ph-land" d="M 735 215 C 750 210, 755 230, 745 255 C 740 265, 730 260, 730 240 C 730 225, 730 220, 735 215 Z" />
-            <!-- Mindanao -->
-            <path class="map-land ph-land" d="M 730 330 C 760 320, 800 320, 820 330 C 840 335, 850 350, 850 370 C 850 380, 845 410, 840 420 C 835 420, 830 400, 825 375 C 820 375, 815 375, 810 400 C 805 430, 770 435, 740 420 C 730 400, 725 390, 680 380 C 675 390, 670 390, 675 375 C 700 365, 715 360, 725 350 C 730 330, 730 330, 730 330 Z" />
-
-            <!-- Labels -->
-            <text x="690" y="80" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">LUZON</text>
-            <text x="755" y="270" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">VISAYAS</text>
-            <text x="785" y="445" fill="rgba(220,228,255,0.18)" font-family="Space Grotesk" font-size="9" letter-spacing="0.15em" text-anchor="middle" font-weight="500">MINDANAO</text>
-          </g>
-
-          <!-- Metro Manila Hub on the national map -->
-          <g class="map-hub-marker">
-            <circle cx="670" cy="175" r="4" fill="var(--c-accent)" />
-            <circle class="sonar-ring" cx="670" cy="175" r="10" stroke="var(--c-accent)" stroke-width="1" fill="none" opacity="0.5" />
-          </g>
-        </svg>
-
-        <!-- Map Pins -->
-        <div class="map-pin" style="top:36%;left:38%;" data-id="edsa-ortigas" role="button" tabindex="0" aria-label="EDSA Ortigas Junction LED screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-        <div class="map-pin" style="top:52%;left:45%;" data-id="bgc-lawton" role="button" tabindex="0" aria-label="BGC Lawton Ave screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-        <div class="map-pin" style="top:45%;left:28%;" data-id="makati-ave" role="button" tabindex="0" aria-label="Makati Ave CBD screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-        <div class="map-pin" style="top:65%;left:22%;" data-id="roxas-blvd" role="button" tabindex="0" aria-label="Roxas Boulevard Highway screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-        <div class="map-pin" style="top:50%;left:70%;" data-id="cebu-it" role="button" tabindex="0" aria-label="Cebu IT Park Plaza screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-        <div class="map-pin" style="top:72%;left:82%;" data-id="davao-global" role="button" tabindex="0" aria-label="Davao Global City screen">
-          <div class="pin-pulse" aria-hidden="true"></div>
-          <div class="pin-core">U</div>
-        </div>
-
-        <!-- Tooltip -->
-        <div class="map-tooltip" role="status" aria-live="polite">
-          <div class="map-tooltip-header">
-            <div class="map-tooltip-title">Select a location</div>
-            <div class="map-tooltip-badge">LIVE</div>
-          </div>
-          <div class="tooltip-spec"><span class="tooltip-label">Resolution</span><span class="tooltip-val val-resolution">—</span></div>
-          <div class="tooltip-spec"><span class="tooltip-label">Ad Slots</span><span class="tooltip-val val-slots">—</span></div>
-          <div class="tooltip-spec"><span class="tooltip-label">Daily Traffic</span><span class="tooltip-val val-traffic">—</span></div>
-          <div class="tooltip-spec"><span class="tooltip-label">Audience</span><span class="tooltip-val val-audience">—</span></div>
-        </div>
-
-        <div class="map-instructions" aria-hidden="true">
-          <span class="map-dot"></span>
-          Select a glowing node to view screen specs
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════ CLIENTS ══ -->
-  <section class="section-clients" aria-label="Client showcase">
-    <div class="container">
-      <div class="clients-header reveal-on-scroll">
-        <span class="label-tag">Trusted By</span>
-        <p class="clients-sub">Leading brands that have chosen U Channel for their most important campaigns.</p>
-      </div>
-    </div>
-
-    <div class="clients-marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span class="marquee-item">SAMSUNG</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">UNILEVER</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">TOYOTA</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">NESTLÉ</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GRAB</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">SM GROUP</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">JOLLIBEE</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GLOBE TELECOM</span>
-        <span class="marquee-sep">·</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="marquee-item">SAMSUNG</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">UNILEVER</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">TOYOTA</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">NESTLÉ</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GRAB</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">SM GROUP</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">JOLLIBEE</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GLOBE TELECOM</span>
-        <span class="marquee-sep">·</span>
-      </div>
-    </div>
-  </section>
 
   <!-- ══════════════════════════════════════ CONTACT / FOOTER ══ -->
   <footer id="contact" class="site-footer">
     <!-- Contact CTA strip -->
     <div class="footer-cta-strip">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
       <div class="container footer-cta-inner reveal-on-scroll">
         <div class="footer-cta-text">
-          <h2 class="footer-cta-headline">Ready to Dominate<br>the Skyline?</h2>
+          <h2 class="footer-cta-headline">Amplify your impact.<br>Grow with us.</h2>
           <p class="footer-cta-sub">Tell us about your campaign. A consultant will respond within 2 business hours.</p>
+
+          <div class="footer-contact-info">
+            <div class="contact-item">
+              <span class="contact-label">Address</span>
+              <span class="contact-value">18th Floor, Octagon Center,<br>San Miguel Avenue, Pasig City</span>
+            </div>
+            <div class="contact-item-row">
+              <div class="contact-item">
+                <span class="contact-label">Phone Number</span>
+                <span class="contact-value"><a href="tel:+639123451234">(+63) 912-345-1234</a></span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Email Address</span>
+                <span class="contact-value"><a href="mailto:info@uchannel.ph">info@uchannel.ph</a></span>
+              </div>
+            </div>
+          </div>
         </div>
         <form class="contact-form" id="quote-form" novalidate>
           <div class="form-row">
@@ -638,14 +1038,27 @@
             </div>
             <div class="form-group">
               <label for="f-email" class="sr-only">Work Email</label>
-              <input type="email" id="f-email" class="form-input" placeholder="Work Email" required autocomplete="email">
+              <input type="email" id="f-email" class="form-input" placeholder="Work Email" required
+                autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-company" class="sr-only">Company</label>
+              <input type="text" id="f-company" class="form-input" placeholder="Company" required
+                autocomplete="organization">
+            </div>
+            <div class="form-group">
+              <label for="f-phone" class="sr-only">Phone Number</label>
+              <input type="tel" id="f-phone" class="form-input" placeholder="Phone Number" required autocomplete="tel">
             </div>
           </div>
           <div class="form-group">
             <label for="f-message" class="sr-only">Campaign details</label>
-            <textarea id="f-message" class="form-input form-textarea" placeholder="Campaign details — locations, duration, target dates…" required></textarea>
+            <textarea id="f-message" class="form-input form-textarea"
+              placeholder="Campaign details — locations, duration, target dates…" required></textarea>
           </div>
-          <button type="submit" class="btn-submit" id="form-submit-btn">Get My Custom Proposal</button>
+          <button type="submit" class="btn-submit" id="form-submit-btn">Send Message</button>
           <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
         </form>
       </div>
@@ -664,22 +1077,32 @@
         </a>
 
         <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="#legacy">Legacy</a>
-          <a href="#services">Services</a>
-          <a href="#work">Work</a>
-          <a href="#network">Network</a>
+          <a href="#hero-step-2">Who We Are</a>
+          <a href="#hero-step-3">Services</a>
+          <a href="#model-showcase">Showcase</a>
+          <a href="#work">Locations</a>
           <a href="#contact">Contact</a>
         </nav>
 
         <div class="footer-socials">
           <a href="#" class="social-btn" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+            </svg>
           </a>
-          <a href="https://www.linkedin.com/company/uchannel/" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          <a href="https://www.linkedin.com/company/uchannel/" class="social-btn" target="_blank" rel="noopener"
+            aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
           </a>
           <a href="#" class="social-btn" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
           </a>
         </div>
       </div>
@@ -697,4 +1120,5 @@
   <!-- Scripts -->
   <script type="module" src="./app.js"></script>
 </body>
+
 </html>
