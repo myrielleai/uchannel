@@ -234,13 +234,31 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   backdrop-filter: blur(8px);
 }
 
-/* ── BUTTONS ─────────────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   gap: 8px;
   padding: 14px 32px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
   background: linear-gradient(
     90deg,
     #ff3366,
@@ -252,20 +270,43 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     #ff3366
   ) 0% 50% / 200% auto;
   animation: flow-rainbow 4s linear infinite;
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(255, 51, 102, 0.35), inset 0 1px 0 rgba(255,255,255,0.3);
-  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+  border-radius: inherit;
+  z-index: -2;
+  transition: opacity 0.3s ease;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(255, 51, 102, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: #ffffff;
+  border-radius: inherit;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
+
+.btn-primary:hover,
+.btn-primary.hover-active {
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(255, 51, 102, 0.45);
+}
+
+.btn-primary:hover::after,
+.btn-primary.hover-active::after {
+  opacity: 0;
+}
+
+/* Ensure CTA button content (text/icons) is positioned above pseudo-element layers */
+.btn-primary > *,
+.btn-submit > *,
+.nav-cta > *,
+.mobile-drawer .mobile-cta > * {
+  position: relative;
+  z-index: 2;
+}
+
 
 .btn-ghost {
   display: inline-flex;
@@ -310,6 +351,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn-submit {
   width: 100%;
   padding: 15px 24px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
   background: linear-gradient(
     90deg,
     #ff3366,
@@ -321,19 +381,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     #ff3366
   ) 0% 50% / 200% auto;
   animation: flow-rainbow 4s linear infinite;
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(255, 51, 102, 0.35), inset 0 1px 0 rgba(255,255,255,0.3);
-  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+  border-radius: inherit;
+  z-index: -2;
+  transition: opacity 0.3s ease;
 }
 
-.btn-submit:hover {
+.btn-submit::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: #ffffff;
+  border-radius: inherit;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.btn-submit:not(:disabled):hover,
+.btn-submit:not(:disabled).hover-active {
+  color: #ffffff;
+  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(255, 51, 102, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+  box-shadow: 0 10px 40px rgba(255, 51, 102, 0.45);
+}
+
+.btn-submit:not(:disabled):hover::after,
+.btn-submit:not(:disabled).hover-active::after {
+  opacity: 0;
 }
 
 .btn-submit:disabled {
@@ -341,6 +414,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   cursor: not-allowed;
   transform: none;
 }
+
 
 #site-header {
   position: fixed;
@@ -541,14 +615,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-cta {
   position: relative;
   padding: 10px 24px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 999px;
   font-family: var(--font-display);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--c-text);
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-out-expo), padding 0.4s var(--ease-out-expo), font-size 0.4s var(--ease-out-expo), color 0.3s;
+  flex-shrink: 0;
+}
+
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
   background: linear-gradient(
     90deg,
     #ff3366,
@@ -560,42 +648,36 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     #ff3366
   ) 0% 50% / 200% auto;
   animation: flow-rainbow 4s linear infinite;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow:
-    0 4px 15px rgba(255, 51, 102, 0.35),
-    inset 0 1px 0 rgba(255,255,255,0.35);
-  overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-out-expo), padding 0.4s var(--ease-out-expo), font-size 0.4s var(--ease-out-expo);
-  flex-shrink: 0;
+  border-radius: inherit;
+  z-index: -2;
+  transition: opacity 0.3s ease;
 }
 
-
-/* Shimmer sweep on hover */
-.nav-cta::before {
+.nav-cta::after {
   content: '';
   position: absolute;
-  top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-  transform: skewX(-20deg);
-  transition: none;
-  pointer-events: none;
+  inset: -1px;
+  background: #ffffff;
+  border-radius: inherit;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
 
-.nav-cta:hover::before {
-  left: 130%;
-  transition: left 0.55s var(--ease-out-expo);
-}
-
-.nav-cta:hover {
+.nav-cta:hover,
+.nav-cta.hover-active {
+  color: #ffffff;
   border-color: transparent;
-  box-shadow:
-    0 0 28px rgba(255, 51, 102, 0.5),
-    0 4px 16px rgba(15, 23, 42, 0.08),
-    inset 0 1px 0 rgba(255,255,255,0.35);
   transform: translateY(-1px);
+  box-shadow:
+    0 0 28px rgba(255, 51, 102, 0.45),
+    0 4px 16px rgba(15, 23, 42, 0.08);
 }
+
+.nav-cta:hover::after,
+.nav-cta.hover-active::after {
+  opacity: 0;
+}
+
 
 /* Hamburger */
 .hamburger {
@@ -706,14 +788,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-top: auto;
   padding: 14px 24px;
   text-align: center;
-  border: 1px solid transparent;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  color: var(--c-text);
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 999px;
   font-family: var(--font-display);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: box-shadow 0.3s, transform 0.3s var(--ease-out-expo), color 0.3s, border-color 0.3s;
+}
+
+.mobile-drawer .mobile-cta::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
   background: linear-gradient(
     90deg,
     #ff3366,
@@ -725,14 +819,34 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     #ff3366
   ) 0% 50% / 200% auto;
   animation: flow-rainbow 4s linear infinite;
-  box-shadow: 0 4px 20px rgba(255, 51, 102, 0.35);
-  transition: box-shadow 0.3s, transform 0.3s var(--ease-out-expo);
+  border-radius: inherit;
+  z-index: -2;
+  transition: opacity 0.3s ease;
 }
 
-.mobile-drawer .mobile-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 51, 102, 0.5);
+.mobile-drawer .mobile-cta::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: #ffffff;
+  border-radius: inherit;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
+
+.mobile-drawer .mobile-cta:hover,
+.mobile-drawer .mobile-cta.hover-active {
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 51, 102, 0.45);
+}
+
+.mobile-drawer .mobile-cta:hover::after,
+.mobile-drawer .mobile-cta.hover-active::after {
+  opacity: 0;
+}
+
 
 
 
