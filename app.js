@@ -11,7 +11,7 @@ gsap.defaults({ ease: 'expo.out', duration: 1.0 });
 const HAS_GSAP  = true;
 const HAS_ST    = true;
 const HAS_THREE = true;
-const HAS_LENIS = false;
+const HAS_LENIS = true;
 const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ─── Framer-like spring physics easing ─────────────────────── */
@@ -49,7 +49,7 @@ function initLenis() {
   /* wire Lenis into GSAP ticker — single RAF, perfect sync */
   if (HAS_GSAP) {
     gsap.ticker.add(time => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(300, 16); // prevent spiral-of-death during heavy frames
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing to prevent scroll/animation desync and stuttering
   } else {
     const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
@@ -979,6 +979,7 @@ function initBillboardShowcase() {
     }
   };
 
+  let billboardTicking = false;
   const handleMouseMove = (e) => {
     if (isZoomed) return;
     if (!wrapperRect) {
@@ -989,23 +990,33 @@ function initBillboardShowcase() {
     const dx = window.scrollX - enterScrollX;
     const dy = window.scrollY - enterScrollY;
     
-    const x = e.clientX - (wrapperRect.left - dx) - wrapperRect.width / 2;
-    const y = e.clientY - (wrapperRect.top - dy) - wrapperRect.height / 2;
-    
-    const nx = x / (wrapperRect.width / 2);
-    const ny = y / (wrapperRect.height / 2);
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    if (HAS_GSAP && rotateYTo && rotateXTo) {
-      rotateYTo(nx * 14);  // sweep left/right
-      rotateXTo(-ny * 10); // pitch up/down
-      
-      badges.forEach((badge, i) => {
-        const factor = (i % 2 === 0 ? 1 : -1) * 8;
-        if (badgeXTos[i] && badgeYTos[i]) {
-          badgeXTos[i](nx * factor);
-          badgeYTos[i](ny * factor);
+    if (!billboardTicking) {
+      requestAnimationFrame(() => {
+        if (!wrapperRect) { billboardTicking = false; return; }
+        const x = clientX - (wrapperRect.left - dx) - wrapperRect.width / 2;
+        const y = clientY - (wrapperRect.top - dy) - wrapperRect.height / 2;
+        
+        const nx = x / (wrapperRect.width / 2);
+        const ny = y / (wrapperRect.height / 2);
+
+        if (HAS_GSAP && rotateYTo && rotateXTo) {
+          rotateYTo(nx * 14);  // sweep left/right
+          rotateXTo(-ny * 10); // pitch up/down
+          
+          badges.forEach((badge, i) => {
+            const factor = (i % 2 === 0 ? 1 : -1) * 8;
+            if (badgeXTos[i] && badgeYTos[i]) {
+              badgeXTos[i](nx * factor);
+              badgeYTos[i](ny * factor);
+            }
+          });
         }
+        billboardTicking = false;
       });
+      billboardTicking = true;
     }
   };
 
@@ -1311,17 +1322,27 @@ function initMagneticHover() {
       }
     }
 
+    let ticking = false;
+    let targetX = 0;
+    let targetY = 0;
     function onMove(e) {
       if (!r) {
         r = el.getBoundingClientRect();
       }
       const cx   = r.left + r.width  / 2;
       const cy   = r.top  + r.height / 2;
-      const dx   = e.clientX - cx;
-      const dy   = e.clientY - cy;
-      if (xTo && yTo) {
-        xTo(dx * strength);
-        yTo(dy * strength);
+      targetX = e.clientX - cx;
+      targetY = e.clientY - cy;
+
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (xTo && yTo) {
+            xTo(targetX * strength);
+            yTo(targetY * strength);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     }
 
@@ -1392,22 +1413,32 @@ function initCardTilt() {
       glowEl.style.opacity = '1';
     });
 
+    let tiltTicking = false;
+    let cardMX = 0;
+    let cardMY = 0;
     card.addEventListener('mousemove', e => {
       if (!rect) {
         rect = card.getBoundingClientRect();
       }
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      
-      const nx = mx / rect.width;
-      const ny = my / rect.height;
-      const rx = (ny - 0.5) * -maxTilt * 2;
-      const ry = (nx - 0.5) *  maxTilt * 2;
-      
-      setRotX(rx);
-      setRotY(ry);
-      setGlowX(mx);
-      setGlowY(my);
+      cardMX = e.clientX - rect.left;
+      cardMY = e.clientY - rect.top;
+
+      if (!tiltTicking) {
+        requestAnimationFrame(() => {
+          if (!rect) { tiltTicking = false; return; }
+          const nx = cardMX / rect.width;
+          const ny = cardMY / rect.height;
+          const rx = (ny - 0.5) * -maxTilt * 2;
+          const ry = (nx - 0.5) *  maxTilt * 2;
+          
+          setRotX(rx);
+          setRotY(ry);
+          setGlowX(cardMX);
+          setGlowY(cardMY);
+          tiltTicking = false;
+        });
+        tiltTicking = true;
+      }
     });
 
     card.addEventListener('mouseleave', () => {
