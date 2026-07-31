@@ -1,6 +1,10 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import AdvertisingSolutions from './src/components/AdvertisingSolutions';
+import AboutSection from './src/components/AboutSection';
 
 
 /* ─── register GSAP plugins immediately ─────────────────────── */
@@ -10,7 +14,6 @@ gsap.defaults({ ease: 'expo.out', duration: 1.0 });
 /* ─── capability flags (always true with bundle imports) ────── */
 const HAS_GSAP  = true;
 const HAS_ST    = true;
-const HAS_THREE = true;
 const HAS_LENIS = true;
 const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -112,7 +115,10 @@ function initHeader(playTimeline = true) {
     const currentScrollY = window.scrollY;
     header.classList.toggle('scrolled', currentScrollY > 40);
 
-    const isScrollingDown = currentScrollY > lastScrollY;
+    const delta = currentScrollY - lastScrollY;
+    if (Math.abs(delta) < 8) return;
+
+    const isScrollingDown = delta > 0;
 
     if (currentScrollY < 50) {
       showHeader();
@@ -321,90 +327,21 @@ function splitTextToChars(el) {
 }
 
 function initHeroAnimations(playTimeline = true) {
-  if (!HAS_GSAP || REDUCED) return null;
-
-  // Headline (U Channel) - Animates as a single element matching the subtitle transition style
   const headline = document.querySelector('.step-1-title');
-  if (headline) {
-    gsap.set(headline, { opacity: 0, y: 15 });
-  }
-
-  const subtitle = document.querySelector('.step-1-subtitle');
-  if (subtitle) {
-    gsap.set(subtitle, { opacity: 0, y: 15 });
-  }
-
-  const runTimeline = () => {
-    const tl = gsap.timeline();
-    // Headline: fade & slide in
-    if (headline) {
-      tl.to(headline, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: SPRING_SOFT,
-      }, 0.2);
-    }
-    // Subtitle: fade & slide in
-    if (subtitle) {
-      tl.to(subtitle, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: SPRING_SOFT,
-      }, 0.55);
-    }
-  };
-
-  if (playTimeline) {
-    runTimeline();
-  }
-
-  // Scroll zoom & fade out for headline wrapper and background grid
+  const tagline = document.querySelector('.hero-led-tagline');
+  const body = document.querySelector('.hero-led-body');
+  const ctaGroup = document.querySelector('.hero-cta-group');
   const wrapper = document.querySelector('.hero-content-wrapper');
-  if (wrapper) {
-    gsap.to(wrapper, {
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      opacity: 0,
-      scale: 1.35,
-      y: -100,
-      ease: 'none'
-    });
-  } else if (headline) {
-    gsap.to(headline, {
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      opacity: 0,
-      scale: 1.35,
-      y: -100,
-      ease: 'none'
-    });
+
+  if (HAS_GSAP) {
+    if (headline) gsap.set(headline, { opacity: 1, y: 0, scale: 1 });
+    if (tagline) gsap.set(tagline, { opacity: 1, y: 0, scale: 1 });
+    if (body) gsap.set(body, { opacity: 1, y: 0, scale: 1 });
+    if (ctaGroup) gsap.set(ctaGroup, { opacity: 1, y: 0, scale: 1 });
+    if (wrapper) gsap.set(wrapper, { opacity: 1, y: 0, scale: 1 });
   }
 
-  const gridBg = document.querySelector('#hero .hero-grid-bg');
-  if (gridBg) {
-    gsap.to(gridBg, {
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      opacity: 0,
-      ease: 'none'
-    });
-  }
-
-  return runTimeline;
+  return () => {};
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -432,11 +369,52 @@ function initScrollReveals() {
       gsap.to(batch, {
         opacity: 1, y: 0, scale: 1,
         stagger: 0.07, duration: 0.85,
-        ease: SPRING_SOFT, overwrite: true,
+        ease: SPRING_SOFT, overwrite: 'auto',
       }),
-    start: 'top 88%',
-    once:  true,
+    onEnterBack: batch =>
+      gsap.to(batch, {
+        opacity: 1, y: 0, scale: 1,
+        stagger: 0.07, duration: 0.85,
+        ease: SPRING_SOFT, overwrite: 'auto',
+      }),
+    start: 'top 92%',
+    once: true,
   });
+
+  // IntersectionObserver safety net: guarantees visibility if ScrollTrigger calculation is delayed by dynamic React layout mounts
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gsap.to(entry.target, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              ease: SPRING_SOFT,
+              overwrite: 'auto',
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -5% 0px', threshold: 0.05 }
+    );
+
+    els.forEach(el => observer.observe(el));
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   5.b About section mounting (React + GSAP ScrollTrigger)
+   ───────────────────────────────────────────────────────────── */
+function initAboutSection() {
+  const container = document.getElementById('about-section-root');
+  if (container) {
+    const root = createRoot(container);
+    root.render(React.createElement(AboutSection));
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -540,129 +518,46 @@ function initServicesStickyScroll() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   6.c Capabilities Stacking Scroll (Framer Card Stacking)
+   6.c Capabilities Pinned Horizontal Scroll on Vertical Page Scroll
    ───────────────────────────────────────────────────────────── */
 function initCapabilitiesStack() {
   const section = document.getElementById('hero-step-3');
-  const stack = document.querySelector('.capabilities-stack');
-  if (!section || !stack) return;
+  const track = document.getElementById('services-carousel-track');
+  if (!section || !track) return;
 
-  const cards = stack.querySelectorAll('.capability-card');
-  if (!cards.length) return;
+  if (!HAS_GSAP || !HAS_ST || REDUCED) return;
 
-  if (!HAS_GSAP || !HAS_ST || REDUCED) {
-    return;
-  }
+  const wrapper = track.parentElement;
 
   const mm = gsap.matchMedia();
 
-  mm.add("(min-width: 992px)", () => {
-    // We pin the section for 2.5 viewports worth of scroll to allow all cards to stack
-    const tl = gsap.timeline({
+  mm.add("(min-width: 768px)", () => {
+    const getScrollAmount = () => {
+      return Math.max(0, track.scrollWidth - wrapper.clientWidth);
+    };
+
+    gsap.to(track, {
+      x: () => -getScrollAmount(),
+      ease: "none",
       scrollTrigger: {
         trigger: section,
         pin: true,
         scrub: 1,
         start: "top top",
-        end: "+=250%",
-        invalidateOnRefresh: true
+        end: () => `+=${getScrollAmount() + 400}`,
+        invalidateOnRefresh: true,
       }
     });
-
-    // Configure initial positions for desktop absolute cards:
-    // Card 0 (first card) is active by default.
-    // Cards 1-5 are positioned below the stacking view.
-    cards.forEach((card, index) => {
-      if (index === 0) {
-        gsap.set(card, { y: 0, scale: 1, opacity: 1, pointerEvents: "auto", zIndex: 10 });
-      } else {
-        gsap.set(card, { y: "120%", scale: 0.9, opacity: 0, pointerEvents: "none", zIndex: 10 + index });
-      }
-    });
-
-    // Build the stacking timeline sequentially
-    // With 6 cards, there are 5 card transitions.
-    // Each transition:
-    // - Slide up the incoming card (card index `i`) to `y: 0, scale: 1, opacity: 1`
-    // - For the card immediately below (`i-1`), animate to `scale: 0.95, y: -22, opacity: 0.45`
-    // - For the card under that (`i-2`), animate to `scale: 0.90, y: -44, opacity: 0` (fades out completely to show max 2 cards)
-    for (let i = 1; i < cards.length; i++) {
-      const incomingCard = cards[i];
-      const prevCard = cards[i - 1];
-      const prevPrevCard = i >= 2 ? cards[i - 2] : null;
-
-      const stepLabel = `step-${i}`;
-      tl.addLabel(stepLabel);
-
-      // Slide in incoming card
-      tl.to(incomingCard, {
-        y: "0%",
-        scale: 1,
-        opacity: 1,
-        pointerEvents: "auto",
-        zIndex: 20,
-        duration: 1,
-        ease: "power1.inOut"
-      }, stepLabel);
-
-      // Shift back the previous card
-      tl.to(prevCard, {
-        scale: 0.95,
-        y: -22,
-        opacity: 0.45,
-        pointerEvents: "none",
-        zIndex: 15,
-        duration: 1,
-        ease: "power1.inOut"
-      }, stepLabel);
-
-      // Completely fade out the card before previous card
-      if (prevPrevCard) {
-        tl.to(prevPrevCard, {
-          scale: 0.9,
-          y: -44,
-          opacity: 0,
-          pointerEvents: "none",
-          zIndex: 10,
-          duration: 1,
-          ease: "power1.inOut"
-        }, stepLabel);
-      }
-
-      // Animate progress bar fill width
-      tl.to('.cap-progress-fill', {
-        width: `${((i + 1) / cards.length) * 100}%`,
-        duration: 1,
-        ease: "power1.inOut"
-      }, stepLabel);
-
-      // Update current index string dynamically during scrub
-      const capCounter = { val: i };
-      tl.to(capCounter, {
-        val: i + 1,
-        duration: 1,
-        ease: "power1.inOut",
-        onUpdate: function() {
-          const numEl = document.querySelector('.cap-current-num');
-          if (numEl) {
-            const currentVal = Math.round(this.targets()[0].val);
-            numEl.textContent = String(currentVal).padStart(2, '0');
-          }
-        }
-      }, stepLabel);
-    }
 
     return () => {
-      // Cleanup inline styles on destroy/resize
-      cards.forEach(card => {
-        gsap.set(card, { clearProps: "all" });
-      });
-      // Reset progress string
-      const numEl = document.querySelector('.cap-current-num');
-      if (numEl) numEl.textContent = '01';
-      const fillEl = document.querySelector('.cap-progress-fill');
-      if (fillEl) fillEl.style.width = '16.666%';
+      gsap.set(track, { clearProps: "all" });
     };
+  });
+
+  mm.add("(max-width: 767px)", () => {
+    track.style.overflowX = 'auto';
+    track.style.scrollBehavior = 'smooth';
+    track.style.scrollSnapType = 'x mandatory';
   });
 }
 
@@ -671,6 +566,7 @@ function initCapabilitiesStack() {
    ───────────────────────────────────────────────────────────── */
 function initWorkCards() {
   if (!HAS_GSAP || !HAS_ST || REDUCED) return;
+  if (!document.querySelector('.work-card') || !document.querySelector('.work-grid')) return;
 
   gsap.set('.work-card', { opacity: 0, y: 56, scale: 0.95, rotateY: -4 });
   gsap.to('.work-card', {
@@ -681,22 +577,25 @@ function initWorkCards() {
   });
 }
 
-
-
-
-/* ─────────────────────────────────────────────────────────────
-   11. Footer CTA
-   ───────────────────────────────────────────────────────────── */
 function initFooterCTA() {
   if (!HAS_GSAP || !HAS_ST || REDUCED) return;
+  if (!document.querySelector('.footer-cta-strip')) return;
 
-  gsap.timeline({
+  const tl = gsap.timeline({
     scrollTrigger: { trigger: '.footer-cta-strip', start: 'top 82%', once: true },
-  })
-    .from('.footer-cta-headline', { opacity: 0, x: -36, duration: 1.0 }, 0)
-    .from('.footer-cta-sub',      { opacity: 0, x: -28, duration: 0.9 }, 0.15)
-    .from('.footer-contact-info .contact-item', { opacity: 0, y: 15, stagger: 0.08, duration: 0.8 }, 0.25)
-    .from('.contact-form > *',    { opacity: 0, y: 20, stagger: 0.08, duration: 0.8 }, 0.2);
+  });
+  if (document.querySelector('.footer-cta-headline')) {
+    tl.from('.footer-cta-headline', { opacity: 0, x: -36, duration: 1.0 }, 0);
+  }
+  if (document.querySelector('.footer-cta-sub')) {
+    tl.from('.footer-cta-sub', { opacity: 0, x: -28, duration: 0.9 }, 0.15);
+  }
+  if (document.querySelector('.footer-contact-info .contact-item')) {
+    tl.from('.footer-contact-info .contact-item', { opacity: 0, y: 15, stagger: 0.08, duration: 0.8 }, 0.25);
+  }
+  if (document.querySelector('.contact-form > *')) {
+    tl.from('.contact-form > *', { opacity: 0, y: 20, stagger: 0.08, duration: 0.8 }, 0.2);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -860,79 +759,9 @@ function initBillboardShowcase() {
   const showcaseSec = document.getElementById('model-showcase');
   const container   = document.querySelector('.billboard-container');
   const structure   = document.getElementById('billboard-structure');
-  const frame       = document.querySelector('.billboard-frame');
+  const flipper     = document.getElementById('billboard-flipper');
 
   if (!container || !structure) return;
-
-  let isZoomed = false;
-
-  /* ─── Scroll-Linked Pin & Zoom Animation ─── */
-  if (HAS_GSAP && HAS_ST && !REDUCED) {
-    const getTargetScale = () => {
-      const w = frame.offsetWidth || 620;
-      const h = frame.offsetHeight || 348;
-      const scaleX = window.innerWidth / w;
-      const scaleY = window.innerHeight / h;
-      return Math.max(scaleX, scaleY) * 1.15;
-    };
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: showcaseSec,
-        start: 'top top',
-        end: '+=180%',
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          isZoomed = self.progress > 0.05;
-          if (isZoomed && rotateXTo && rotateYTo) {
-            // Reset mouse tilt when zoomed
-            rotateXTo(0);
-            rotateYTo(0);
-          }
-        }
-      }
-    })
-    .to('.section-header-container', { opacity: 0, yPercent: -40, duration: 0.3 }, 0)
-    .to('.model-caption', { opacity: 0, yPercent: 40, duration: 0.3 }, 0)
-    .to('.model-badge', { opacity: 0, scale: 0.3, duration: 0.4, stagger: 0.05 }, 0)
-    .to('.billboard-spotlights', { opacity: 0, duration: 0.3 }, 0)
-    .to('.billboard-backlight', { opacity: 0, duration: 0.3 }, 0)
-    .to('.billboard-neck, .billboard-column, .billboard-base', { 
-      y: 240, 
-      opacity: 0, 
-      duration: 0.6,
-      ease: 'power2.inOut' 
-    }, 0)
-    .to(frame, {
-      scale: () => getTargetScale(),
-      duration: 1.0,
-      ease: 'power2.inOut'
-    }, 0.1)
-    .to('#billboard-trusted-overlay', {
-      opacity: 1,
-      pointerEvents: 'auto',
-      duration: 0.5,
-      ease: 'power2.out'
-    }, 0.3)
-    .to('.led-grid-overlay', {
-      opacity: 0.25,
-      duration: 0.5
-    }, 0.3);
-  } else if (HAS_GSAP && HAS_ST && REDUCED) {
-    // Reduced motion accessibility fallback: fade in the trusted overlay when in view
-    gsap.to('#billboard-trusted-overlay', {
-      scrollTrigger: {
-        trigger: showcaseSec,
-        start: 'top 50%',
-        once: true
-      },
-      opacity: 1,
-      pointerEvents: 'auto',
-      duration: 0.8
-    });
-  }
 
   // Programmatic video autoplay initialization
   const videos = document.querySelectorAll('video');
@@ -941,6 +770,57 @@ function initBillboardShowcase() {
       console.warn("Video autoplay blocked, waiting for user interaction:", err);
     });
   });
+
+  /* ─── Pinned Scroll-Driven 3D Screen Flip ─── */
+  if (HAS_GSAP && HAS_ST && !REDUCED && flipper && showcaseSec) {
+    const wrapper = document.querySelector('.billboard-structure-wrapper');
+    const badges  = wrapper ? wrapper.querySelectorAll('.model-badge') : [];
+
+    const flipTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: showcaseSec,
+        pin: true,
+        start: 'top top',
+        end: '+=1100',
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // 1. Initial 3D depth perspective & subtle scaling
+    flipTl.fromTo(structure,
+      { scale: 0.92, rotateX: 6 },
+      { scale: 1, rotateX: 0, ease: 'power1.out', duration: 0.3 }
+    );
+
+    // 2. Smooth 180-degree LED screen flip
+    flipTl.to(flipper, {
+      rotateY: 180,
+      ease: 'power2.inOut',
+      duration: 1.4
+    }, 0.2);
+
+    // 3. Spec badges float & scale pulse during flip
+    if (badges.length) {
+      flipTl.to(badges, {
+        scale: 1.08,
+        opacity: 1,
+        stagger: 0.05,
+        duration: 0.5,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut'
+      }, 0.5);
+    }
+
+    // 4. Final hold effect after flip completes
+    flipTl.to(structure, {
+      scale: 1.02,
+      ease: 'power1.out',
+      duration: 0.3
+    }, 1.6);
+  }
 
   /* ─── Mouse-Tracking 3D Perspective Tilt ─── */
   if (REDUCED) return;
@@ -952,15 +832,12 @@ function initBillboardShowcase() {
   let wrapperRect = null;
   let enterScrollX = 0;
   let enterScrollY = 0;
-  let isHovered = false;
   let rotateYTo = null;
   let rotateXTo = null;
   let badgeXTos = [];
   let badgeYTos = [];
 
   const handleMouseEnter = () => {
-    if (isZoomed) return;
-    isHovered = true;
     wrapperRect = wrapper.getBoundingClientRect();
     enterScrollX = window.scrollX;
     enterScrollY = window.scrollY;
@@ -981,7 +858,6 @@ function initBillboardShowcase() {
 
   let billboardTicking = false;
   const handleMouseMove = (e) => {
-    if (isZoomed) return;
     if (!wrapperRect) {
       wrapperRect = wrapper.getBoundingClientRect();
       enterScrollX = window.scrollX;
@@ -1021,7 +897,6 @@ function initBillboardShowcase() {
   };
 
   const handleMouseLeave = () => {
-    isHovered = false;
     wrapperRect = null;
     if (HAS_GSAP) {
       gsap.to(structure, {
@@ -1052,21 +927,13 @@ function initBillboardShowcase() {
   wrapper.addEventListener('mouseenter', handleMouseEnter, { passive: true });
   wrapper.addEventListener('mousemove', handleMouseMove, { passive: true });
   wrapper.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+}
 
-  // Entrance animation for the billboard structure
-  if (HAS_GSAP && HAS_ST) {
-    gsap.from(structure, {
-      scrollTrigger: {
-        trigger: showcaseSec,
-        start: 'top 75%',
-        once: true
-      },
-      opacity: 0,
-      y: 40,
-      rotateX: -10,
-      duration: 1.2,
-      ease: 'power3.out'
-    });
+function initAdvertisingSolutions() {
+  const container = document.getElementById('advertising-solutions-root');
+  if (container) {
+    const root = createRoot(container);
+    root.render(React.createElement(AdvertisingSolutions));
   }
 }
 
@@ -1077,6 +944,9 @@ function initBillboardShowcase() {
    3. Three.js (own RAF, reads GSAP-mutated scrollData object)
    ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Mount React Advertising Solutions component
+  initAdvertisingSolutions();
 
   // Initialize Lenis first – it will be idle while preloader is active.
   initLenis();
@@ -1095,10 +965,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Continue with other init calls.
     initHeroStickyScroll();
     initScrollReveals();
+    initAboutSection();
     initServiceCards();
     initServicesStickyScroll();
     initCapabilitiesStack();
     initWorkCards();
+    initFocusGallery();
     initFooterCTA();
     initGlassBars();
     initBillboardShowcase();
@@ -1115,6 +987,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticHover();
     initCardTilt();
     initLabelTagReveals();
+    initLocationsRibbon();
+    initLocationModal();
+    initCollapsibleSubcategories();
     return;
   }
 
@@ -1206,10 +1081,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- CONTINUE OTHER PAGE INIT ----------
   initHeroStickyScroll();
   initScrollReveals();
+  initAboutSection();
   initServiceCards();
   initServicesStickyScroll();
   initCapabilitiesStack();
   initWorkCards();
+  initFocusGallery();
   initFooterCTA();
   initGlassBars();
   initBillboardShowcase();
@@ -1218,9 +1095,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initContactForm();
 
-  // Final ScrollTrigger refresh after layout is stable.
+  // Final ScrollTrigger refresh after layout is stable + staggered refreshes for async React components
   if (HAS_ST) {
-    requestAnimationFrame(() => {
+    [50, 200, 600, 1500].forEach(delay => {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, delay);
+    });
+    window.addEventListener('load', () => {
       ScrollTrigger.refresh();
     });
   }
@@ -1229,6 +1111,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagneticHover();
   initCardTilt();
   initLabelTagReveals();
+  initLocationsRibbon();
+  initLocationModal();
+  initCollapsibleSubcategories();
 });
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1246,6 +1131,8 @@ function initSectionWordReveals() {
 
   // Section headlines (excluding hero which has its own char animation)
   document.querySelectorAll('.section-headline').forEach(el => {
+    if (el.dataset.wordRevealsInitialized) return;
+    el.dataset.wordRevealsInitialized = 'true';
     // Split words
     const words = [];
     const temp = document.createElement('div');
@@ -1304,63 +1191,8 @@ function initSectionWordReveals() {
    Matches Framer Motion's useMagneticHover pattern.
    ───────────────────────────────────────────────────────────── */
 function initMagneticHover() {
-  if (!HAS_GSAP || REDUCED) return;
-
-  const magnetEls = document.querySelectorAll('.nav-cta, .btn-primary, .btn-submit, .btn-ghost');
-
-  magnetEls.forEach(el => {
-    const strength = 0.35; // pull strength (0 = none, 1 = follows fully)
-    let r = null;
-    let xTo = null;
-    let yTo = null;
-
-    function onEnter() {
-      r = el.getBoundingClientRect();
-      if (!xTo) {
-        xTo = gsap.quickTo(el, 'x', { duration: 0.4, ease: SPRING_SOFT });
-        yTo = gsap.quickTo(el, 'y', { duration: 0.4, ease: SPRING_SOFT });
-      }
-    }
-
-    let ticking = false;
-    let targetX = 0;
-    let targetY = 0;
-    function onMove(e) {
-      if (!r) {
-        r = el.getBoundingClientRect();
-      }
-      const cx   = r.left + r.width  / 2;
-      const cy   = r.top  + r.height / 2;
-      targetX = e.clientX - cx;
-      targetY = e.clientY - cy;
-
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (xTo && yTo) {
-            xTo(targetX * strength);
-            yTo(targetY * strength);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
-    function onLeave() {
-      r = null;
-      gsap.to(el, {
-        x: 0,
-        y: 0,
-        duration: 0.6,
-        ease: SPRING,
-        overwrite: 'auto'
-      });
-    }
-
-    el.addEventListener('mouseenter', onEnter, { passive: true });
-    el.addEventListener('mousemove', onMove, { passive: true });
-    el.addEventListener('mouseleave', onLeave, { passive: true });
-  });
+  // Magnetic hover disabled to keep buttons stationary on hover
+  return;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -1372,54 +1204,27 @@ function initMagneticHover() {
 function initCardTilt() {
   if (!HAS_GSAP || REDUCED) return;
 
-  const cards = document.querySelectorAll('.service-card, .work-card, .glass-card, .capability-card');
+  const cards = document.querySelectorAll('.service-card, .work-card, .glass-card');
 
   cards.forEach(card => {
-    const maxTilt = 9; // max degrees
-    const glowEl  = document.createElement('div');
-    glowEl.className = 'card-cursor-glow';
-    glowEl.setAttribute('aria-hidden', 'true');
-    glowEl.style.cssText = [
-      'position:absolute',
-      'width:300px',
-      'height:300px',
-      'top:-150px',
-      'left:-150px',
-      'border-radius:50%',
-      'opacity:0',
-      'pointer-events:none',
-      'transition:opacity 0.35s ease',
-      'background:radial-gradient(circle, rgba(61,126,255,0.15) 0%, transparent 70%)',
-      'z-index:1',
-      'will-change:transform',
-    ].join(';');
-    if (window.getComputedStyle(card).position === 'static') {
-      card.style.position = 'relative';
-    }
-    card.appendChild(glowEl);
+    const maxTilt = 8;
+    const targetEl = card.querySelector('.glow-content') || card;
 
-    const setRotX = gsap.quickSetter(card, 'rotateX', 'deg');
-    const setRotY = gsap.quickSetter(card, 'rotateY', 'deg');
-    const setGlowX = gsap.quickSetter(glowEl, 'x', 'px');
-    const setGlowY = gsap.quickSetter(glowEl, 'y', 'px');
+    const setRotX = gsap.quickSetter(targetEl, 'rotateX', 'deg');
+    const setRotY = gsap.quickSetter(targetEl, 'rotateY', 'deg');
 
     let rect = null;
 
     card.addEventListener('mouseenter', () => {
       rect = card.getBoundingClientRect();
-      card.style.transformStyle = 'preserve-3d';
-      card.style.transition = 'none';
-      card.style.willChange = 'transform';
-      glowEl.style.opacity = '1';
+      targetEl.style.willChange = 'transform';
     });
 
     let tiltTicking = false;
     let cardMX = 0;
     let cardMY = 0;
     card.addEventListener('mousemove', e => {
-      if (!rect) {
-        rect = card.getBoundingClientRect();
-      }
+      if (!rect) rect = card.getBoundingClientRect();
       cardMX = e.clientX - rect.left;
       cardMY = e.clientY - rect.top;
 
@@ -1433,8 +1238,6 @@ function initCardTilt() {
           
           setRotX(rx);
           setRotY(ry);
-          setGlowX(cardMX);
-          setGlowY(cardMY);
           tiltTicking = false;
         });
         tiltTicking = true;
@@ -1443,21 +1246,13 @@ function initCardTilt() {
 
     card.addEventListener('mouseleave', () => {
       rect = null;
-      gsap.to(card, {
+      gsap.to(targetEl, {
         rotateX: 0, rotateY: 0,
-        duration: 0.6, ease: SPRING,
-        overwrite: 'auto',
+        duration: 0.5, ease: 'power2.out',
         onComplete() {
-          card.style.willChange = 'auto';
-          card.style.transformStyle = ''; // Reset 3D context to restore normal 2D z-indexing
+          targetEl.style.willChange = 'auto';
         }
       });
-      gsap.to(glowEl, {
-        x: 0, y: 0,
-        duration: 0.6, ease: SPRING,
-        overwrite: 'auto'
-      });
-      glowEl.style.opacity = '0';
     });
   });
 }
@@ -1488,4 +1283,773 @@ function initLabelTagReveals() {
     });
   });
 }
+
+/* ─────────────────────────────────────────────────────────────
+   F. Focus Gallery Scroll & Active Category Tracker
+   ───────────────────────────────────────────────────────────── */
+function initFocusGallery() {
+  const categoryBlocks = document.querySelectorAll('.focus-category-block');
+  const navBtns = document.querySelectorAll('.focus-nav-btn');
+
+  if (!categoryBlocks.length) return;
+
+  // IntersectionObserver to highlight active category block and nav pill
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          categoryBlocks.forEach(b => b.classList.remove('is-focused'));
+          entry.target.classList.add('is-focused');
+
+          const region = entry.target.getAttribute('data-region');
+          navBtns.forEach(btn => {
+            const target = btn.getAttribute('data-target');
+            btn.classList.toggle('active', target === `focus-${region}`);
+          });
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -40% 0px',
+      threshold: 0.2
+    });
+
+    categoryBlocks.forEach(block => observer.observe(block));
+  }
+
+  // Smooth click jump for focus nav buttons
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetId = btn.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          smoothScrollTo(targetEl, -100);
+        }
+      }
+    });
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   G. Infinite Locations Text Ribbon Loop
+   Mathematically exact 0-jump seamless infinite scrolling ribbon
+   Optimized for 60-120 FPS with pre-baked glyph caching, direct matrix transforms & layer slice blitting
+   ───────────────────────────────────────────────────────────── */
+function initLocationsRibbon() {
+  const container = document.querySelector('.locations-ribbon-wrapper');
+  if (!container) return;
+
+  const canvas = document.getElementById('locations-ribbon-canvas') || container.querySelector('canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+
+  // Front canvas for the middle ribbon band (renders ON TOP of the map)
+  const canvasFront = document.getElementById('locations-ribbon-canvas-front');
+  const ctxFront = canvasFront ? canvasFront.getContext('2d', { alpha: true }) : null;
+
+  const pathD = "M-98 194C260 326 450 318 770 294 1010 262 1200 182 1430 150 1530 134 1631 129 1718 202.8 1810 289 1810 438 1540 510 1190 606 810 470 430 550 251 590 140 670 160 790 192 910 308 917 410 926 530 934 620 918 790 886 943 854 1100 806 1240 790 1500 750 1720 774 2120 945";
+
+  let path2D = null;
+  if (typeof Path2D !== 'undefined') {
+    path2D = new Path2D(pathD);
+  }
+
+  const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  pathEl.setAttribute('d', pathD);
+  const totalLength = pathEl.getTotalLength ? pathEl.getTotalLength() : 3500;
+
+  const STEP = 2; // sample point every 2px for smooth curve layout
+  const numSamples = Math.ceil(totalLength / STEP);
+  // Store x, y, cos(angle), sin(angle) in a typed Float32Array
+  const samples = new Float32Array(numSamples * 4);
+
+  for (let i = 0; i < numSamples; i++) {
+    const len = i * STEP;
+    const p1 = pathEl.getPointAtLength(len);
+    const p2 = pathEl.getPointAtLength(Math.min(totalLength, len + 2));
+    const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+    samples[i * 4] = p1.x;
+    samples[i * 4 + 1] = p1.y;
+    samples[i * 4 + 2] = Math.cos(angle);
+    samples[i * 4 + 3] = Math.sin(angle);
+  }
+
+  const unitText = "OUR LOCATIONS ACROSS THE PHILIPPINES — LUZON — VISAYAS — MINDANAO — ";
+
+  let charOffsets = null;
+  let unitLength = 0;
+  let animId = null;
+  let isRibbonVisible = true;
+  let offset = 0;
+  let lastTime = 0;
+  let glyphCache = null;
+
+  // Middle band Y range in viewBox coordinates (where ribbon crosses the map center)
+  const MIDDLE_BAND_TOP = 340;
+  const MIDDLE_BAND_BOTTOM = 660;
+
+  // Build offscreen glyph cache atlas for ultra-fast GPU text rendering
+  const buildGlyphCache = (dpr) => {
+    const cache = {};
+    const fontStr = '900 88px Satoshi, system-ui, -apple-system, sans-serif';
+
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.font = fontStr;
+
+    const uniqueChars = Array.from(new Set(unitText));
+
+    uniqueChars.forEach(ch => {
+      const textMetrics = tempCtx.measureText(ch);
+      const fontSize = 88;
+      const pad = 30; // padding in viewBox units
+      const viewBoxW = textMetrics.width + pad * 2;
+      const viewBoxH = fontSize * 1.6 + pad * 2;
+
+      const pxW = Math.ceil(viewBoxW * dpr);
+      const pxH = Math.ceil(viewBoxH * dpr);
+
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = pxW;
+      offCanvas.height = pxH;
+      const oCtx = offCanvas.getContext('2d');
+
+      oCtx.scale(dpr, dpr);
+      oCtx.font = fontStr;
+      oCtx.textAlign = 'center';
+      oCtx.textBaseline = 'middle';
+      oCtx.lineWidth = 6;
+      oCtx.strokeStyle = '#020617';
+      oCtx.fillStyle = '#ffffff';
+
+      const centerX = viewBoxW / 2;
+      const centerY = viewBoxH / 2;
+
+      oCtx.strokeText(ch, centerX, centerY);
+      oCtx.fillText(ch, centerX, centerY);
+
+      cache[ch] = {
+        canvas: offCanvas,
+        viewBoxW: viewBoxW,
+        viewBoxH: viewBoxH,
+        centerX: centerX,
+        centerY: centerY,
+        advanceWidth: textMetrics.width
+      };
+    });
+
+    return cache;
+  };
+
+  const setupDimensionsAndMetrics = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const viewBoxWidth = 1920;
+    const viewBoxHeight = 1080;
+
+    const width = container.clientWidth || window.innerWidth;
+    const height = Math.round(width * (viewBoxHeight / viewBoxWidth));
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    // Setup front canvas to match
+    if (canvasFront) {
+      canvasFront.width = width * dpr;
+      canvasFront.height = height * dpr;
+      canvasFront.style.width = width + 'px';
+      canvasFront.style.height = height + 'px';
+    }
+
+    glyphCache = buildGlyphCache(dpr);
+
+    charOffsets = new Float32Array(unitText.length + 1);
+    let currentX = 0;
+    const letterSpacing = 8;
+
+    for (let i = 0; i < unitText.length; i++) {
+      charOffsets[i] = currentX;
+      const charWidth = glyphCache[unitText[i]] ? glyphCache[unitText[i]].advanceWidth : 40;
+      currentX += charWidth + letterSpacing;
+    }
+    charOffsets[unitText.length] = currentX;
+    unitLength = currentX;
+  };
+
+  const renderFrame = (now) => {
+    if (!lastTime) lastTime = now;
+    const dt = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+
+    if (!REDUCED && unitLength > 0) {
+      offset = (offset + 85 * dt) % unitLength;
+    }
+
+    const viewBoxWidth = 1920;
+    const viewBoxHeight = 1080;
+    const scale = canvas.width / viewBoxWidth; // converts viewBox space (1920) to physical canvas pixels
+
+    // 1. Clear Back Canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 2. Draw Wavy Ribbon Base Path with Dynamic Rainbow Gradient
+    const hueShift = (now * 0.04) % 360;
+    const rainbowGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    rainbowGradient.addColorStop(0.00, `hsl(${hueShift % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(0.16, `hsl(${(hueShift + 60) % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(0.33, `hsl(${(hueShift + 120) % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(0.50, `hsl(${(hueShift + 180) % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(0.66, `hsl(${(hueShift + 240) % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(0.83, `hsl(${(hueShift + 300) % 360}, 100%, 55%)`);
+    rainbowGradient.addColorStop(1.00, `hsl(${(hueShift + 360) % 360}, 100%, 55%)`);
+
+    if (path2D) {
+      ctx.save();
+      ctx.scale(scale, scale);
+      ctx.lineWidth = 180;
+      ctx.strokeStyle = rainbowGradient;
+      ctx.stroke(path2D);
+      ctx.restore();
+    }
+
+    // 3. Draw Pre-rendered Text Glyphs along curve (Ultra-fast GPU textured blit)
+    if (unitLength > 0 && glyphCache) {
+      const numRepeats = Math.ceil((totalLength + unitLength) / unitLength) + 1;
+
+      for (let r = 0; r < numRepeats; r++) {
+        const baseDistance = r * unitLength - offset;
+
+        for (let c = 0; c < unitText.length; c++) {
+          const charDistance = baseDistance + charOffsets[c];
+          if (charDistance < -60 || charDistance > totalLength + 60) continue;
+
+          const sampleIdx = Math.floor(charDistance / STEP);
+          if (sampleIdx < 0 || sampleIdx >= numSamples) continue;
+
+          const idx = sampleIdx * 4;
+          const x = samples[idx];
+          const y = samples[idx + 1];
+          const cos = samples[idx + 2];
+          const sin = samples[idx + 3];
+
+          const ch = unitText[c];
+          const g = glyphCache[ch];
+          if (!g) continue;
+
+          // Direct 2D matrix transformation to map viewBox coordinates to canvas physical pixels
+          ctx.setTransform(
+            cos * scale,
+            sin * scale,
+            -sin * scale,
+            cos * scale,
+            x * scale,
+            y * scale
+          );
+
+          ctx.drawImage(
+            g.canvas,
+            -g.centerX,
+            -g.centerY,
+            g.viewBoxW,
+            g.viewBoxH
+          );
+        }
+      }
+      // Reset matrix transform
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    // 4. Front Layer Slice Blit: Copy ONLY the middle band to the front canvas (Instant GPU copy)
+    if (ctxFront) {
+      ctxFront.clearRect(0, 0, canvasFront.width, canvasFront.height);
+
+      const clipYTopPx = Math.floor(MIDDLE_BAND_TOP * (canvas.height / viewBoxHeight));
+      const clipHPx = Math.ceil((MIDDLE_BAND_BOTTOM - MIDDLE_BAND_TOP) * (canvas.height / viewBoxHeight));
+
+      ctxFront.drawImage(
+        canvas,
+        0, clipYTopPx, canvas.width, clipHPx,
+        0, clipYTopPx, canvas.width, clipHPx
+      );
+    }
+
+    if (isRibbonVisible && !REDUCED) {
+      animId = requestAnimationFrame(renderFrame);
+    }
+  };
+
+  const startLoop = () => {
+    if (animId) cancelAnimationFrame(animId);
+    lastTime = 0;
+    if (isRibbonVisible) {
+      animId = requestAnimationFrame(renderFrame);
+    }
+  };
+
+  const stopLoop = () => {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isRibbonVisible = entry.isIntersecting;
+        if (isRibbonVisible) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      });
+    }, { threshold: 0 });
+    observer.observe(container);
+  }
+
+  const initCanvas = () => {
+    setupDimensionsAndMetrics();
+    startLoop();
+  };
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(initCanvas);
+  } else {
+    setTimeout(initCanvas, 100);
+  }
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      setupDimensionsAndMetrics();
+      if (!animId && isRibbonVisible) startLoop();
+    }, 150);
+  }, { passive: true });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   H. Location Photo & Details Modal
+   ───────────────────────────────────────────────────────────── */
+function initLocationModal() {
+  const cards = document.querySelectorAll('.locations-card');
+  const modal = document.getElementById('location-modal');
+  if (!modal || !cards.length) return;
+
+  const closeBtn = document.getElementById('location-modal-close');
+  const imgEl = document.getElementById('modal-location-img');
+  const tagOverlayEl = document.getElementById('modal-location-tag-overlay');
+  const tagEl = document.getElementById('modal-location-tag');
+  const titleEl = document.getElementById('modal-location-title');
+  const specTrafficEl = document.getElementById('modal-spec-traffic');
+  const specDisplayEl = document.getElementById('modal-spec-display');
+  const descEl = document.getElementById('modal-location-desc');
+  const inquireBtn = document.getElementById('modal-inquire-btn');
+
+  const locationDetailsMap = {
+    'work-card-bg--edsa-malibay-eb': {
+      image: '/assets/loc1.webp',
+      tag: 'EDSA Corridor · Pasay',
+      title: 'EDSA Pasay - Malibay Eastbound',
+      traffic: '390,000+ daily vehicles',
+      display: 'High-Impact Digital LED · Eastbound Corridor',
+      desc: 'Prime digital LED location situated on the busy eastbound artery of EDSA Pasay-Malibay, capturing dense commuters heading toward SLEX and NAIA Express routes.'
+    },
+    'work-card-bg--edsa-malibay-wb': {
+      image: '/assets/guadalupe.webp',
+      tag: 'EDSA Corridor · Pasay',
+      title: 'EDSA Pasay - Malibay Westbound',
+      traffic: '395,000+ daily vehicles',
+      display: 'High-Impact Digital LED · Westbound Corridor',
+      desc: 'Commands high visibility for westbound motorists and transit flows heading toward Roxas Boulevard, Mall of Asia, and Pasay transportation terminals.'
+    },
+    'work-card-bg--edsa-harrison-a': {
+      image: '/assets/loc2.webp',
+      tag: 'EDSA Pasay · F.B. Harrison',
+      title: 'EDSA Pasay F.B. Harrison (Frame A)',
+      traffic: '320,000+ daily vehicles',
+      display: 'Prime Junction LED · Frame A',
+      desc: 'Premier digital display frame targeting heavy traffic at the F.B. Harrison and EDSA intersection, reaching entertainment, hospitality, and corporate transit traffic.'
+    },
+    'work-card-bg--edsa-harrison-b': {
+      image: '/assets/solutions_digital_led.png',
+      tag: 'EDSA Pasay · F.B. Harrison',
+      title: 'EDSA Pasay F.B. Harrison (Frame B)',
+      traffic: '320,000+ daily vehicles',
+      display: 'Prime Junction LED · Frame B',
+      desc: 'High-exposure digital billboard unit strategically positioned to capture multi-lane vehicular streams crossing the F.B. Harrison intersection.'
+    },
+    'work-card-bg--edsa-harrison-c': {
+      image: '/assets/solutions_building_wrap.png',
+      tag: 'EDSA Pasay · F.B. Harrison',
+      title: 'EDSA Pasay F.B. Harrison (Frame C)',
+      traffic: '320,000+ daily vehicles',
+      display: 'Prime Junction LED · Frame C',
+      desc: 'Wide-angle landscape digital frame delivering extended dwell times and crisp 24/7 visibility along Pasay City\'s major thoroughfare.'
+    },
+    'work-card-bg--espana-lacson': {
+      image: '/assets/solutions_static_billboard.png',
+      tag: 'University Belt · Manila',
+      title: 'España Cor. Lacson Ave. Stoplight',
+      traffic: '280,000+ daily vehicles & commuters',
+      display: 'High-Dwell Signalized Junction LED',
+      desc: 'Located directly at the signalized intersection of España Boulevard and Lacson Avenue, providing prolonged visual engagement to University Belt students, hospital commuters, and Manila transit.'
+    },
+    'work-card-bg--marisol-rotonda': {
+      image: '/assets/clark.webp',
+      tag: 'Angeles City · Pampanga',
+      title: 'Marisol Rotonda, Angeles, Pampanga',
+      traffic: '110,000+ daily commuters',
+      display: 'Rotunda Commercial LED Corridor',
+      desc: 'Dominant rotary digital billboard at Marisol Rotonda in Angeles City, capturing round-the-clock traffic moving between Clark Freeport, commercial districts, and residential zones.'
+    },
+    'work-card-bg--cebu-airport-arrival': {
+      image: '/assets/loc3.webp',
+      tag: 'Lapu-Lapu City · Mactan',
+      title: 'Cebu Airport Arrival Rd.',
+      traffic: '150,000+ daily airport travelers',
+      display: 'Exclusive Airport Arrival Display',
+      desc: 'Exclusive gateway digital screen capturing 100% of arriving domestic and international tourists, business executives, and airport visitors exiting Mactan-Cebu International Airport.'
+    },
+    'work-card-bg--cts-bacalso': {
+      image: '/assets/solutions_transit.png',
+      tag: 'Cebu City · N. Bacalso',
+      title: 'CTS - N. Bacalso Ave. Cebu',
+      traffic: '130,000+ daily commuters',
+      display: 'South Transit Corridor LED',
+      desc: 'High-density digital display along N. Bacalso Avenue, reaching daily bus terminal commuters, university students, and South Cebu transport traffic.'
+    },
+    'work-card-bg--cclex-srp-all': {
+      image: '/assets/solutions_custom_ooh.png',
+      tag: 'South Road Properties · CCLEX',
+      title: 'CCLEX - Cebu City Point (SRP) - All Faces',
+      traffic: '180,000+ daily vehicles',
+      display: 'Multi-Face Landmark LED Network',
+      desc: 'Panoramic multi-face digital display network at the Cebu City entry/exit of the landmark Cebu-Cordova Link Expressway (CCLEX) in South Road Properties.'
+    },
+    'work-card-bg--cclex-srp-frame-c': {
+      image: '/assets/solutions_pole_banner.png',
+      tag: 'South Road Properties · CCLEX',
+      title: 'CCLEX - Cebu City Point (SRP) - Frame C',
+      traffic: '180,000+ daily vehicles',
+      display: 'Expressway Landmark LED · Frame C',
+      desc: 'Dedicated digital billboard frame targeting vehicles traveling across the CCLEX bridge connection into Cebu City\'s premier coastal commercial district.'
+    },
+    'work-card-bg--archbishop-reyes-nb': {
+      image: '/assets/about_digital_led.png',
+      tag: 'Cebu Business Park · Northbound',
+      title: 'Cebu - Archbishop Reyes Ave. NB',
+      traffic: '135,000+ daily commuters',
+      display: 'Financial District Northbound LED',
+      desc: 'Prime northbound LED billboard along Archbishop Reyes Avenue, directly adjacent to Cebu Business Park and Ayala Center Cebu.'
+    },
+    'work-card-bg--archbishop-reyes-sb': {
+      image: '/assets/about_billboard_install.png',
+      tag: 'Cebu Business Park · Southbound',
+      title: 'Cebu - Archbishop Reyes Ave. SB',
+      traffic: '135,000+ daily commuters',
+      display: 'Financial District Southbound LED',
+      desc: 'High-visibility southbound digital display capturing executive commuters heading toward downtown Cebu and financial centers.'
+    },
+    'work-card-bg--cebu-osmena': {
+      image: '/assets/about_campaign_execution.png',
+      tag: 'Downtown Hub · Cebu City',
+      title: 'Cebu Osmeña Blvd.',
+      traffic: '160,000+ daily foot & vehicular traffic',
+      display: 'Downtown Heritage Corridor Screen',
+      desc: 'Commanding position along Osmeña Boulevard, Cebu City\'s iconic commercial and heritage spine, reaching high-volume pedestrian and vehicular flows.'
+    },
+    'work-card-bg--cebu-bacalso': {
+      image: '/assets/about_client_showcase.png',
+      tag: 'South Express Corridor · Cebu',
+      title: 'Cebu - N. Bacalso Ave.',
+      traffic: '125,000+ daily vehicles',
+      display: 'Major Highway Arterial Billboard',
+      desc: 'Strategic roadside display along N. Bacalso Avenue targeting provincial buses, commercial logistics, and South Cebu commuters.'
+    },
+    'work-card-bg--talisay-coastal-wb': {
+      image: '/assets/solutions_mall_advertising.png',
+      tag: 'Talisay City · Coastal Road',
+      title: 'Talisay - Cebu South Coastal Rd (WB)',
+      traffic: '140,000+ daily vehicles',
+      display: 'Coastal Express Highway LED (WB)',
+      desc: 'High-speed coastal highway billboard targeting westbound transit traffic connecting Talisay City to Metro Cebu.'
+    },
+    'work-card-bg--talisay-coastal-eb': {
+      image: '/assets/about_team_at_work.png',
+      tag: 'Talisay City · Coastal Road',
+      title: 'Talisay - Cebu South Coastal Rd (EB)',
+      traffic: '140,000+ daily vehicles',
+      display: 'Coastal Express Highway LED (EB)',
+      desc: 'Eastbound coastal expressway digital display offering long-range sightlines for motorists entering Southern Cebu resort and municipality routes.'
+    },
+    'work-card-bg--iloilo-airport-exit': {
+      image: '/assets/iloilo.webp',
+      tag: 'Cabatuan · Iloilo Airport',
+      title: 'Iloilo Airport Access Road (Exit)',
+      traffic: '85,000+ daily travelers',
+      display: 'Airport Exit Corridor LED',
+      desc: 'High-visibility billboard situated along the exit road of Iloilo International Airport, capturing all departing travelers and airport visitors.'
+    },
+    'work-card-bg--iloilo-airport-exit-large': {
+      image: '/assets/iloilo.webp',
+      tag: 'Cabatuan · Iloilo Airport',
+      title: 'Iloilo Airport Access Rd. Exit (Larger Site)',
+      traffic: '95,000+ daily travelers',
+      display: 'Landmark Wide-Format Exit LED',
+      desc: 'Large-format premium digital site on the airport exit road delivering maximum brand impact for corporate and luxury advertisers.'
+    },
+    'work-card-bg--iloilo-airport-entrance-large': {
+      image: '/assets/solutions_pole_banner.png',
+      tag: 'Cabatuan · Iloilo Airport',
+      title: 'Iloilo Airport Access Rd. Entrance (Larger Site)',
+      traffic: '95,000+ daily travelers',
+      display: 'Landmark Wide-Format Entrance LED',
+      desc: 'Dominant entrance corridor display catching 100% of airport-bound vehicular traffic from Iloilo City and neighboring Western Visayas provinces.'
+    },
+    'work-card-bg--mindanao-coming-soon': {
+      image: '/assets/davao.webp',
+      tag: 'Mindanao Region',
+      title: 'Expansion Sites — Coming Soon!',
+      traffic: 'Expansion in Progress',
+      display: 'Strategic Digital Billboard Network',
+      desc: 'U Channel is expanding its digital out-of-home footprint to prime high-impact corridors across Davao City, Cagayan de Oro, and key Mindanao commercial centers.'
+    },
+    'work-card-bg--1': {
+      image: '/assets/loc1.webp',
+      tag: 'Epifanio de los Santos Avenue',
+      title: 'EDSA Locations',
+      traffic: '390,000+ daily vehicles',
+      display: 'High-Impact Digital LED & Static Billboard Corridors',
+      desc: 'Flagship out-of-home advertising corridor spanning key Metro Manila junctions including EDSA Pasay-Malibay, F.B. Harrison, Guadalupe Bridge, and Ortigas Junction.'
+    },
+    'work-card-bg--guadalupe': {
+      image: '/assets/guadalupe.webp',
+      tag: 'EDSA Guadalupe · Metro Manila',
+      title: 'EDSA Guadalupe Bridge LED',
+      traffic: '410,000+ daily vehicles',
+      display: 'High-Exposure Riverfront Display',
+      desc: 'Dominating EDSA Guadalupe Bridge, one of Metro Manila\'s highest-density traffic bottlenecks. Reaches northbound and southbound vehicular streams, MRT-3 commuters, and Pasig River ferry passengers with 24/7 unmissable visual presence.'
+    },
+    'work-card-bg--2': {
+      image: '/assets/loc2.webp',
+      tag: 'Metro Manila & Surrounding Hubs',
+      title: 'Manila Locations',
+      traffic: '280,000+ daily vehicles & commuters',
+      display: 'High-Density Urban & Transit Junction LED Sites',
+      desc: 'Strategic high-impact billboard positions across Metro Manila hubs including España Cor. Lacson Ave, BGC Lawton Ave, and key commercial arteries.'
+    },
+    'work-card-bg--roxas': {
+      image: '/assets/solutions_building_wrap.png',
+      tag: 'Roxas Boulevard · Manila',
+      title: 'Roxas Boulevard Bayfront LED',
+      traffic: '200,000+ daily vehicles',
+      display: 'Bayfront Panoramic Display',
+      desc: 'Overlooking Manila Bay along historic Roxas Boulevard. Commands long-range visibility from commuters, tourists, and event attendees traveling toward the Cultural Center of the Philippines (CCP) complex, Mall of Asia, and Entertainment City.'
+    },
+    'work-card-bg--clark': {
+      image: '/assets/clark.webp',
+      tag: 'Clark Freeport & Special Economic Zone',
+      title: 'Pampanga Locations',
+      traffic: '110,000+ daily commuters & travelers',
+      display: 'Economic Zone & Transit Corridor Digital LED',
+      desc: 'Dominant billboard sites across Central Luzon, capturing executive and commercial traffic in Clark Freeport, Angeles City, and Marisol Rotonda.'
+    },
+    'work-card-bg--clark-gateway': {
+      image: '/assets/solutions_custom_ooh.png',
+      tag: 'Pampanga · Central Luzon',
+      title: 'Clark Gateway Ave LED',
+      traffic: '75,000+ daily commuters',
+      display: 'Dual-Face Landscape LED',
+      desc: 'Positioned right at the primary entry gate to Clark Freeport\'s central commercial sector, targeting tech executives, corporate locators, and affluent commercial traffic daily.'
+    },
+    'work-card-bg--3': {
+      image: '/assets/loc3.webp',
+      tag: 'Queen City of the South',
+      title: 'Cebu Locations',
+      traffic: '180,000+ daily reach across prime hubs',
+      display: 'Metropolitan & Coastal Expressway Display Network',
+      desc: '10+ premier advertising locations across Metro Cebu including Mactan Airport Arrival, CCLEX Expressway, Cebu Business Park, N. Bacalso, and Osmeña Boulevard.'
+    },
+    'work-card-bg--cebu-mactan': {
+      image: '/assets/solutions_transit.png',
+      tag: 'Lapu-Lapu City · Mactan',
+      title: 'Mactan-Cebu Airport Expressway LED',
+      traffic: '120,000+ daily travelers',
+      display: 'High-Impact Roadside Display',
+      desc: 'Located along the primary arterial highway connecting Mactan-Cebu International Airport to Cebu City and luxury beach resort corridors, reaching high-spending domestic and international tourists.'
+    },
+    'work-card-bg--iloilo': {
+      image: '/assets/iloilo.webp',
+      tag: 'City of Love · Western Visayas',
+      title: 'Iloilo Locations',
+      traffic: '95,000+ daily airport & urban commuters',
+      display: 'Airport Access & Commercial District Displays',
+      desc: 'High-visibility digital billboard network along the Iloilo International Airport Access Road and central commercial districts in Western Visayas.'
+    },
+    'work-card-bg--iloilo-diversion': {
+      image: '/assets/solutions_pole_banner.png',
+      tag: 'Iloilo City · Diversion Road',
+      title: 'Iloilo Diversion Road Billboard',
+      traffic: '70,000+ daily vehicles',
+      display: 'Tri-face Rotary LED',
+      desc: 'Spanning Sen. Benigno Aquino Jr. Avenue (Diversion Road), the key transit highway linking Iloilo International Airport with major shopping malls and business districts.'
+    },
+    'work-card-bg--davao': {
+      image: '/assets/davao.webp',
+      tag: 'Davao City · Southern Mindanao',
+      title: 'Davao Locations',
+      traffic: '110,000+ daily commuters',
+      display: 'Metropolitan Commercial Landmark Display',
+      desc: 'Commanding digital out-of-home placement at Davao City\'s landmark commercial plaza, reaching key business and consumer hubs across Southern Mindanao.'
+    },
+    'work-card-bg--cdo': {
+      image: '/assets/cdo.webp',
+      tag: 'Northern Mindanao Hub',
+      title: 'Cagayan de Oro Locations',
+      traffic: '100,000+ daily traffic',
+      display: 'Wraparound Facade & Commercial Digital LED',
+      desc: 'Premium digital display screen positioned at Ayala Centrio Mall facade in downtown Cagayan de Oro, capturing shoppers and commuters across Northern Mindanao.'
+    }
+  };
+
+  let currentActiveTitle = '';
+
+  const openModal = (card) => {
+    const bgEl = card.querySelector('[class*="work-card-bg--"]');
+    let key = '';
+    if (bgEl) {
+      const match = bgEl.className.match(/work-card-bg--[^\s]+/);
+      if (match) key = match[0];
+    }
+
+    const titleFromCard = card.querySelector('.work-title')?.textContent?.trim() || '';
+    const tagFromCard = card.querySelector('.work-tag')?.textContent?.trim() || '';
+    const metaFromCard = card.querySelector('.work-meta')?.textContent?.trim() || '';
+
+    const data = locationDetailsMap[key] || {
+      image: '/assets/loc1.webp',
+      tag: tagFromCard || 'Billboard Location',
+      title: titleFromCard || 'U Channel Location',
+      traffic: metaFromCard.split('·')[0]?.trim() || 'High daily traffic',
+      display: metaFromCard.split('·').slice(1).join('·').trim() || 'Premium Digital LED',
+      desc: 'Strategic out-of-home digital display capturing high-volume vehicular and pedestrian traffic with 24/7 high-brightness LED clarity.'
+    };
+
+    currentActiveTitle = data.title;
+
+    if (imgEl) {
+      imgEl.src = data.image;
+      imgEl.alt = data.title;
+    }
+    if (tagOverlayEl) tagOverlayEl.textContent = data.tag;
+    if (tagEl) tagEl.textContent = data.tag;
+    if (titleEl) titleEl.textContent = data.title;
+    if (specTrafficEl) specTrafficEl.textContent = data.traffic;
+    if (specDisplayEl) specDisplayEl.textContent = data.display;
+    if (descEl) descEl.textContent = data.desc;
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+
+    if (window.lenis) {
+      window.lenis.stop();
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+
+    if (window.lenis) {
+      window.lenis.start();
+    } else {
+      document.body.style.overflow = '';
+    }
+  };
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(card);
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeModal();
+    });
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+
+  if (inquireBtn) {
+    inquireBtn.addEventListener('click', () => {
+      closeModal();
+      const messageInput = document.getElementById('f-message');
+      if (messageInput) {
+        messageInput.value = `Hi U Channel, I am interested in inquiring about the ${currentActiveTitle} location for an upcoming campaign.`;
+        messageInput.focus();
+      }
+      const contactSec = document.getElementById('contact');
+      if (contactSec) {
+        smoothScrollTo(contactSec, -80);
+      }
+    });
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   I. Collapsible Subcategories on Locations Page
+   ───────────────────────────────────────────────────────────── */
+function initCollapsibleSubcategories() {
+  const subcatHeaders = document.querySelectorAll('.subcategory-header');
+  if (!subcatHeaders.length) return;
+
+  subcatHeaders.forEach(header => {
+    const parent = header.closest('.locations-subcategory');
+    // Default state is uncollapsed (expanded)
+    if (parent) {
+      parent.classList.remove('is-collapsed');
+    }
+    header.setAttribute('aria-expanded', 'true');
+
+    header.addEventListener('click', (e) => {
+      e.preventDefault();
+      const parent = header.closest('.locations-subcategory');
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+      header.setAttribute('aria-expanded', !isExpanded);
+      if (parent) {
+        parent.classList.toggle('is-collapsed', isExpanded);
+      }
+
+      if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.refresh) {
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 400);
+      }
+    });
+  });
+}
+
+
+
 
