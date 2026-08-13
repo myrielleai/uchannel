@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -16,6 +16,7 @@ export const AdvertisingSolutionsPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const featuredRef = useRef<HTMLDivElement>(null);
   const whyRef = useRef<HTMLDivElement>(null);
+  const [activeWhyId, setActiveWhyId] = useState<string>('feat-1');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -183,26 +184,37 @@ export const AdvertisingSolutionsPage: React.FC = () => {
               We combine prime strategic placements with cutting-edge technology and end-to-end execution to ensure your brand stands out.
             </p>
           </div>
+        </div>
 
-          <div className="adv-why-grid">
-            {WHY_CHOOSE_FEATURES.map((feat) => (
-              <div
-                key={feat.id}
-                className="adv-why-card card"
-                {...({ 'bg-color': feat.bgColor } as any)}
-                style={
-                  {
-                    '--bg-color': feat.bgColor,
-                    '--fallback-color': feat.fallbackColor,
-                  } as React.CSSProperties
-                }
-              >
-                <img className="card__image" src={feat.image} alt={feat.title} loading="lazy" decoding="async" />
-                <p className="card__text">
-                  <b>{feat.title}</b> — {feat.description}
-                </p>
-              </div>
-            ))}
+        <div className="adv-why-container">
+          <div className="adv-why-accordion">
+            {WHY_CHOOSE_FEATURES.map((feat) => {
+              const isActive = activeWhyId === feat.id;
+              return (
+                <div
+                  key={feat.id}
+                  className={`adv-why-card card ${isActive ? 'is-active' : ''}`}
+                  onMouseEnter={() => setActiveWhyId(feat.id)}
+                  onClick={() => setActiveWhyId(feat.id)}
+                  style={
+                    {
+                      '--bg-color': feat.bgColor,
+                      '--fallback-color': feat.fallbackColor,
+                    } as React.CSSProperties
+                  }
+                >
+                  <div className="adv-why-card-top">
+                    <span className="adv-why-card-num">{feat.number}</span>
+                    <span className="adv-why-card-badge">U Channel</span>
+                  </div>
+
+                  <div className="adv-why-card-content">
+                    <h3 className="adv-why-card-title">{feat.title}</h3>
+                    <p className="adv-why-card-desc">{feat.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -218,18 +230,7 @@ export const AdvertisingSolutionsPage: React.FC = () => {
                 src={featuredSolution.image}
                 alt={featuredSolution.alt}
               />
-              <div className="adv-featured-badge-bar">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#34d399', boxShadow: '0 0 10px #34d399' }} />
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Flagship Format</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>4K Ultra-HD Network</div>
-                  </div>
-                </div>
-                <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#60a5fa', background: 'rgba(59, 130, 246, 0.15)', padding: '6px 14px', borderRadius: '999px', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
-                  EDSA Corridors
-                </span>
-              </div>
+
             </div>
 
             <div className="adv-featured-text-box">

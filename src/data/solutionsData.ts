@@ -392,6 +392,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
 
 export interface WhyChooseFeature {
   id: string;
+  number: string;
   bgColor: string;
   fallbackColor: string;
   image: string;
@@ -402,32 +403,36 @@ export interface WhyChooseFeature {
 export const WHY_CHOOSE_FEATURES: WhyChooseFeature[] = [
   {
     id: 'feat-1',
-    bgColor: '#FB9B51',
-    fallbackColor: '#000000',
+    number: '01',
+    bgColor: '#30579C',
+    fallbackColor: '#ffffff',
     image: 'https://images.unsplash.com/photo-1541356665065-22676f35dd40?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Tailored LED Solutions',
     description: 'Custom ultra-HD displays, 3D anamorphic screens, and flexible specs engineered for your brand.'
   },
   {
     id: 'feat-2',
-    bgColor: '#FB9B51',
-    fallbackColor: '#000000',
+    number: '02',
+    bgColor: '#10213D',
+    fallbackColor: '#ffffff',
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Customer-First Service',
     description: 'Dedicated account management, responsive technical support, and seamless communication at every stage.'
   },
   {
     id: 'feat-3',
+    number: '03',
     bgColor: '#FB9B51',
-    fallbackColor: '#000000',
+    fallbackColor: '#ffffff',
     image: 'https://images.unsplash.com/photo-1550684848-86a5d8727436?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'End-to-End Expertise',
     description: 'Full turnkey execution from site survey and design to engineering, installation, and maintenance.'
   },
   {
     id: 'feat-4',
-    bgColor: '#FB9B51',
-    fallbackColor: '#000000',
+    number: '04',
+    bgColor: '#6C97D3',
+    fallbackColor: '#ffffff',
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Trusted Industry Experience',
     description: 'Years of proven excellence delivering high-impact out-of-home advertising campaigns nationwide.'
