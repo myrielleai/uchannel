@@ -205,16 +205,44 @@ export const AboutSection: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10 sm:space-y-12">
         {/* Header Section */}
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center space-y-4">
-          <h2 className="animate-about-text font-display font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white tracking-tight leading-[1.08] text-center select-none">
-            Where{' '}
-            <span className="inline-block transition-all duration-300 ease-out cursor-pointer hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-blue-400 via-indigo-300 to-white hover:from-cyan-300 hover:via-blue-400 hover:to-indigo-200 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:drop-shadow-[0_0_35px_rgba(59,130,246,0.95)]">
-              GREAT BRANDS
-            </span>{' '}
-            get{' '}
-            <span className="inline-block transition-all duration-300 ease-out cursor-pointer hover:scale-110 hover:-translate-y-1 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-cyan-300 hover:via-blue-400 hover:to-indigo-300 bg-clip-text hover:drop-shadow-[0_0_35px_rgba(6,182,212,0.95)] hover:tracking-wider">
-              SEEN
+          {/* Animated glow keyframes */}
+          <style>{`
+            @keyframes seenGlow {
+              0%, 100% { text-shadow: 0 0 20px rgba(251,155,81,0.4), 0 0 40px rgba(251,155,81,0.15); }
+              50% { text-shadow: 0 0 30px rgba(251,155,81,0.7), 0 0 60px rgba(251,155,81,0.3), 0 0 90px rgba(251,155,81,0.1); }
+            }
+            @keyframes subtleFloat {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-3px); }
+            }
+            @keyframes shimmerBorder {
+              0%, 100% { opacity: 0.5; }
+              50% { opacity: 1; }
+            }
+          `}</style>
+          <h2 className="animate-about-text font-display font-black text-center select-none leading-none tracking-tight">
+            {/* Line 1: "Where" — small, light, ethereal */}
+            <span className="block text-lg sm:text-xl lg:text-2xl font-medium tracking-[0.3em] uppercase text-slate-400 mb-3 sm:mb-4">
+              Where
             </span>
-            .
+            {/* Line 2: "GREAT BRANDS" — oversized, gradient, hero-weight */}
+            <span
+              className="block text-5xl sm:text-7xl lg:text-8xl xl:text-[7rem] font-black tracking-tight leading-[0.95] bg-gradient-to-r from-blue-400 via-indigo-300 to-white bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-500 ease-out cursor-pointer hover:from-cyan-300 hover:via-blue-400 hover:to-indigo-200 hover:drop-shadow-[0_0_45px_rgba(59,130,246,0.7)] hover:scale-[1.03]"
+              style={{ animation: 'subtleFloat 6s ease-in-out infinite' }}
+            >
+              GREAT BRANDS
+            </span>
+            {/* Line 3: "get SEEN." — medium weight with accent glow on SEEN */}
+            <span className="block mt-3 sm:mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white/80 tracking-tight">
+              get{' '}
+              <span
+                className="inline-block text-[#FB9B51] font-black transition-all duration-300 ease-out cursor-pointer hover:scale-110 hover:-translate-y-1 hover:tracking-wider"
+                style={{ animation: 'seenGlow 3s ease-in-out infinite' }}
+              >
+                SEEN
+              </span>
+              <span className="text-white/40">.</span>
+            </span>
           </h2>
 
           <p className="animate-about-text text-slate-300 font-body text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl mx-auto text-center">
@@ -227,11 +255,16 @@ export const AboutSection: React.FC = () => {
           {STAT_CARDS.map((stat, idx) => (
             <div
               key={idx}
-              className="animate-about-stat flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-slate-950/70 border border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-xl hover:shadow-blue-500/20 group cursor-default"
+              className="animate-about-stat relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-slate-950/80 border border-[#FB9B51]/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FB9B51] hover:bg-slate-900/90 hover:shadow-xl hover:shadow-[#FB9B51]/20 group cursor-default"
             >
+              {/* Top Glowing Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FB9B51] to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+
               <span
-                className={`text-3xl sm:text-4xl font-black font-display tracking-tight transition-colors duration-300 ${
-                  stat.highlight ? 'text-blue-400 group-hover:text-blue-300' : 'text-white group-hover:text-blue-300'
+                className={`text-3xl sm:text-4xl font-black font-display tracking-tight transition-all duration-300 ${
+                  stat.highlight
+                    ? 'text-[#FB9B51] drop-shadow-[0_0_15px_rgba(251,155,81,0.4)] group-hover:scale-105'
+                    : 'text-white group-hover:text-[#FB9B51] group-hover:scale-105'
                 }`}
               >
                 {stat.value}
@@ -254,28 +287,30 @@ export const AboutSection: React.FC = () => {
             {/* Top Left: Large Immersive Display Photo */}
             <div
               onClick={() => setSelectedPhoto(ABOUT_PHOTOS[0])}
-              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
+              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer transition-all duration-500 hover:border-[#FB9B51]/60 hover:shadow-[0_0_40px_rgba(251,155,81,0.18)]"
             >
               <img
                 src={ABOUT_PHOTOS[0].src}
                 alt={ABOUT_PHOTOS[0].alt}
                 className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+              {/* Cinematic amber color grade overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FB9B51]/0 via-[#FB9B51]/0 to-[#c9621e]/0 group-hover:from-[#FB9B51]/20 group-hover:via-[#d97706]/10 group-hover:to-[#c9621e]/25 transition-all duration-700 ease-out mix-blend-color-dodge pointer-events-none z-[1]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-[2]" />
 
               <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
-                <span className="px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wider uppercase">
+                <span className="px-3 py-1 rounded-full bg-[#FB9B51]/20 backdrop-blur-md border border-[#FB9B51]/40 text-[#FB9B51] text-xs font-semibold tracking-wider uppercase transition-all duration-300 group-hover:bg-[#FB9B51]/30 group-hover:border-[#FB9B51]/70">
                   {ABOUT_PHOTOS[0].category}
                 </span>
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-[#FB9B51] transition-colors duration-300">
                   {ABOUT_PHOTOS[0].title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[0].location}
+                  <span className="text-[#FB9B51] font-bold">📍</span> {ABOUT_PHOTOS[0].location}
                 </p>
               </div>
 
-              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-[#FB9B51]/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:border-[#FB9B51] group-hover:text-[#FB9B51] transition-all duration-300 group-hover:scale-110">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                 </svg>
@@ -285,28 +320,30 @@ export const AboutSection: React.FC = () => {
             {/* Top Right: Smaller Photo */}
             <div
               onClick={() => setSelectedPhoto(ABOUT_PHOTOS[1])}
-              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
+              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer transition-all duration-500 hover:border-[#FB9B51]/60 hover:shadow-[0_0_40px_rgba(251,155,81,0.18)]"
             >
               <img
                 src={ABOUT_PHOTOS[1].src}
                 alt={ABOUT_PHOTOS[1].alt}
                 className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+              {/* Cinematic amber color grade overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FB9B51]/0 via-[#FB9B51]/0 to-[#c9621e]/0 group-hover:from-[#FB9B51]/20 group-hover:via-[#d97706]/10 group-hover:to-[#c9621e]/25 transition-all duration-700 ease-out mix-blend-color-dodge pointer-events-none z-[1]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-[2]" />
 
               <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
-                <span className="px-3 py-1 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 text-indigo-300 text-xs font-semibold tracking-wider uppercase">
+                <span className="px-3 py-1 rounded-full bg-[#FB9B51]/20 backdrop-blur-md border border-[#FB9B51]/40 text-[#FB9B51] text-xs font-semibold tracking-wider uppercase transition-all duration-300 group-hover:bg-[#FB9B51]/30 group-hover:border-[#FB9B51]/70">
                   {ABOUT_PHOTOS[1].category}
                 </span>
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-[#FB9B51] transition-colors duration-300">
                   {ABOUT_PHOTOS[1].title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[1].location}
+                  <span className="text-[#FB9B51] font-bold">📍</span> {ABOUT_PHOTOS[1].location}
                 </p>
               </div>
 
-              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-[#FB9B51]/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:border-[#FB9B51] group-hover:text-[#FB9B51] transition-all duration-300 group-hover:scale-110">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                 </svg>
@@ -319,28 +356,30 @@ export const AboutSection: React.FC = () => {
             {/* Bottom Left: Smaller Photo */}
             <div
               onClick={() => setSelectedPhoto(ABOUT_PHOTOS[2])}
-              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
+              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer transition-all duration-500 hover:border-[#FB9B51]/60 hover:shadow-[0_0_40px_rgba(251,155,81,0.18)]"
             >
               <img
                 src={ABOUT_PHOTOS[2].src}
                 alt={ABOUT_PHOTOS[2].alt}
                 className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+              {/* Cinematic amber color grade overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FB9B51]/0 via-[#FB9B51]/0 to-[#c9621e]/0 group-hover:from-[#FB9B51]/20 group-hover:via-[#d97706]/10 group-hover:to-[#c9621e]/25 transition-all duration-700 ease-out mix-blend-color-dodge pointer-events-none z-[1]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-[2]" />
 
               <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
-                <span className="px-3 py-1 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-400/30 text-purple-300 text-xs font-semibold tracking-wider uppercase">
+                <span className="px-3 py-1 rounded-full bg-[#FB9B51]/20 backdrop-blur-md border border-[#FB9B51]/40 text-[#FB9B51] text-xs font-semibold tracking-wider uppercase transition-all duration-300 group-hover:bg-[#FB9B51]/30 group-hover:border-[#FB9B51]/70">
                   {ABOUT_PHOTOS[2].category}
                 </span>
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-[#FB9B51] transition-colors duration-300">
                   {ABOUT_PHOTOS[2].title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[2].location}
+                  <span className="text-[#FB9B51] font-bold">📍</span> {ABOUT_PHOTOS[2].location}
                 </p>
               </div>
 
-              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-[#FB9B51]/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:border-[#FB9B51] group-hover:text-[#FB9B51] transition-all duration-300 group-hover:scale-110">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                 </svg>
@@ -350,28 +389,30 @@ export const AboutSection: React.FC = () => {
             {/* Bottom Right: Large Display Photo */}
             <div
               onClick={() => setSelectedPhoto(ABOUT_PHOTOS[3])}
-              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
+              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer transition-all duration-500 hover:border-[#FB9B51]/60 hover:shadow-[0_0_40px_rgba(251,155,81,0.18)]"
             >
               <img
                 src={ABOUT_PHOTOS[3].src}
                 alt={ABOUT_PHOTOS[3].alt}
                 className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+              {/* Cinematic amber color grade overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FB9B51]/0 via-[#FB9B51]/0 to-[#c9621e]/0 group-hover:from-[#FB9B51]/20 group-hover:via-[#d97706]/10 group-hover:to-[#c9621e]/25 transition-all duration-700 ease-out mix-blend-color-dodge pointer-events-none z-[1]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-[2]" />
 
               <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
-                <span className="px-3 py-1 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 text-cyan-300 text-xs font-semibold tracking-wider uppercase">
+                <span className="px-3 py-1 rounded-full bg-[#FB9B51]/20 backdrop-blur-md border border-[#FB9B51]/40 text-[#FB9B51] text-xs font-semibold tracking-wider uppercase transition-all duration-300 group-hover:bg-[#FB9B51]/30 group-hover:border-[#FB9B51]/70">
                   {ABOUT_PHOTOS[3].category}
                 </span>
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-[#FB9B51] transition-colors duration-300">
                   {ABOUT_PHOTOS[3].title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[3].location}
+                  <span className="text-[#FB9B51] font-bold">📍</span> {ABOUT_PHOTOS[3].location}
                 </p>
               </div>
 
-              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-[#FB9B51]/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:border-[#FB9B51] group-hover:text-[#FB9B51] transition-all duration-300 group-hover:scale-110">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                 </svg>

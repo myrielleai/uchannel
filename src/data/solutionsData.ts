@@ -402,7 +402,7 @@ export interface WhyChooseFeature {
 export const WHY_CHOOSE_FEATURES: WhyChooseFeature[] = [
   {
     id: 'feat-1',
-    bgColor: '#FFF',
+    bgColor: '#FB9B51',
     fallbackColor: '#000000',
     image: 'https://images.unsplash.com/photo-1541356665065-22676f35dd40?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Tailored LED Solutions',
@@ -410,15 +410,15 @@ export const WHY_CHOOSE_FEATURES: WhyChooseFeature[] = [
   },
   {
     id: 'feat-2',
-    bgColor: '#000',
-    fallbackColor: '#ffffff',
+    bgColor: '#FB9B51',
+    fallbackColor: '#000000',
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Customer-First Service',
     description: 'Dedicated account management, responsive technical support, and seamless communication at every stage.'
   },
   {
     id: 'feat-3',
-    bgColor: '#FBC02D',
+    bgColor: '#FB9B51',
     fallbackColor: '#000000',
     image: 'https://images.unsplash.com/photo-1550684848-86a5d8727436?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'End-to-End Expertise',
@@ -426,8 +426,8 @@ export const WHY_CHOOSE_FEATURES: WhyChooseFeature[] = [
   },
   {
     id: 'feat-4',
-    bgColor: '#C2185B',
-    fallbackColor: '#ffffff',
+    bgColor: '#FB9B51',
+    fallbackColor: '#000000',
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
     title: 'Trusted Industry Experience',
     description: 'Years of proven excellence delivering high-impact out-of-home advertising campaigns nationwide.'
