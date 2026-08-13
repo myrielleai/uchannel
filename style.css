@@ -1521,45 +1521,47 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   padding-top: 2rem;
 }
 
-/* ── SERVICES INTERACTIVE SHOWCASE (Collapsible Big List with Video Inside) ── */
+/* ── SERVICES INTERACTIVE SHOWCASE (Clean Accordion Highlight List) ── */
 .services-interactive-wrapper {
   display: block;
   width: 100%;
-  max-width: 1080px;
+  max-width: 1140px;
   margin: 0 auto;
 }
 
 .services-accordion-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0;
   width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .service-accordion-item {
   position: relative;
-  background: rgba(2, 6, 23, 0.75);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
   overflow: hidden;
-  transition: border-color 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo), background 0.35s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.service-accordion-item:last-child {
+  border-bottom: none;
 }
 
 .service-accordion-item:hover,
 .service-accordion-item.active {
-  background: rgba(15, 23, 42, 0.92);
-  border-color: rgba(251, 155, 81, 0.65);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(251, 155, 81, 0.18);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .service-accordion-header {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 22px;
-  padding: clamp(20px, 2.5vh, 28px) clamp(24px, 2.5vw, 36px);
+  gap: 28px;
+  padding: clamp(26px, 3.5vh, 38px) clamp(20px, 2.5vw, 32px);
   background: transparent;
   border: none;
   color: inherit;
@@ -1573,11 +1575,11 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 
 .service-accordion-item .service-item-number {
   font-family: var(--font-mono, monospace);
-  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
   font-weight: 800;
-  color: rgba(148, 163, 184, 0.7);
+  color: rgba(148, 163, 184, 0.6);
   letter-spacing: 0.05em;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .service-accordion-item:hover .service-item-number,
@@ -1585,28 +1587,56 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   color: #FB9B51;
 }
 
+.service-item-title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.service-item-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.15vw, 1.05rem);
+  color: rgba(148, 163, 184, 0.75);
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.45;
+  transition: color 0.3s ease;
+}
+
+.service-accordion-item:hover .service-item-subtitle,
+.service-accordion-item.active .service-item-subtitle {
+  color: rgba(226, 232, 240, 0.95);
+}
+
 .service-accordion-item .service-item-title {
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
   letter-spacing: -0.01em;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   flex: 1;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .service-accordion-item:hover .service-item-title,
 .service-accordion-item.active .service-item-title {
   color: #FB9B51;
+  text-shadow: 0 0 20px rgba(251, 155, 81, 0.3);
 }
 
 .service-accordion-item .service-item-arrow {
-  color: rgba(148, 163, 184, 0.6);
+  color: rgba(148, 163, 184, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.4s var(--ease-out-expo), color 0.3s ease;
+}
+
+.service-accordion-item .service-item-arrow svg {
+  width: 30px;
+  height: 30px;
 }
 
 .service-accordion-item.active .service-item-arrow {
@@ -1617,16 +1647,14 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 .service-item-indicator {
   position: absolute;
   left: 0;
-  top: 12%;
-  bottom: 12%;
+  top: 0;
+  bottom: 0;
   width: 5px;
   background: #FB9B51;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
   opacity: 0;
-  transform: scaleY(0.4);
+  transform: scaleY(0.3);
   transition: all 0.35s var(--ease-out-expo);
-  box-shadow: 0 0 12px #FB9B51;
+  box-shadow: 0 0 16px #FB9B51;
 }
 
 .service-accordion-item:hover .service-item-indicator,
@@ -1638,7 +1666,7 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 .service-accordion-body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s var(--ease-out-expo);
+  transition: grid-template-rows 0.4s var(--ease-out-expo);
 }
 
 .service-accordion-item.active .service-accordion-body {
@@ -1649,88 +1677,45 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   overflow: hidden;
 }
 
-.service-panel-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(20px, 2.5vw, 32px);
-  padding: 0 clamp(24px, 2.5vw, 36px) clamp(24px, 2.5vw, 36px) clamp(24px, 2.5vw, 36px);
-  align-items: center;
-}
-
-.service-panel-video-box {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  background: #020617;
-}
-
-.service-accordion-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.service-panel-video-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(2, 6, 23, 0.1) 0%, rgba(2, 6, 23, 0.4) 100%);
-  pointer-events: none;
-}
-
-.service-panel-details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.service-panel-desc {
+.service-accordion-desc {
   font-family: var(--font-body);
-  font-size: clamp(0.88rem, 1.1vw, 1rem);
-  line-height: 1.6;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.8;
   color: rgba(226, 232, 240, 0.88);
-  margin: 0.75rem 0 1.25rem 0;
+  margin: 0;
+  padding: 0 clamp(20px, 2.5vw, 32px) clamp(24px, 3.5vh, 36px) clamp(68px, 5.5vw, 92px);
+  max-width: 960px;
 }
 
-.featured-card-highlights {
+.service-accordion-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 0.25rem;
+  gap: 10px;
+  padding: 0 clamp(20px, 2.5vw, 32px) clamp(28px, 3.5vh, 38px) clamp(68px, 5.5vw, 92px);
 }
 
-.highlight-chip {
+.service-tag {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 5px 12px;
-  border-radius: 8px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  font-size: clamp(0.78rem, 1vw, 0.86rem);
+  font-weight: 500;
+  color: #FB9B51;
+  background: rgba(251, 155, 81, 0.1);
+  border: 1px solid rgba(251, 155, 81, 0.25);
+  padding: 6px 14px;
+  border-radius: 99px;
+  letter-spacing: 0.02em;
   transition: all 0.3s ease;
 }
 
-.highlight-chip:hover {
-  background: rgba(251, 155, 81, 0.2);
-  border-color: rgba(251, 155, 81, 0.4);
-  color: #ffffff;
+.service-tag:hover {
+  background: rgba(251, 155, 81, 0.22);
+  border-color: rgba(251, 155, 81, 0.45);
 }
 
-.service-panel-footer {
-  margin-top: 1.25rem;
-}
-
-@media (max-width: 768px) {
-  .service-panel-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+@media (max-width: 640px) {
+  .service-accordion-desc,
+  .service-accordion-tags {
+    padding-left: clamp(20px, 2.5vw, 32px);
   }
 }
 

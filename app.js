@@ -429,6 +429,9 @@ function initInteractiveServices() {
     const video = item.querySelector('.service-accordion-video');
 
     if (header) {
+      if (header.dataset.accordionBound === 'true') return;
+      header.dataset.accordionBound = 'true';
+
       header.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
 
@@ -468,7 +471,7 @@ function initInteractiveServices() {
 }
 
 function initServiceCards() {
-  initInteractiveServices();
+  // Retained alias for backwards compatibility
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -1004,7 +1007,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveals();
     initAboutSection();
     initInteractiveServices();
-    initServiceCards();
     initServicesStickyScroll();
     initCapabilitiesStack();
     initWorkCards();
@@ -1123,7 +1125,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveals();
   initAboutSection();
   initInteractiveServices();
-  initServiceCards();
   initServicesStickyScroll();
   initCapabilitiesStack();
   initWorkCards();
