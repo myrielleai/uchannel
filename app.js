@@ -159,12 +159,12 @@ function initHeader(playTimeline = true) {
   /* Framer-like header entrance — elements slide in from their edges */
   if (!HAS_GSAP || REDUCED) return null;
 
-  const runTimeline = () => {
-    gsap.set('.logo-link',         { opacity: 0, x: -20 });
-    gsap.set('.nav-list .nav-link',{ opacity: 0, y: -10 });
-    gsap.set('.nav-cta',           { opacity: 0, x: 16, scale: 0.9 });
-    gsap.set('.hamburger',         { opacity: 0, scale: 0.8 });
+  gsap.set('.logo-link',         { opacity: 0, x: -20 });
+  gsap.set('.nav-list .nav-link',{ opacity: 0, y: -10 });
+  gsap.set('.nav-cta',           { opacity: 0, x: 16, scale: 0.9 });
+  gsap.set('.hamburger',         { opacity: 0, scale: 0.8 });
 
+  const runTimeline = () => {
     const tl = gsap.timeline({ delay: 0.05 });
     tl.to('.logo-link', {
       opacity: 1, x: 0, duration: 0.65, ease: SPRING_SOFT,

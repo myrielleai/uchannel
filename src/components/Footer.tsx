@@ -170,7 +170,7 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="container footer-bottom-inner">
           <a href={homeHref} className="footer-logo-link" aria-label="Back to top">
             <picture>
-              <source srcSet={logoWebpSrc} type="image/webp" />
+              <source srcset={logoWebpSrc} type="image/webp" />
               <img src={logoImgSrc} alt="U Channel" className="footer-logo-img" loading="lazy" decoding="async" width="48" height="48" />
             </picture>
             <span className="logo-divider" aria-hidden="true"></span>
