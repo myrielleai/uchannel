@@ -1334,7 +1334,7 @@ function initFocusGallery() {
 /* ─────────────────────────────────────────────────────────────
    G. Infinite Locations Text Ribbon Loop
    Mathematically exact 0-jump seamless infinite scrolling ribbon
-   Optimized for 60-120 FPS with pre-baked glyph caching, direct matrix transforms & layer slice blitting
+   Optimized for 60-120 FPS with single-atlas texture batching, zero context switches & GPU frame pacing
    ───────────────────────────────────────────────────────────── */
 function initLocationsRibbon() {
   const container = document.querySelector('.locations-ribbon-wrapper');
@@ -1385,59 +1385,125 @@ function initLocationsRibbon() {
   let isRibbonVisible = true;
   let offset = 0;
   let lastTime = 0;
+  let lastFrameTime = 0;
   let glyphCache = null;
 
   // Middle band Y range in viewBox coordinates (where ribbon crosses the map center)
   const MIDDLE_BAND_TOP = 340;
   const MIDDLE_BAND_BOTTOM = 660;
 
-  // Build offscreen glyph cache atlas for ultra-fast GPU text rendering
+  let ribbonBgCanvasBack = null;
+  let ribbonBgCanvasFront = null;
+
+  // Build offscreen static ribbon background path caches (Back & Front layers)
+  const updateRibbonBgCanvases = (scale, viewBoxHeight) => {
+    if (!ribbonBgCanvasBack) ribbonBgCanvasBack = document.createElement('canvas');
+    if (!ribbonBgCanvasFront) ribbonBgCanvasFront = document.createElement('canvas');
+
+    ribbonBgCanvasBack.width = canvas.width;
+    ribbonBgCanvasBack.height = canvas.height;
+    ribbonBgCanvasFront.width = canvas.width;
+    ribbonBgCanvasFront.height = canvas.height;
+
+    const bgCtxBack = ribbonBgCanvasBack.getContext('2d', { alpha: true });
+    const bgCtxFront = ribbonBgCanvasFront.getContext('2d', { alpha: true });
+
+    bgCtxBack.clearRect(0, 0, canvas.width, canvas.height);
+    bgCtxFront.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (path2D) {
+      const ribbonGradient = bgCtxBack.createLinearGradient(0, 0, canvas.width, canvas.height);
+      ribbonGradient.addColorStop(0.00, '#1d5cff');
+      ribbonGradient.addColorStop(0.30, '#2563eb');
+      ribbonGradient.addColorStop(0.55, '#FB9B51');
+      ribbonGradient.addColorStop(0.80, '#f97316');
+      ribbonGradient.addColorStop(1.00, '#1d5cff');
+
+      // 1. Full ribbon background path for back canvas
+      bgCtxBack.save();
+      bgCtxBack.scale(scale, scale);
+      bgCtxBack.lineWidth = 180;
+      bgCtxBack.strokeStyle = ribbonGradient;
+      bgCtxBack.stroke(path2D);
+      bgCtxBack.restore();
+
+      // 2. Clipped middle band background path for front canvas
+      const clipYTopPx = Math.floor(MIDDLE_BAND_TOP * (canvas.height / viewBoxHeight));
+      const clipHPx = Math.ceil((MIDDLE_BAND_BOTTOM - MIDDLE_BAND_TOP) * (canvas.height / viewBoxHeight));
+
+      bgCtxFront.save();
+      bgCtxFront.beginPath();
+      bgCtxFront.rect(0, clipYTopPx, canvas.width, clipHPx);
+      bgCtxFront.clip();
+      bgCtxFront.scale(scale, scale);
+      bgCtxFront.lineWidth = 180;
+      bgCtxFront.strokeStyle = ribbonGradient;
+      bgCtxFront.stroke(path2D);
+      bgCtxFront.restore();
+    }
+  };
+
+  // Build offscreen glyph Sprite Atlas for 1-texture GPU text rendering
   const buildGlyphCache = (dpr) => {
     const cache = {};
-    const fontStr = '900 88px Satoshi, system-ui, -apple-system, sans-serif';
+    const fontStr = '900 88px "Satoshi", sans-serif';
 
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
     tempCtx.font = fontStr;
 
     const uniqueChars = Array.from(new Set(unitText));
+    const fontSize = 88;
+    const pad = 30; // padding in viewBox units
 
-    uniqueChars.forEach(ch => {
+    let totalAtlasWidthViewBox = 0;
+    let maxAtlasHeightViewBox = 0;
+
+    const glyphMetrics = uniqueChars.map(ch => {
       const textMetrics = tempCtx.measureText(ch);
-      const fontSize = 88;
-      const pad = 30; // padding in viewBox units
-      const viewBoxW = textMetrics.width + pad * 2;
-      const viewBoxH = fontSize * 1.6 + pad * 2;
+      const viewBoxW = Math.ceil(textMetrics.width + pad * 2);
+      const viewBoxH = Math.ceil(fontSize * 1.6 + pad * 2);
+      const xPos = totalAtlasWidthViewBox;
+      totalAtlasWidthViewBox += viewBoxW + 10;
+      maxAtlasHeightViewBox = Math.max(maxAtlasHeightViewBox, viewBoxH);
 
-      const pxW = Math.ceil(viewBoxW * dpr);
-      const pxH = Math.ceil(viewBoxH * dpr);
+      return {
+        ch,
+        viewBoxW,
+        viewBoxH,
+        advanceWidth: textMetrics.width,
+        xPos
+      };
+    });
 
-      const offCanvas = document.createElement('canvas');
-      offCanvas.width = pxW;
-      offCanvas.height = pxH;
-      const oCtx = offCanvas.getContext('2d');
+    const atlasCanvas = document.createElement('canvas');
+    atlasCanvas.width = Math.ceil(totalAtlasWidthViewBox * dpr);
+    atlasCanvas.height = Math.ceil(maxAtlasHeightViewBox * dpr);
+    const oCtx = atlasCanvas.getContext('2d');
 
-      oCtx.scale(dpr, dpr);
-      oCtx.font = fontStr;
-      oCtx.textAlign = 'center';
-      oCtx.textBaseline = 'middle';
-      oCtx.lineWidth = 6;
-      oCtx.strokeStyle = '#020617';
-      oCtx.fillStyle = '#ffffff';
+    oCtx.scale(dpr, dpr);
+    oCtx.font = fontStr;
+    oCtx.textAlign = 'center';
+    oCtx.textBaseline = 'middle';
+    oCtx.fillStyle = '#ffffff';
 
-      const centerX = viewBoxW / 2;
-      const centerY = viewBoxH / 2;
+    glyphMetrics.forEach(g => {
+      const centerX = g.xPos + g.viewBoxW / 2;
+      const centerY = g.viewBoxH / 2;
 
-      oCtx.strokeText(ch, centerX, centerY);
-      oCtx.fillText(ch, centerX, centerY);
+      oCtx.fillText(g.ch, centerX, centerY);
 
-      cache[ch] = {
-        canvas: offCanvas,
-        viewBoxW: viewBoxW,
-        viewBoxH: viewBoxH,
-        centerX: centerX,
-        centerY: centerY,
-        advanceWidth: textMetrics.width
+      cache[g.ch] = {
+        atlas: atlasCanvas,
+        sx: Math.floor(g.xPos * dpr),
+        sy: 0,
+        sw: Math.ceil(g.viewBoxW * dpr),
+        sh: Math.ceil(g.viewBoxH * dpr),
+        viewBoxW: g.viewBoxW,
+        viewBoxH: g.viewBoxH,
+        centerX: g.viewBoxW / 2,
+        centerY: g.viewBoxH / 2,
+        advanceWidth: g.advanceWidth
       };
     });
 
@@ -1445,7 +1511,7 @@ function initLocationsRibbon() {
   };
 
   const setupDimensionsAndMetrics = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
     const viewBoxWidth = 1920;
     const viewBoxHeight = 1080;
 
@@ -1465,6 +1531,8 @@ function initLocationsRibbon() {
       canvasFront.style.height = height + 'px';
     }
 
+    const scale = canvas.width / viewBoxWidth;
+    updateRibbonBgCanvases(scale, viewBoxHeight);
     glyphCache = buildGlyphCache(dpr);
 
     charOffsets = new Float32Array(unitText.length + 1);
@@ -1480,44 +1548,50 @@ function initLocationsRibbon() {
     unitLength = currentX;
   };
 
+  // Reusable batch arrays to prevent garbage collection allocations during rAF
+  const backDrawList = [];
+  const frontDrawList = [];
+
   const renderFrame = (now) => {
     if (!lastTime) lastTime = now;
     const dt = Math.min((now - lastTime) / 1000, 0.1);
     lastTime = now;
+
+    // Frame-pacing throttle: ~60fps target (15.5ms interval) to avoid 120Hz display overdraw
+    if (lastFrameTime && (now - lastFrameTime) < 15) {
+      if (isRibbonVisible && !REDUCED) {
+        animId = requestAnimationFrame(renderFrame);
+      }
+      return;
+    }
+    lastFrameTime = now;
 
     if (!REDUCED && unitLength > 0) {
       offset = (offset + 85 * dt) % unitLength;
     }
 
     const viewBoxWidth = 1920;
-    const viewBoxHeight = 1080;
-    const scale = canvas.width / viewBoxWidth; // converts viewBox space (1920) to physical canvas pixels
+    const scale = canvas.width / viewBoxWidth;
 
-    // 1. Clear Back Canvas
+    // Clear render targets
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // 2. Draw Wavy Ribbon Base Path with Dynamic Rainbow Gradient
-    const hueShift = (now * 0.04) % 360;
-    const rainbowGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    rainbowGradient.addColorStop(0.00, `hsl(${hueShift % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(0.16, `hsl(${(hueShift + 60) % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(0.33, `hsl(${(hueShift + 120) % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(0.50, `hsl(${(hueShift + 180) % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(0.66, `hsl(${(hueShift + 240) % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(0.83, `hsl(${(hueShift + 300) % 360}, 100%, 55%)`);
-    rainbowGradient.addColorStop(1.00, `hsl(${(hueShift + 360) % 360}, 100%, 55%)`);
-
-    if (path2D) {
-      ctx.save();
-      ctx.scale(scale, scale);
-      ctx.lineWidth = 180;
-      ctx.strokeStyle = rainbowGradient;
-      ctx.stroke(path2D);
-      ctx.restore();
+    if (ctxFront) {
+      ctxFront.clearRect(0, 0, canvasFront.width, canvasFront.height);
     }
 
-    // 3. Draw Pre-rendered Text Glyphs along curve (Ultra-fast GPU textured blit)
+    // Blit pre-rendered background paths
+    if (ribbonBgCanvasBack) {
+      ctx.drawImage(ribbonBgCanvasBack, 0, 0);
+    }
+    if (ctxFront && ribbonBgCanvasFront) {
+      ctxFront.drawImage(ribbonBgCanvasFront, 0, 0);
+    }
+
+    // Collect and batch draw items into back & front lists (Zero context-switch overhead)
     if (unitLength > 0 && glyphCache) {
+      backDrawList.length = 0;
+      frontDrawList.length = 0;
+
       const numRepeats = Math.ceil((totalLength + unitLength) / unitLength) + 1;
 
       for (let r = 0; r < numRepeats; r++) {
@@ -1527,54 +1601,75 @@ function initLocationsRibbon() {
           const charDistance = baseDistance + charOffsets[c];
           if (charDistance < -60 || charDistance > totalLength + 60) continue;
 
-          const sampleIdx = Math.floor(charDistance / STEP);
-          if (sampleIdx < 0 || sampleIdx >= numSamples) continue;
+          const floatIdx = charDistance / STEP;
+          const i0 = Math.floor(floatIdx);
+          if (i0 < 0 || i0 >= numSamples - 1) continue;
 
-          const idx = sampleIdx * 4;
-          const x = samples[idx];
-          const y = samples[idx + 1];
-          const cos = samples[idx + 2];
-          const sin = samples[idx + 3];
+          const t = floatIdx - i0;
+          const idx0 = i0 * 4;
+          const idx1 = (i0 + 1) * 4;
+
+          // Smooth subpixel lerp between curve sample points
+          const x = samples[idx0] + (samples[idx1] - samples[idx0]) * t;
+          const y = samples[idx0 + 1] + (samples[idx1 + 1] - samples[idx0 + 1]) * t;
+          const cos = samples[idx0 + 2] + (samples[idx1 + 2] - samples[idx0 + 2]) * t;
+          const sin = samples[idx0 + 3] + (samples[idx1 + 3] - samples[idx0 + 3]) * t;
 
           const ch = unitText[c];
           const g = glyphCache[ch];
           if (!g) continue;
 
-          // Direct 2D matrix transformation to map viewBox coordinates to canvas physical pixels
-          ctx.setTransform(
-            cos * scale,
-            sin * scale,
-            -sin * scale,
-            cos * scale,
-            x * scale,
-            y * scale
-          );
+          const item = { g, cos, sin, x, y };
 
-          ctx.drawImage(
-            g.canvas,
-            -g.centerX,
-            -g.centerY,
-            g.viewBoxW,
-            g.viewBoxH
-          );
+          if (ctxFront && y >= (MIDDLE_BAND_TOP - 20) && y <= (MIDDLE_BAND_BOTTOM + 20)) {
+            frontDrawList.push(item);
+          } else {
+            backDrawList.push(item);
+          }
         }
       }
-      // Reset matrix transform
+
+      // Batch 1: Render all back canvas items
+      for (let i = 0; i < backDrawList.length; i++) {
+        const item = backDrawList[i];
+        const g = item.g;
+        ctx.setTransform(
+          item.cos * scale,
+          item.sin * scale,
+          -item.sin * scale,
+          item.cos * scale,
+          item.x * scale,
+          item.y * scale
+        );
+        ctx.drawImage(
+          g.atlas,
+          g.sx, g.sy, g.sw, g.sh,
+          -g.centerX, -g.centerY, g.viewBoxW, g.viewBoxH
+        );
+      }
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-    }
 
-    // 4. Front Layer Slice Blit: Copy ONLY the middle band to the front canvas (Instant GPU copy)
-    if (ctxFront) {
-      ctxFront.clearRect(0, 0, canvasFront.width, canvasFront.height);
-
-      const clipYTopPx = Math.floor(MIDDLE_BAND_TOP * (canvas.height / viewBoxHeight));
-      const clipHPx = Math.ceil((MIDDLE_BAND_BOTTOM - MIDDLE_BAND_TOP) * (canvas.height / viewBoxHeight));
-
-      ctxFront.drawImage(
-        canvas,
-        0, clipYTopPx, canvas.width, clipHPx,
-        0, clipYTopPx, canvas.width, clipHPx
-      );
+      // Batch 2: Render all front canvas items (middle ribbon band)
+      if (ctxFront && frontDrawList.length > 0) {
+        for (let i = 0; i < frontDrawList.length; i++) {
+          const item = frontDrawList[i];
+          const g = item.g;
+          ctxFront.setTransform(
+            item.cos * scale,
+            item.sin * scale,
+            -item.sin * scale,
+            item.cos * scale,
+            item.x * scale,
+            item.y * scale
+          );
+          ctxFront.drawImage(
+            g.atlas,
+            g.sx, g.sy, g.sw, g.sh,
+            -g.centerX, -g.centerY, g.viewBoxW, g.viewBoxH
+          );
+        }
+        ctxFront.setTransform(1, 0, 0, 1, 0, 0);
+      }
     }
 
     if (isRibbonVisible && !REDUCED) {
@@ -1585,6 +1680,7 @@ function initLocationsRibbon() {
   const startLoop = () => {
     if (animId) cancelAnimationFrame(animId);
     lastTime = 0;
+    lastFrameTime = 0;
     if (isRibbonVisible) {
       animId = requestAnimationFrame(renderFrame);
     }
@@ -1611,15 +1707,53 @@ function initLocationsRibbon() {
     observer.observe(container);
   }
 
+  const isSatoshiLoaded = () => {
+    try {
+      const testCanvas = document.createElement('canvas');
+      const testCtx = testCanvas.getContext('2d');
+      testCtx.font = '900 88px sans-serif';
+      const fallbackWidth = testCtx.measureText('PHILIPPINES').width;
+      testCtx.font = '900 88px "Satoshi", sans-serif';
+      const satoshiWidth = testCtx.measureText('PHILIPPINES').width;
+      return Math.abs(fallbackWidth - satoshiWidth) > 0.5;
+    } catch (e) {
+      return false;
+    }
+  };
+
   const initCanvas = () => {
     setupDimensionsAndMetrics();
     startLoop();
+
+    if (!isSatoshiLoaded()) {
+      let attempts = 0;
+      const pollTimer = setInterval(() => {
+        attempts++;
+        if (isSatoshiLoaded() || attempts > 60) {
+          clearInterval(pollTimer);
+          setupDimensionsAndMetrics();
+        }
+      }, 50);
+    }
   };
 
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(initCanvas);
+  if (document.fonts) {
+    document.fonts.load('900 88px "Satoshi"').then(() => {
+      setupDimensionsAndMetrics();
+      if (isRibbonVisible) startLoop();
+    }).catch(() => {});
+
+    document.fonts.ready.then(() => {
+      initCanvas();
+    });
   } else {
     setTimeout(initCanvas, 100);
+  }
+
+  if (document.fonts && document.fonts.addEventListener) {
+    document.fonts.addEventListener('loadingdone', () => {
+      setupDimensionsAndMetrics();
+    });
   }
 
   let resizeTimeout;
