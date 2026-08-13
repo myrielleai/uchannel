@@ -8,12 +8,12 @@ import {
 import { Layout } from '../components/Layout';
 import { HardwareCatalog } from '../components/HardwareCatalog';
 import { BrandsSection } from '../components/BrandsSection';
+import { AdvertisingSolutions } from '../components/AdvertisingSolutions';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const AdvertisingSolutionsPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const showcaseRef = useRef<HTMLDivElement>(null);
   const featuredRef = useRef<HTMLDivElement>(null);
   const whyRef = useRef<HTMLDivElement>(null);
 
@@ -29,25 +29,22 @@ export const AdvertisingSolutionsPage: React.FC = () => {
         );
       }
 
-      // 2. Showcase Cards Stagger
-      const cards = showcaseRef.current?.querySelectorAll('.adv-showcase-card');
-      if (cards && cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power3.out',
+      // 2. Hero Image ScrollTrigger fade into Our Solutions section
+      if (heroRef.current) {
+        const heroImg = heroRef.current.querySelector('.adv-hero-media-wrapper img');
+        if (heroImg) {
+          gsap.to(heroImg, {
+            opacity: 0.25,
+            y: 60,
+            ease: 'none',
             scrollTrigger: {
-              trigger: showcaseRef.current,
-              start: 'top 78%',
-              once: true,
+              trigger: heroRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
             },
-          }
-        );
+          });
+        }
       }
 
       // 3. Featured Solution ScrollTrigger (Separate Image and Text Animations)
@@ -151,7 +148,7 @@ export const AdvertisingSolutionsPage: React.FC = () => {
               </svg>
             </a>
 
-            <a href="#solutions-showcase" className="adv-btn-secondary">
+            <a href="#advertising-solutions" className="adv-btn-secondary">
               <span>Explore Solutions</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -162,55 +159,9 @@ export const AdvertisingSolutionsPage: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-         2. OUR SOLUTIONS SHOWCASE
+         2. OUR SOLUTIONS SHOWCASE (3D Interactive Carousel)
          ───────────────────────────────────────────────────────────── */}
-      <section id="solutions-showcase" ref={showcaseRef} className="adv-showcase-section">
-        <div className="container">
-          <div className="adv-section-header" style={{ textAlign: 'center', maxWidth: '720px', marginInline: 'auto' }}>
-            <h2 className="adv-section-h2">Our Solutions</h2>
-            <p className="adv-section-desc" style={{ marginInline: 'auto' }}>
-              From ultra-high-definition digital screens on EDSA to city-wide transit wraps, explore tailored formats built for maximum reach.
-            </p>
-          </div>
-        </div>
-
-        <div className="adv-showcase-carousel-wrapper">
-          <div className="adv-showcase-carousel-track">
-            {[...ADVERTISING_SOLUTIONS, ...ADVERTISING_SOLUTIONS].map((solution, index) => (
-              <a
-                key={`${solution.id}-${index}`}
-                href={`/advertising-solutions/${solution.slug}/`}
-                className="adv-showcase-card"
-              >
-                <div className="adv-card-media">
-                  <img
-                    src={solution.image}
-                    alt={solution.alt}
-                    loading="lazy"
-                  />
-                  <div className="adv-card-media-overlay" />
-                </div>
-
-                <div className="adv-card-body">
-                  <div>
-                    <h3 className="adv-card-title">{solution.title}</h3>
-                    <p className="adv-card-desc">{solution.shortDescription}</p>
-                  </div>
-
-                  <div className="adv-card-footer">
-                    <span className="adv-card-link-text">
-                      <span>Learn More</span>
-                      <svg className="adv-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <AdvertisingSolutions variant="light" />
 
       {/* ─────────────────────────────────────────────────────────────
          3. HARDWARE CATALOG (LED SOLUTIONS)

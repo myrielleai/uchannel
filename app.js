@@ -1600,11 +1600,11 @@ function initLocationsRibbon() {
 
     if (path2D) {
       const ribbonGradient = bgCtxBack.createLinearGradient(0, 0, canvas.width, canvas.height);
-      ribbonGradient.addColorStop(0.00, '#1d5cff');
-      ribbonGradient.addColorStop(0.30, '#2563eb');
+      ribbonGradient.addColorStop(0.00, '#30579c');
+      ribbonGradient.addColorStop(0.30, '#30579c');
       ribbonGradient.addColorStop(0.55, '#FB9B51');
       ribbonGradient.addColorStop(0.80, '#f97316');
-      ribbonGradient.addColorStop(1.00, '#1d5cff');
+      ribbonGradient.addColorStop(1.00, '#30579c');
 
       // 1. Full ribbon background path for back canvas
       bgCtxBack.save();
