@@ -219,8 +219,10 @@ export const AdvertisingSolutions: React.FC = () => {
       >
         <source src="assets/showcase.mp4" type="video/mp4" />
       </video>
+      {/* Background radial gradients matching About section */}
       <div className="adv-solutions-bg-overlay" aria-hidden="true" />
-      <div className="absolute top-1/3 left-10 w-[500px] h-[300px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-1/4 left-10 w-[550px] h-[350px] bg-[#30579C]/25 blur-[140px] rounded-full pointer-events-none z-0" aria-hidden="true" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[280px] bg-[#6C97D3]/20 blur-[130px] rounded-full pointer-events-none z-0" aria-hidden="true" />
 
       <div className="adv-solutions-container">
         {/* Section Header */}

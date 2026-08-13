@@ -184,7 +184,7 @@ export const AboutSection: React.FC = () => {
     <section
       id="hero-step-2"
       ref={sectionRef}
-      className="relative z-10 w-full bg-[#030712] py-16 sm:py-24 lg:py-32 text-white overflow-hidden border-t border-b border-slate-800/60"
+      className="relative z-10 w-full bg-[#020617] py-16 sm:py-24 lg:py-32 text-white overflow-hidden border-t border-b border-slate-800/60"
       aria-label="About U Channel"
     >
       {/* Background Video */}
@@ -199,8 +199,9 @@ export const AboutSection: React.FC = () => {
       </video>
 
       {/* Background radial gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.75),rgba(3,7,18,0.92))] pointer-events-none z-0" />
-      <div className="absolute top-1/3 left-10 w-[500px] h-[300px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(48,87,156,0.35),rgba(2,6,23,0.95))] pointer-events-none z-0" />
+      <div className="absolute top-1/4 left-10 w-[550px] h-[350px] bg-[#30579C]/25 blur-[140px] rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[280px] bg-[#6C97D3]/20 blur-[130px] rounded-full pointer-events-none z-0" />
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10 sm:space-y-12">
         {/* Header Section */}

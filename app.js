@@ -39,11 +39,11 @@ function initLenis() {
   if (!HAS_LENIS || REDUCED) return;
 
   lenis = new Lenis({
-    duration:        0.9,
+    duration:        1.2,
     easing:          t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel:     true,
-    wheelMultiplier: 1.1,
-    touchMultiplier: 1.4,
+    wheelMultiplier: 1.0,
+    touchMultiplier: 1.2,
     infinite:        false,
   });
 
@@ -418,20 +418,57 @@ function initAboutSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   6. Service cards — spring scale-up with stagger
+   6. Interactive Services Showcase — Collapsible Accordion List
    ───────────────────────────────────────────────────────────── */
-function initServiceCards() {
-  if (!HAS_GSAP || !HAS_ST || REDUCED) return;
-  if (!document.querySelector('.services-grid')) return;
+function initInteractiveServices() {
+  const accordionItems = document.querySelectorAll('.service-accordion-item');
+  if (!accordionItems.length) return;
 
-  gsap.set('.service-card', { opacity: 0, y: 60, scale: 0.93, rotateX: 8 });
-  gsap.to('.service-card', {
-    scrollTrigger: { trigger: '.services-grid', start: 'top 82%', once: true },
-    opacity: 1, y: 0, scale: 1, rotateX: 0,
-    stagger: { amount: 0.45, from: 'start' },
-    duration: 0.8,
-    ease: SPRING,
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.service-accordion-header');
+    const video = item.querySelector('.service-accordion-video');
+
+    if (header) {
+      header.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close other items
+        accordionItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            const otherHeader = other.querySelector('.service-accordion-header');
+            if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+            const otherVideo = other.querySelector('.service-accordion-video');
+            if (otherVideo) {
+              otherVideo.pause();
+            }
+          }
+        });
+
+        // Toggle clicked item
+        if (isActive) {
+          item.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+          if (video) video.pause();
+        } else {
+          item.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+          if (video) video.play().catch(() => {});
+        }
+      });
+    }
   });
+
+  // Autoplay active video on load
+  const initialActive = document.querySelector('.service-accordion-item.active');
+  if (initialActive) {
+    const video = initialActive.querySelector('.service-accordion-video');
+    if (video) video.play().catch(() => {});
+  }
+}
+
+function initServiceCards() {
+  initInteractiveServices();
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -966,6 +1003,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroStickyScroll();
     initScrollReveals();
     initAboutSection();
+    initInteractiveServices();
     initServiceCards();
     initServicesStickyScroll();
     initCapabilitiesStack();
@@ -985,6 +1023,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSectionWordReveals();
     initMagneticHover();
+    initCustomCursor();
+    initPageTransitions();
     initCardTilt();
     initLabelTagReveals();
     initLocationsRibbon();
@@ -1082,6 +1122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroStickyScroll();
   initScrollReveals();
   initAboutSection();
+  initInteractiveServices();
   initServiceCards();
   initServicesStickyScroll();
   initCapabilitiesStack();
@@ -1109,6 +1150,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initSectionWordReveals();
   initMagneticHover();
+  initCustomCursor();
+  initPageTransitions();
   initCardTilt();
   initLabelTagReveals();
   initLocationsRibbon();
@@ -1186,14 +1229,157 @@ function initSectionWordReveals() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   B. Magnetic hover — nav CTA and primary/submit buttons
-   Cursor proximity pulls the element toward the pointer.
-   Matches Framer Motion's useMagneticHover pattern.
+   B. Magnetic hover — nav CTA, primary buttons, and icon links
+   Cursor proximity softly pulls the element toward the pointer.
    ───────────────────────────────────────────────────────────── */
 function initMagneticHover() {
-  // Magnetic hover disabled to keep buttons stationary on hover
-  return;
+  if (!HAS_GSAP || REDUCED || window.matchMedia('(pointer: coarse)').matches) return;
+
+  const magneticEls = document.querySelectorAll(
+    '.btn-primary, .nav-cta, .btn-submit, .locations-jump-btn, .btn-ghost, .btn-modal-inquire, .social-btn'
+  );
+
+  magneticEls.forEach(el => {
+    let rect = null;
+    let ticking = false;
+
+    el.addEventListener('mouseenter', () => {
+      rect = el.getBoundingClientRect();
+      el.style.willChange = 'transform';
+    });
+
+    el.addEventListener('mousemove', e => {
+      if (!rect) rect = el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = (e.clientX - centerX) * 0.25;
+      const deltaY = (e.clientY - centerY) * 0.25;
+
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          gsap.to(el, {
+            x: deltaX,
+            y: deltaY,
+            duration: 0.35,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    el.addEventListener('mouseleave', () => {
+      rect = null;
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: 0.65,
+        ease: SPRING,
+        onComplete: () => {
+          el.style.willChange = 'auto';
+        },
+      });
+    });
+  });
 }
+
+/* ─────────────────────────────────────────────────────────────
+   B.2 Fluid Custom Follow Cursor (Desktop)
+   ───────────────────────────────────────────────────────────── */
+function initCustomCursor() {
+  if (REDUCED || !window.matchMedia('(pointer: fine)').matches) return;
+
+  let dot = document.getElementById('custom-cursor-dot');
+  let ring = document.getElementById('custom-cursor-ring');
+
+  if (!dot) {
+    dot = document.createElement('div');
+    dot.id = 'custom-cursor-dot';
+    dot.className = 'custom-cursor-dot';
+    document.body.appendChild(dot);
+  }
+  if (!ring) {
+    ring = document.createElement('div');
+    ring.id = 'custom-cursor-ring';
+    ring.className = 'custom-cursor-ring';
+    document.body.appendChild(ring);
+  }
+
+  document.body.classList.add('has-custom-cursor');
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+  }, { passive: true });
+
+  const render = () => {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+    requestAnimationFrame(render);
+  };
+  requestAnimationFrame(render);
+
+  const interactiveSelector = 'a, button, .work-card, .service-card, .glass-card, .subcategory-header, input, textarea';
+  
+  document.addEventListener('mouseover', e => {
+    if (e.target && e.target.closest && e.target.closest(interactiveSelector)) {
+      document.body.classList.add('cursor-hover');
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (e.target && e.target.closest && e.target.closest(interactiveSelector)) {
+      document.body.classList.remove('cursor-hover');
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   B.3 SPA-Style Page Transition Curtain
+   ───────────────────────────────────────────────────────────── */
+function initPageTransitions() {
+  let curtain = document.getElementById('page-transition-curtain');
+  if (!curtain) {
+    curtain = document.createElement('div');
+    curtain.id = 'page-transition-curtain';
+    curtain.innerHTML = '<div class="curtain-spinner"></div>';
+    document.body.appendChild(curtain);
+  }
+
+  window.addEventListener('pageshow', () => {
+    curtain.classList.remove('active');
+  });
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || link.target === '_blank') {
+      return;
+    }
+
+    const isInternal = href.startsWith('/') || href.startsWith('../') || href.startsWith('./') || href.includes(window.location.hostname);
+    if (isInternal) {
+      e.preventDefault();
+      curtain.classList.add('active');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    }
+  });
+}
+
+
 
 /* ─────────────────────────────────────────────────────────────
    C. Cursor-tracking 3D card tilt

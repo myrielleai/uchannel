@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({
   mainStyle,
 }) => {
   return (
-    <div className="layout-root min-h-screen flex flex-col bg-[#030712] text-white">
+    <div className="layout-root min-h-screen flex flex-col bg-[#020617] text-white">
       {showHeader && (
         <Navbar
           activePage={activePage}

@@ -54,7 +54,7 @@ export const SolutionDetailPage: React.FC<SolutionDetailPageProps> = ({ slug }) 
     ADVERTISING_SOLUTIONS[(currentIndex + 1) % ADVERTISING_SOLUTIONS.length];
 
   return (
-    <Layout activePage="solutions" mainStyle={{ background: '#030712', color: '#ffffff', minHeight: '100vh', paddingTop: '80px' }}>
+    <Layout activePage="solutions" mainStyle={{ background: '#020617', color: '#ffffff', minHeight: '100vh', paddingTop: '80px' }}>
       {/* ── Breadcrumbs Bar ── */}
       <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBlock: '16px', background: 'rgba(2, 6, 23, 0.8)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: '#94a3b8' }}>
@@ -192,7 +192,7 @@ export const SolutionDetailPage: React.FC<SolutionDetailPageProps> = ({ slug }) 
       </section>
 
       {/* ── Next Solution Footer Banner ── */}
-      <section style={{ paddingBlock: '60px', background: 'linear-gradient(90deg, #09132d 0%, #020617 100%)', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+      <section style={{ paddingBlock: '60px', background: 'linear-gradient(135deg, #30579C 0%, #020617 80%)', borderTop: '1px solid rgba(108, 151, 211, 0.25)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
           <div>
             <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: '#60a5fa', fontFamily: 'var(--font-mono)' }}>NEXT SOLUTION FORMAT</span>

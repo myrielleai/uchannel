@@ -128,21 +128,15 @@ export const AdvertisingSolutionsPage: React.FC = () => {
          ───────────────────────────────────────────────────────────── */}
       <section ref={heroRef} className="adv-hero-section">
         <div className="adv-hero-media-wrapper">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/assets/solutions_digital_led.png"
-          >
-            <source src="/assets/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="adv-hero-gradient-overlay" />
+          <img
+            src="/assets/solutions_hero_visual.png"
+            alt="Solutions that make brands seen - U Channel"
+          />
         </div>
 
         <div className="container adv-hero-inner">
           <h1 className="adv-hero-h1 adv-hero-anim">
-            Advertising Solutions
+            Solutions that make brands <span style={{ color: '#FB9B51' }}>seen.</span>
           </h1>
 
           <p className="adv-hero-sub adv-hero-anim">
@@ -296,8 +290,8 @@ export const AdvertisingSolutionsPage: React.FC = () => {
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '36px' }}>
-                <div style={{ padding: '20px', borderRadius: '16px', background: 'rgba(29, 92, 255, 0.06)', border: '1px solid rgba(29, 92, 255, 0.15)' }}>
-                  <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#1d5cff', fontFamily: 'var(--font-mono)' }}>4K P8/P10</div>
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'rgba(251, 155, 81, 0.08)', border: '1px solid rgba(251, 155, 81, 0.25)' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#FB9B51', fontFamily: 'var(--font-mono)' }}>4K P8/P10</div>
                   <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '4px' }}>Resolution Specs</div>
                 </div>
                 <div style={{ padding: '20px', borderRadius: '16px', background: 'rgba(52, 211, 153, 0.06)', border: '1px solid rgba(52, 211, 153, 0.15)' }}>

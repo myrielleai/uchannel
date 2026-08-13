@@ -445,101 +445,214 @@
         Your browser does not support the video tag.
       </video>
       <div class="services-video-overlay" aria-hidden="true"></div>
-      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="absolute top-1/4 left-10 w-[550px] h-[350px] bg-[#30579C]/25 blur-[140px] rounded-full pointer-events-none z-0" aria-hidden="true"></div>
+      <div class="absolute bottom-10 right-10 w-[450px] h-[280px] bg-[#6C97D3]/20 blur-[130px] rounded-full pointer-events-none z-0" aria-hidden="true"></div>
       <div class="capabilities-container">
         <!-- Left Column -->
         <div class="capabilities-text-col reveal-on-scroll">
           <h2 class="capabilities-title">Our Services</h2>
         </div>
 
-        <!-- Services Bento Layout: 4 Grid Cards (2x2) + 1 Tall Card on the Right -->
-        <div class="services-bento-grid">
-          <!-- Left 2x2 Grid Container (Cards 1, 2, 3, 4) -->
-          <div class="services-quad-grid">
-            <!-- Card 1: Digital Displays -->
-            <div class="capability-card reveal-on-scroll">
-              <span class="glow"></span>
-              <div class="glow-content">
-                <div class="capability-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <!-- Interactive Services Showcase Collapsible List -->
+        <div class="services-interactive-wrapper">
+          <div class="services-accordion-list">
+            
+            <!-- Service Item 01 -->
+            <div class="service-accordion-item active reveal-on-scroll" style="--delay:0.1s" data-service="digital-displays">
+              <button class="service-accordion-header" type="button" aria-expanded="true">
+                <span class="service-item-indicator" aria-hidden="true"></span>
+                <span class="service-item-number">01</span>
+                <h3 class="service-item-title">Digital Displays</h3>
+                <div class="service-item-arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-                <h3>Digital Displays</h3>
-                <p>LED screens and digital signage designed to deliver high-impact visuals in commercial and public spaces.</p>
+              </button>
+              
+              <div class="service-accordion-body">
+                <div class="service-accordion-inner">
+                  <div class="service-panel-grid">
+                    <!-- Video Container -->
+                    <div class="service-panel-video-box">
+                      <video class="service-accordion-video" autoplay loop muted playsinline fetchpriority="high">
+                        <source src="assets/services.mp4" type="video/mp4">
+                      </video>
+                      <div class="service-panel-video-overlay" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Details & CTA -->
+                    <div class="service-panel-details">
+                      <span class="featured-badge">01 / DIGITAL DISPLAYS</span>
+                      <p class="service-panel-desc">
+                        Command instant audience attention with state-of-the-art 4K LED screens and digital signage. Engineered for ultra-high brightness and 24/7 reliability across prime commercial and transit locations.
+                      </p>
+                      <div class="featured-card-highlights">
+                        <span class="highlight-chip">4K High Resolution</span>
+                        <span class="highlight-chip">24/7 Screen Uptime</span>
+                        <span class="highlight-chip">Dynamic Scheduling</span>
+                      </div>
+                      <div class="service-panel-footer">
+                        <a href="#contact" class="btn-primary hero-cta-btn">
+                          <span>Get a Quote</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Card 2: OOH Advertising -->
-            <div class="capability-card reveal-on-scroll" style="--delay:0.1s">
-              <span class="glow"></span>
-              <div class="glow-content">
-                <div class="capability-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <!-- Service Item 02 -->
+            <div class="service-accordion-item reveal-on-scroll" style="--delay:0.2s" data-service="ooh-advertising">
+              <button class="service-accordion-header" type="button" aria-expanded="false">
+                <span class="service-item-indicator" aria-hidden="true"></span>
+                <span class="service-item-number">02</span>
+                <h3 class="service-item-title">OOH Advertising</h3>
+                <div class="service-item-arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-                <h3>OOH Advertising</h3>
-                <p>Strategic Out-of-Home advertising that puts brands in front of audiences where they live, work, and move.</p>
+              </button>
+              
+              <div class="service-accordion-body">
+                <div class="service-accordion-inner">
+                  <div class="service-panel-grid">
+                    <!-- Video Container -->
+                    <div class="service-panel-video-box">
+                      <video class="service-accordion-video" loop muted playsinline>
+                        <source src="assets/locbg.mp4" type="video/mp4">
+                      </video>
+                      <div class="service-panel-video-overlay" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Details & CTA -->
+                    <div class="service-panel-details">
+                      <span class="featured-badge">02 / OOH ADVERTISING</span>
+                      <p class="service-panel-desc">
+                        Position your brand where millions move daily. Our strategic Out-of-Home billboard placements dominate high-traffic expressways, major city intersections, and key economic corridors.
+                      </p>
+                      <div class="featured-card-highlights">
+                        <span class="highlight-chip">Highway Billboards</span>
+                        <span class="highlight-chip">Arterial Coverage</span>
+                        <span class="highlight-chip">Mass Footfall Reach</span>
+                      </div>
+                      <div class="service-panel-footer">
+                        <a href="/locations/" class="btn-primary hero-cta-btn">
+                          <span>Explore Locations</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Card 3: Media Solutions -->
-            <div class="capability-card reveal-on-scroll" style="--delay:0.2s">
-              <span class="glow"></span>
-              <div class="glow-content">
-                <div class="capability-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            <!-- Service Item 03 -->
+            <div class="service-accordion-item reveal-on-scroll" style="--delay:0.3s" data-service="media-solutions">
+              <button class="service-accordion-header" type="button" aria-expanded="false">
+                <span class="service-item-indicator" aria-hidden="true"></span>
+                <span class="service-item-number">03</span>
+                <h3 class="service-item-title">Media Solutions</h3>
+                <div class="service-item-arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-                <h3>Media Solutions</h3>
-                <p>Flexible advertising opportunities across our digital display network, helping brands reach the right audiences in the right locations.</p>
+              </button>
+              
+              <div class="service-accordion-body">
+                <div class="service-accordion-inner">
+                  <div class="service-panel-grid">
+                    <!-- Video Container -->
+                    <div class="service-panel-video-box">
+                      <video class="service-accordion-video" loop muted playsinline>
+                        <source src="assets/showcase.mp4" type="video/mp4">
+                      </video>
+                      <div class="service-panel-video-overlay" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Details & CTA -->
+                    <div class="service-panel-details">
+                      <span class="featured-badge">03 / MEDIA SOLUTIONS</span>
+                      <p class="service-panel-desc">
+                        Maximize campaign ROI with intelligent audience targeting, flexible time-slot booking, and dynamic content scheduling tailored to peak commuting and shopping hours.
+                      </p>
+                      <div class="featured-card-highlights">
+                        <span class="highlight-chip">Targeted Slots</span>
+                        <span class="highlight-chip">Multi-Screen Networks</span>
+                        <span class="highlight-chip">Real-Time Analytics</span>
+                      </div>
+                      <div class="service-panel-footer">
+                        <a href="/advertising-solutions/" class="btn-primary hero-cta-btn">
+                          <span>View Solutions</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Card 4: Custom Solutions -->
-            <div class="capability-card reveal-on-scroll" style="--delay:0.3s">
-              <span class="glow"></span>
-              <div class="glow-content">
-                <div class="capability-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            <!-- Service Item 04 -->
+            <div class="service-accordion-item reveal-on-scroll" style="--delay:0.4s" data-service="custom-solutions">
+              <button class="service-accordion-header" type="button" aria-expanded="false">
+                <span class="service-item-indicator" aria-hidden="true"></span>
+                <span class="service-item-number">04</span>
+                <h3 class="service-item-title">Custom Solutions</h3>
+                <div class="service-item-arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-                <h3>Custom Solutions</h3>
-                <p>End-to-end display solutions tailored to your space, brand, and objectives—from planning and installation to ongoing support.</p>
+              </button>
+              
+              <div class="service-accordion-body">
+                <div class="service-accordion-inner">
+                  <div class="service-panel-grid">
+                    <!-- Video Container -->
+                    <div class="service-panel-video-box">
+                      <video class="service-accordion-video" loop muted playsinline>
+                        <source src="assets/hero.mp4" type="video/mp4">
+                      </video>
+                      <div class="service-panel-video-overlay" aria-hidden="true"></div>
+                    </div>
+                    
+                    <!-- Details & CTA -->
+                    <div class="service-panel-details">
+                      <span class="featured-badge">04 / CUSTOM SOLUTIONS</span>
+                      <p class="service-panel-desc">
+                        From custom curved LED walls to interactive brand activations, our engineering team brings ambitious creative visions to life with turnkey fabrication, installation, and support.
+                      </p>
+                      <div class="featured-card-highlights">
+                        <span class="highlight-chip">Architectural LED Builds</span>
+                        <span class="highlight-chip">Interactive Displays</span>
+                        <span class="highlight-chip">Turnkey Installation</span>
+                      </div>
+                      <div class="service-panel-footer">
+                        <a href="#contact" class="btn-primary hero-cta-btn">
+                          <span>Request Custom Quote</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Right Card: Media Exposure & Scale (Same height as 2 cards stacked) -->
-          <div class="capability-card capability-card--tall reveal-on-scroll" style="--delay:0.4s">
-            <span class="glow"></span>
-            <div class="glow-content">
-              <video class="tall-card-video" autoplay loop muted playsinline fetchpriority="high">
-                <source src="assets/services.mp4" type="video/mp4">
-              </video>
-              <div class="tall-card-video-overlay" aria-hidden="true"></div>
-              <div class="tall-card-body">
-                <h3>YOUR BRAND,<br>RIGHT WHERE IT MATTERS.</h3>
-                <p>From high-impact digital displays to strategic OOH placements, we help brands get seen by the people who matter.</p>
-              </div>
-              <div class="tall-card-footer">
-                <a href="#contact" class="btn-primary tall-card-cta">
-                  <span>Get a Quote</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -666,7 +779,6 @@
       <!-- ─── MINDANAO CATEGORY ─── -->
       <div id="focus-mindanao" class="focus-category-block reveal-on-scroll" data-region="mindanao">
         <div class="focus-category-header">
-          <span class="coming-soon-badge">Coming Soon!</span>
           <h3 class="focus-category-title">MINDANAO</h3>
         </div>
 
