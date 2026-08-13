@@ -30,12 +30,12 @@ export const BrandsSection: React.FC = () => {
 
       <div className="container clients-container">
         {/* Section Header */}
-        <div className="clients-header">
-          <span className="label-tag">Trusted Partners</span>
-          <h2 className="clients-headline">
-            Brands That Choose <span className="headline-accent">U Channel</span>
+        <div className="adv-section-header clients-header">
+          <span className="adv-section-tag">Trusted Partners</span>
+          <h2 className="adv-section-h2 clients-headline">
+            Brands That Choose <span style={{ color: '#FB9B51' }}>U Channel</span>
           </h2>
-          <p className="clients-subtext">
+          <p className="adv-section-desc clients-subtext">
             From global conglomerates to homegrown champions — the Philippines' most iconic brands trust U Channel to put them in the spotlight.
           </p>
         </div>

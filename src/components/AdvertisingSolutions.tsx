@@ -216,6 +216,7 @@ export const AdvertisingSolutions: React.FC = () => {
         loop
         muted
         playsInline
+        preload="auto"
       >
         <source src="assets/showcase.mp4" type="video/mp4" />
       </video>

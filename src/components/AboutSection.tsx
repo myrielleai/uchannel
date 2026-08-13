@@ -194,6 +194,7 @@ export const AboutSection: React.FC = () => {
         loop
         muted
         playsInline
+        preload="auto"
       >
         <source src="assets/services.mp4" type="video/mp4" />
       </video>
