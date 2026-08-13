@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="container nav-container">
           <a href={homeHref} className="logo-link" id="nav-brand-logo" aria-label="U Channel home">
             <picture>
-              <source srcset={logoWebpSrc} type="image/webp" />
+              <source srcSet={logoWebpSrc} type="image/webp" />
               <img src={logoImgSrc} alt="U Channel logo" className="logo-img" width="48" height="48" />
             </picture>
             <span className="logo-divider" aria-hidden="true"></span>
