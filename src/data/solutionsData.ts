@@ -404,65 +404,33 @@ export const WHY_CHOOSE_FEATURES: WhyChooseFeature[] = [
     id: 'feat-1',
     bgColor: '#FFF',
     fallbackColor: '#000000',
-    image: 'https://images.unsplash.com/photo-1535376472810-5d229c65da09?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Strategic Prime Locations',
-    description: 'Placements across high-traffic highways, commercial hubs, and key metro corridors.'
+    image: 'https://images.unsplash.com/photo-1541356665065-22676f35dd40?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
+    title: 'Tailored LED Solutions',
+    description: 'Custom ultra-HD displays, 3D anamorphic screens, and flexible specs engineered for your brand.'
   },
   {
     id: 'feat-2',
     bgColor: '#000',
     fallbackColor: '#ffffff',
-    image: 'https://images.unsplash.com/photo-1529641484336-ef35148bab06?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Unmatched High Visibility',
-    description: 'Command viewer attention with continuous, unmissable brand presence day and night.'
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
+    title: 'Customer-First Service',
+    description: 'Dedicated account management, responsive technical support, and seamless communication at every stage.'
   },
   {
     id: 'feat-3',
     bgColor: '#FBC02D',
     fallbackColor: '#000000',
-    image: 'https://images.unsplash.com/photo-1541356665065-22676f35dd40?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Creative Flexibility',
-    description: 'Dynamic 4K digital displays, static billboards, transit wraps, and 3D anamorphic screens.'
+    image: 'https://images.unsplash.com/photo-1550684848-86a5d8727436?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
+    title: 'End-to-End Expertise',
+    description: 'Full turnkey execution from site survey and design to engineering, installation, and maintenance.'
   },
   {
     id: 'feat-4',
     bgColor: '#C2185B',
     fallbackColor: '#ffffff',
-    image: 'https://images.unsplash.com/photo-1550684848-86a5d8727436?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'End-to-End Service',
-    description: 'Full turnkey execution from site selection and design to installation and proof of performance.'
-  },
-  {
-    id: 'feat-5',
-    bgColor: '#2f6a9d',
-    fallbackColor: '#ffffff',
-    image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Real-Time Programmatic',
-    description: 'Instant scheduling updates, dynamic dayparting, and context-triggered ad content.'
-  },
-  {
-    id: 'feat-6',
-    bgColor: '#212121',
-    fallbackColor: '#ffffff',
-    image: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Data-Driven Analytics',
-    description: 'Comprehensive impression tracking, traffic heatmaps, and demographic measurement.'
-  },
-  {
-    id: 'feat-7',
-    bgColor: '#B388FF',
-    fallbackColor: '#000000',
-    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: '100% Share of Voice',
-    description: 'Exclusive super-format presence commanding maximum brand recall without ad clutter.'
-  },
-  {
-    id: 'feat-8',
-    bgColor: '#43A047',
-    fallbackColor: '#ffffff',
-    image: 'https://images.unsplash.com/photo-1496450080853-5f78c43af9e9?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
-    title: 'Eco & Structural Safety',
-    description: 'Typhoon-rated structural engineering with energy-efficient auto-dimming LED panels.'
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=srgb&fm=jpg&w=600&auto=format&q=75',
+    title: 'Trusted Industry Experience',
+    description: 'Years of proven excellence delivering high-impact out-of-home advertising campaigns nationwide.'
   }
 ];
 

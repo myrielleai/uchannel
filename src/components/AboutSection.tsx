@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ImageItem {
+interface PhotoItem {
   id: number;
   src: string;
   alt: string;
   title: string;
   category: string;
   location: string;
+  isLarge: boolean;
 }
 
-const CAROUSEL_PHOTOS: ImageItem[] = [
+const ABOUT_PHOTOS: PhotoItem[] = [
+  // Row 1: [ large immersive display photo ] [ smaller photo ]
   {
     id: 1,
     src: 'assets/about_digital_led.png',
@@ -21,6 +23,7 @@ const CAROUSEL_PHOTOS: ImageItem[] = [
     title: 'Ultra-HD Curved LED Displays',
     category: 'Digital Display Tech',
     location: 'EDSA & Key Financial Districts',
+    isLarge: true,
   },
   {
     id: 2,
@@ -28,8 +31,10 @@ const CAROUSEL_PHOTOS: ImageItem[] = [
     alt: 'Premium billboard installation by expert crew along major highway',
     title: 'Prime Highway Billboards',
     category: 'Static & Mega Structures',
-    location: 'SLEX, NLEX & Radial Corridors',
+    location: 'SLEX & NLEX Corridors',
+    isLarge: false,
   },
+  // Row 2: [ smaller photo ] [ large display photo ]
   {
     id: 3,
     src: 'assets/about_campaign_execution.png',
@@ -37,160 +42,52 @@ const CAROUSEL_PHOTOS: ImageItem[] = [
     title: 'Nationwide Campaign Execution',
     category: 'Transit & Street Network',
     location: 'Luzon, Visayas & Mindanao',
+    isLarge: false,
   },
   {
     id: 4,
-    src: 'assets/about_client_showcase.png',
-    alt: 'Flagship luxury brand storefront with interactive digital screens',
-    title: 'Market-Leading Brand Showcase',
-    category: 'Commercial Activation',
-    location: 'Premium Malls & Retail Hubs',
-  },
-  {
-    id: 5,
     src: 'assets/solutions_building_wrap.png',
     alt: 'Colossal building wrap billboard dominating city skyline',
     title: 'High-Rise Building Wraps',
     category: 'Iconic Landmarks',
     location: 'BGC, Makati & Ortigas Center',
+    isLarge: true,
+  },
+];
+
+const STAT_CARDS = [
+  {
+    value: '28+',
+    label: 'Years of Industry Experience',
+    highlight: true,
   },
   {
-    id: 6,
-    src: 'assets/about_team_at_work.png',
-    alt: 'Creative marketing and technical team collaborating',
-    title: 'Dedicated Media Strategists',
-    category: 'Engineering & Operations',
-    location: 'U Channel Headquarters',
+    value: '2022',
+    label: 'Year Founded',
+    highlight: false,
+  },
+  {
+    value: 'Nationwide',
+    label: 'Reach Across the Philippines',
+    highlight: true,
+  },
+  {
+    value: 'End-to-End',
+    label: 'Display & OOH Solutions',
+    highlight: false,
   },
 ];
 
 export const AboutSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const leftColRef = useRef<HTMLDivElement>(null);
-  const third1Ref = useRef<HTMLDivElement>(null);
-  const third2Ref = useRef<HTMLDivElement>(null);
-  const third3Ref = useRef<HTMLDivElement>(null);
-  const galleryContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [currentProgress, setCurrentProgress] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffsetY, setDragOffsetY] = useState(0);
-
-  const dragStartYRef = useRef(0);
-  const animFrameRef = useRef<number | null>(null);
-
-  // Smooth lerp progress towards target activeIndex + drag displacement
-  useEffect(() => {
-    const cardStep = 580; // step height per slide matching stage card height + gap
-    const targetProgress = activeIndex - dragOffsetY / cardStep;
-
-    const animate = () => {
-      setCurrentProgress((prev) => {
-        const diff = targetProgress - prev;
-        if (Math.abs(diff) < 0.001) return targetProgress;
-        return prev + diff * 0.14; // smooth dampening
-      });
-      animFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    animFrameRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animFrameRef.current !== null) {
-        cancelAnimationFrame(animFrameRef.current);
-      }
-    };
-  }, [activeIndex, dragOffsetY]);
-
-  // Handle slide selection infinitely
-  const goToSlide = useCallback((targetIndex: number) => {
-    const N = CAROUSEL_PHOTOS.length;
-    setActiveIndex((prev) => {
-      const currentNormalized = ((prev % N) + N) % N;
-      let diff = targetIndex - currentNormalized;
-      if (diff > N / 2) diff -= N;
-      if (diff < -N / 2) diff += N;
-      return prev + diff;
-    });
-  }, []);
-
-  const nextSlide = useCallback(() => {
-    setActiveIndex((prev) => prev + 1);
-  }, []);
-
-  const prevSlide = useCallback(() => {
-    setActiveIndex((prev) => prev - 1);
-  }, []);
-
-  // Infinite auto-advance when not dragged
-  useEffect(() => {
-    if (isDragging) return;
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isDragging, nextSlide]);
-
-  // Drag Gesture Handlers (Mouse & Touch)
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    dragStartYRef.current = e.clientY;
-    setDragOffsetY(0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const deltaY = e.clientY - dragStartYRef.current;
-    setDragOffsetY(deltaY);
-  };
-
-  const handleMouseUpOrLeave = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-
-    // Snap to next/prev depending on drag displacement
-    if (dragOffsetY < -50) {
-      nextSlide();
-    } else if (dragOffsetY > 50) {
-      prevSlide();
-    }
-    setDragOffsetY(0);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    dragStartYRef.current = e.touches[0].clientY;
-    setDragOffsetY(0);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const deltaY = e.touches[0].clientY - dragStartYRef.current;
-    setDragOffsetY(deltaY);
-  };
-
-  const handleTouchEnd = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-
-    if (dragOffsetY < -50) {
-      nextSlide();
-    } else if (dragOffsetY > 50) {
-      prevSlide();
-    }
-    setDragOffsetY(0);
-  };
-
-  // GSAP scroll entrance animation
   useEffect(() => {
     const section = sectionRef.current;
-    const gallery = galleryContainerRef.current;
-
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      // Staggered text fade & slide up with blur reveal
+      // Text reveal animation
       const textElements = section.querySelectorAll('.animate-about-text');
       if (textElements.length > 0) {
         gsap.fromTo(
@@ -216,7 +113,7 @@ export const AboutSection: React.FC = () => {
         );
       }
 
-      // Staggered stat boxes spring reveal
+      // Stat cards spring reveal
       const statCards = section.querySelectorAll('.animate-about-stat');
       if (statCards.length > 0) {
         gsap.fromTo(
@@ -236,7 +133,7 @@ export const AboutSection: React.FC = () => {
             stagger: 0.08,
             ease: 'back.out(1.4)',
             scrollTrigger: {
-              trigger: third3Ref.current || section,
+              trigger: statCards[0] || section,
               start: 'top 85%',
               once: true,
             },
@@ -244,20 +141,28 @@ export const AboutSection: React.FC = () => {
         );
       }
 
-      if (gallery) {
+      // Photo grid reveal animation
+      const photoCards = section.querySelectorAll('.animate-about-photo');
+      if (photoCards.length > 0) {
         gsap.fromTo(
-          gallery,
-          { opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' },
+          photoCards,
+          {
+            opacity: 0,
+            y: 40,
+            scale: 0.95,
+            filter: 'blur(8px)',
+          },
           {
             opacity: 1,
-            scale: 1,
             y: 0,
+            scale: 1,
             filter: 'blur(0px)',
             duration: 0.9,
+            stagger: 0.12,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: section,
-              start: 'top 70%',
+              trigger: photoCards[0] || section,
+              start: 'top 80%',
               once: true,
             },
           }
@@ -265,7 +170,6 @@ export const AboutSection: React.FC = () => {
       }
     }, sectionRef);
 
-    // Refresh ScrollTrigger after React component layout mounts and settles
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 120);
@@ -298,217 +202,225 @@ export const AboutSection: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.75),rgba(3,7,18,0.92))] pointer-events-none z-0" />
       <div className="absolute top-1/3 left-10 w-[500px] h-[300px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none z-0" />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          
-          {/* =========================================================================
-              LEFT COLUMN: Split cleanly into 3rds
-              ========================================================================= */}
-          <div
-            ref={leftColRef}
-            className="lg:col-span-5 flex flex-col justify-between space-y-8 lg:space-y-0 py-2"
-          >
-            {/* 1st THIRD: Title & Identity */}
-            <div
-              ref={third1Ref}
-              className="flex flex-col justify-center space-y-4"
-            >
-              <h2 className="font-display font-black text-white tracking-tight leading-[1.1] flex flex-col gap-1">
-                <span className="animate-about-text text-sm sm:text-base font-medium text-slate-400 uppercase tracking-[0.25em] font-body transition-colors duration-300 hover:text-blue-400 select-none">
-                  This is
-                </span>
-                <span className="animate-about-text text-5xl sm:text-6xl lg:text-7xl bg-gradient-to-r from-blue-400 via-indigo-300 to-white bg-clip-text text-transparent transition-all duration-500 hover:tracking-wide select-none">
-                  U Channel
-                </span>
-              </h2>
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10 sm:space-y-12">
+        {/* Header Section */}
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center space-y-4">
+          <h2 className="animate-about-text font-display font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white tracking-tight leading-[1.08] text-center select-none">
+            Where{' '}
+            <span className="inline-block transition-all duration-300 ease-out cursor-pointer hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-blue-400 via-indigo-300 to-white hover:from-cyan-300 hover:via-blue-400 hover:to-indigo-200 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:drop-shadow-[0_0_35px_rgba(59,130,246,0.95)]">
+              GREAT BRANDS
+            </span>{' '}
+            get{' '}
+            <span className="inline-block transition-all duration-300 ease-out cursor-pointer hover:scale-110 hover:-translate-y-1 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-cyan-300 hover:via-blue-400 hover:to-indigo-300 bg-clip-text hover:drop-shadow-[0_0_35px_rgba(6,182,212,0.95)] hover:tracking-wider">
+              SEEN
+            </span>
+            .
+          </h2>
 
-              <p className="animate-about-text text-slate-300 font-body text-sm sm:text-base font-light tracking-wide leading-relaxed transition-colors duration-300 hover:text-white">
-                The Philippines' premier out-of-home (OOH) media ecosystem and digital LED network provider.
-              </p>
+          <p className="animate-about-text text-slate-300 font-body text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl mx-auto text-center">
+            Founded in 2022 by Rico Uy, U Channel combines 28+ years of industry experience with innovative digital display and OOH solutions.
+          </p>
+        </div>
+
+        {/* Stat / Highlight Cards (Placed directly BELOW the paragraph) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-2 pb-4">
+          {STAT_CARDS.map((stat, idx) => (
+            <div
+              key={idx}
+              className="animate-about-stat flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-slate-950/70 border border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-xl hover:shadow-blue-500/20 group cursor-default"
+            >
+              <span
+                className={`text-3xl sm:text-4xl font-black font-display tracking-tight transition-colors duration-300 ${
+                  stat.highlight ? 'text-blue-400 group-hover:text-blue-300' : 'text-white group-hover:text-blue-300'
+                }`}
+              >
+                {stat.value}
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-slate-300 mt-3 leading-snug transition-colors duration-300 group-hover:text-white">
+                {stat.label}
+              </span>
             </div>
+          ))}
+        </div>
 
-            {/* 2nd THIRD: U Channel Description */}
+        {/* Photo Grid Section (AFTER the cards) */}
+        {/* Layout:
+            [ large immersive display photo ] [ smaller photo ]
+            [ smaller photo ] [ large display photo ]
+        */}
+        <div className="space-y-6 pt-4">
+          {/* Row 1: [ large immersive display photo ] (7 cols) [ smaller photo ] (5 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Top Left: Large Immersive Display Photo */}
             <div
-              ref={third2Ref}
-              className="flex flex-col justify-center space-y-4"
+              onClick={() => setSelectedPhoto(ABOUT_PHOTOS[0])}
+              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
             >
-              <h3 className="animate-about-text font-display font-bold text-xl sm:text-2xl text-white tracking-tight transition-colors duration-300 hover:text-blue-300">
-                Connecting Brands with Millions Daily
-              </h3>
+              <img
+                src={ABOUT_PHOTOS[0].src}
+                alt={ABOUT_PHOTOS[0].alt}
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-              <div className="space-y-3 text-slate-300 font-body text-sm sm:text-base leading-relaxed font-light">
-                <p className="animate-about-text transition-colors duration-300 hover:text-slate-100">
-                  U Channel transforms high-traffic urban thoroughfares into unmissable brand experiences. Through ultra-HD digital LED billboards, colossal highway structures, transit media, and interactive activations, we deliver unmatched visibility across Metro Manila and key economic hubs nationwide.
+              <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
+                <span className="px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wider uppercase">
+                  {ABOUT_PHOTOS[0].category}
+                </span>
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                  {ABOUT_PHOTOS[0].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
+                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[0].location}
                 </p>
-                <p className="animate-about-text text-slate-400 text-xs sm:text-sm transition-colors duration-300 hover:text-slate-300">
-                  From strategic planning to flawless execution, we empower top global and domestic brands to dominate prime corridors and drive lasting audience retention.
-                </p>
+              </div>
+
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
               </div>
             </div>
 
-            {/* 3rd THIRD: U Channel's Impact */}
+            {/* Top Right: Smaller Photo */}
             <div
-              ref={third3Ref}
-              className="flex flex-col justify-center space-y-4"
+              onClick={() => setSelectedPhoto(ABOUT_PHOTOS[1])}
+              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
             >
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                <div className="animate-about-stat flex flex-col p-3.5 rounded-2xl bg-slate-950/60 border border-white/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-lg hover:shadow-blue-500/20 group cursor-default">
-                  <span className="text-2xl sm:text-3xl font-black font-display text-white tracking-tight transition-colors duration-300 group-hover:text-blue-300 inline-block">
-                    380K+
-                  </span>
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider mt-1 transition-colors duration-300 group-hover:text-blue-200">
-                    Daily Reach
-                  </span>
-                  <span className="text-[9px] text-slate-400 mt-0.5 transition-colors duration-300 group-hover:text-slate-300">High Impressions</span>
-                </div>
+              <img
+                src={ABOUT_PHOTOS[1].src}
+                alt={ABOUT_PHOTOS[1].alt}
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-                <div className="animate-about-stat flex flex-col p-3.5 rounded-2xl bg-slate-950/60 border border-white/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-lg hover:shadow-blue-500/20 group cursor-default">
-                  <span className="text-2xl sm:text-3xl font-black font-display text-blue-400 tracking-tight transition-colors duration-300 group-hover:text-blue-300 inline-block">
-                    100%
-                  </span>
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider mt-1 transition-colors duration-300 group-hover:text-blue-200">
-                    Coverage
-                  </span>
-                  <span className="text-[9px] text-slate-400 mt-0.5 transition-colors duration-300 group-hover:text-slate-300">Luzon VisMind</span>
-                </div>
+              <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
+                <span className="px-3 py-1 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 text-indigo-300 text-xs font-semibold tracking-wider uppercase">
+                  {ABOUT_PHOTOS[1].category}
+                </span>
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                  {ABOUT_PHOTOS[1].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
+                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[1].location}
+                </p>
+              </div>
 
-                <div className="animate-about-stat flex flex-col p-3.5 rounded-2xl bg-slate-950/60 border border-white/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-lg hover:shadow-blue-500/20 group cursor-default">
-                  <span className="text-2xl sm:text-3xl font-black font-display text-white tracking-tight transition-colors duration-300 group-hover:text-blue-300 inline-block">
-                    24/7
-                  </span>
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider mt-1 transition-colors duration-300 group-hover:text-blue-200">
-                    Exposure
-                  </span>
-                  <span className="text-[9px] text-slate-400 mt-0.5 transition-colors duration-300 group-hover:text-slate-300">4K Dynamic LED</span>
-                </div>
-
-                <div className="animate-about-stat flex flex-col p-3.5 rounded-2xl bg-slate-950/60 border border-white/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500/50 hover:bg-slate-900/90 hover:shadow-lg hover:shadow-blue-500/20 group cursor-default">
-                  <span className="text-2xl sm:text-3xl font-black font-display text-blue-400 tracking-tight transition-colors duration-300 group-hover:text-blue-300 inline-block">
-                    150+
-                  </span>
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider mt-1 transition-colors duration-300 group-hover:text-blue-200">
-                    Locations
-                  </span>
-                  <span className="text-[9px] text-slate-400 mt-0.5 transition-colors duration-300 group-hover:text-slate-300">Prime Sites</span>
-                </div>
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
               </div>
             </div>
           </div>
 
-          {/* =========================================================================
-              RIGHT COLUMN: Non-Overlapping Editorial Vertical Carousel Gallery
-              - Positioned on rightmost side
-              - Clean single-stage view with smooth non-overlapping slide transitions
-              ========================================================================= */}
-          <div className="lg:col-span-7 flex flex-col h-full relative pl-0 sm:pl-4 justify-center">
+          {/* Row 2: [ smaller photo ] (5 cols) [ large display photo ] (7 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Bottom Left: Smaller Photo */}
             <div
-              ref={galleryContainerRef}
-              onMouseLeave={handleMouseUpOrLeave}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUpOrLeave}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              className={`w-full h-[520px] sm:h-[620px] lg:h-[680px] relative overflow-hidden rounded-3xl border border-white/15 bg-slate-950/80 shadow-2xl backdrop-blur-md select-none ${
-                isDragging ? 'cursor-grabbing' : 'cursor-grab'
-              }`}
+              onClick={() => setSelectedPhoto(ABOUT_PHOTOS[2])}
+              className="animate-about-photo lg:col-span-5 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
             >
-              {/* Photo Slides Container (Strict 0-overlap vertical slide math) */}
-              <div className="w-full h-full relative overflow-hidden">
-                {CAROUSEL_PHOTOS.map((photo, index) => {
-                  const N = CAROUSEL_PHOTOS.length;
-                  const modProgress = ((currentProgress % N) + N) % N;
-                  const rawD = index - modProgress;
-                  let d = (rawD + N / 2) % N;
-                  if (d < 0) d += N;
-                  d -= N / 2;
+              <img
+                src={ABOUT_PHOTOS[2].src}
+                alt={ABOUT_PHOTOS[2].alt}
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-                  const absD = Math.abs(d);
-
-                  // NON-OVERLAPPING POSITIONING:
-                  // Each slide is offset vertically by d * (100% + 28px gap).
-                  // At d=0, photo fills the stage.
-                  // At d=1, photo is 100% + 28px below.
-                  // At d=-1, photo is -100% - 28px above.
-                  const translateYPercent = d * 100;
-                  const translateYGap = d * 28;
-                  const opacity = Math.max(0, 1 - Math.min(1, absD * 0.9));
-                  const isCenter = absD < 0.4;
-                  const isVisible = absD < 1.4;
-
-                  if (!isVisible) return null;
-
-                  return (
-                    <div
-                      key={photo.id}
-                      onClick={() => !isCenter && goToSlide(index)}
-                      style={{
-                        transform: `translateY(calc(${translateYPercent}% + ${translateYGap}px))`,
-                        opacity,
-                        pointerEvents: isCenter ? 'auto' : 'none',
-                      }}
-                      className="absolute inset-0 w-full h-full overflow-hidden bg-slate-950"
-                    >
-                      {/* Image */}
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        className={`w-full h-full object-cover object-center transition-transform duration-700 ${
-                          isCenter ? 'scale-100' : 'scale-105 brightness-75'
-                        }`}
-                        loading={index === 0 ? 'eager' : 'lazy'}
-                      />
-
-                      {/* Dark Vignette Gradient for readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-slate-950/30 pointer-events-none" />
-
-                      {/* Bottom-Left Title & Location Overlay with smooth text transitions */}
-                      <div
-                        className={`absolute bottom-8 left-6 right-20 z-20 flex flex-col items-start pointer-events-none transition-all duration-700 ease-out ${
-                          isCenter ? 'opacity-100 translate-y-0 blur-0 scale-100' : 'opacity-0 translate-y-6 blur-sm scale-95'
-                        }`}
-                      >
-                        <h3 className="font-display font-bold text-xl sm:text-2xl lg:text-3xl text-white leading-tight tracking-tight drop-shadow-md transition-transform duration-500">
-                          {photo.title}
-                        </h3>
-
-                        <p className="text-xs sm:text-sm text-slate-300 font-light mt-2 flex items-center gap-2 bg-slate-900/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 transition-all duration-500 delay-100">
-                          <span className="text-blue-400 font-bold animate-pulse">📍</span> {photo.location}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
+              <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
+                <span className="px-3 py-1 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-400/30 text-purple-300 text-xs font-semibold tracking-wider uppercase">
+                  {ABOUT_PHOTOS[2].category}
+                </span>
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                  {ABOUT_PHOTOS[2].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
+                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[2].location}
+                </p>
               </div>
 
-              {/* Vertical Indicator Dots (Right Edge) */}
-              <div className="absolute right-5 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-2 bg-slate-900/60 border border-white/10 backdrop-blur-md px-2 py-3 rounded-full shadow-lg">
-                {CAROUSEL_PHOTOS.map((_, idx) => {
-                  const N = CAROUSEL_PHOTOS.length;
-                  const normalizedActiveIndex = ((activeIndex % N) + N) % N;
-                  const isActive = normalizedActiveIndex === idx;
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => goToSlide(idx)}
-                      className={`transition-all duration-300 rounded-full cursor-pointer ${
-                        isActive
-                          ? 'w-2.5 h-6 bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.6)]'
-                          : 'w-2.5 h-2.5 bg-white/30 hover:bg-white/70'
-                      }`}
-                      aria-label={`Jump to photo ${idx + 1}`}
-                    />
-                  );
-                })}
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Bottom Right: Large Display Photo */}
+            <div
+              onClick={() => setSelectedPhoto(ABOUT_PHOTOS[3])}
+              className="animate-about-photo lg:col-span-7 group relative h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl cursor-pointer"
+            >
+              <img
+                src={ABOUT_PHOTOS[3].src}
+                alt={ABOUT_PHOTOS[3].alt}
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+
+              <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col items-start space-y-2">
+                <span className="px-3 py-1 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 text-cyan-300 text-xs font-semibold tracking-wider uppercase">
+                  {ABOUT_PHOTOS[3].category}
+                </span>
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight group-hover:text-blue-200 transition-colors">
+                  {ABOUT_PHOTOS[3].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-light flex items-center gap-1.5">
+                  <span className="text-blue-400 font-bold">📍</span> {ABOUT_PHOTOS[3].location}
+                </p>
+              </div>
+
+              <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
               </div>
             </div>
           </div>
-
         </div>
       </div>
+
+      {/* Interactive Photo Lightbox Modal */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/90 backdrop-blur-xl transition-all duration-300"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/20 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-slate-950/80 border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-slate-950 transition-colors"
+              aria-label="Close photo preview"
+            >
+              ✕
+            </button>
+
+            <div className="relative aspect-[16/10] w-full max-h-[70vh]">
+              <img
+                src={selectedPhoto.src}
+                alt={selectedPhoto.alt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="p-6 bg-slate-950 border-t border-slate-800 space-y-2">
+              <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold tracking-wider uppercase inline-block">
+                {selectedPhoto.category}
+              </span>
+              <h3 className="text-2xl font-bold text-white font-display">
+                {selectedPhoto.title}
+              </h3>
+              <p className="text-slate-300 text-sm font-light">
+                📍 {selectedPhoto.location} — {selectedPhoto.alt}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

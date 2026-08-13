@@ -7,3 +7,5 @@ export type { LayoutProps } from './Layout';
 export { AboutSection } from './AboutSection';
 export { AdvertisingSolutions } from './AdvertisingSolutions';
 export { GalleryLightbox } from './GalleryLightbox';
+export { BrandsSection } from './BrandsSection';
+

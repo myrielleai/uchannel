@@ -7,6 +7,7 @@ import {
 } from '../data/solutionsData';
 import { Layout } from '../components/Layout';
 import { HardwareCatalog } from '../components/HardwareCatalog';
+import { BrandsSection } from '../components/BrandsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -227,7 +228,42 @@ export const AdvertisingSolutionsPage: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-         3. FEATURED SOLUTION
+         4. WHY CHOOSE U CHANNEL
+         ───────────────────────────────────────────────────────────── */}
+      <section ref={whyRef} className="adv-why-section">
+        <div className="container">
+          <div className="adv-section-header" style={{ textAlign: 'center', maxWidth: '720px', marginInline: 'auto' }}>
+            <h2 className="adv-section-h2">Why Choose U Channel</h2>
+            <p className="adv-section-desc" style={{ marginInline: 'auto' }}>
+              We combine prime strategic placements with cutting-edge technology and end-to-end execution to ensure your brand stands out.
+            </p>
+          </div>
+
+          <div className="adv-why-grid">
+            {WHY_CHOOSE_FEATURES.map((feat) => (
+              <div
+                key={feat.id}
+                className="adv-why-card card"
+                {...({ 'bg-color': feat.bgColor } as any)}
+                style={
+                  {
+                    '--bg-color': feat.bgColor,
+                    '--fallback-color': feat.fallbackColor,
+                  } as React.CSSProperties
+                }
+              >
+                <img className="card__image" src={feat.image} alt={feat.title} loading="lazy" decoding="async" />
+                <p className="card__text">
+                  <b>{feat.title}</b> — {feat.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+         5. FEATURED DIGITAL LED BILLBOARDS SECTION
          ───────────────────────────────────────────────────────────── */}
       <section ref={featuredRef} className="adv-featured-section">
         <div className="container">
@@ -279,42 +315,13 @@ export const AdvertisingSolutionsPage: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-         4. WHY CHOOSE U CHANNEL
+         6. BRANDS THAT CHOOSE U CHANNEL
          ───────────────────────────────────────────────────────────── */}
-      <section ref={whyRef} className="adv-why-section">
-        <div className="container">
-          <div className="adv-section-header" style={{ textAlign: 'center', maxWidth: '720px', marginInline: 'auto' }}>
-            <h2 className="adv-section-h2">Why Choose U Channel</h2>
-            <p className="adv-section-desc" style={{ marginInline: 'auto' }}>
-              We combine prime strategic placements with cutting-edge technology and end-to-end execution to ensure your brand stands out.
-            </p>
-          </div>
-
-          <div className="adv-why-grid">
-            {WHY_CHOOSE_FEATURES.map((feat) => (
-              <div
-                key={feat.id}
-                className="adv-why-card card"
-                {...({ 'bg-color': feat.bgColor } as any)}
-                style={
-                  {
-                    '--bg-color': feat.bgColor,
-                    '--fallback-color': feat.fallbackColor,
-                  } as React.CSSProperties
-                }
-              >
-                <img className="card__image" src={feat.image} alt={feat.title} loading="lazy" decoding="async" />
-                <p className="card__text">
-                  <b>{feat.title}</b> — {feat.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrandsSection />
     </Layout>
   );
 };
 
 export default AdvertisingSolutionsPage;
+
 

@@ -1814,7 +1814,7 @@ function initLocationModal() {
     'work-card-bg--mindanao-coming-soon': {
       image: '/assets/davao.webp',
       tag: 'Mindanao Region',
-      title: 'Expansion Sites — Coming Soon!',
+      title: 'Coming Soon',
       traffic: 'Expansion in Progress',
       display: 'Strategic Digital Billboard Network',
       desc: 'U Channel is expanding its digital out-of-home footprint to prime high-impact corridors across Davao City, Cagayan de Oro, and key Mindanao commercial centers.'
