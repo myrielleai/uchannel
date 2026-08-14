@@ -4,6 +4,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
+const STATS: StatItem[] = [
+  { value: 50,  suffix: '+', label: 'Brands Served' },
+  { value: 200, suffix: '+', label: 'Campaigns Launched' },
+  { value: 6,   suffix: '',  label: 'Cities Covered' },
+  { value: 10,  suffix: 'M+', label: 'Daily Impressions' },
+];
+
 interface BrandItem {
   name: string;
   src: string;
@@ -11,6 +24,7 @@ interface BrandItem {
 
 export const BrandsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const statNumRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const BRANDS: BrandItem[] = [
     {
@@ -88,7 +102,7 @@ export const BrandsSection: React.FC = () => {
         );
       }
 
-      // 2. Stats reveal
+      // 2. Stats reveal + count-up
       const stats = section.querySelectorAll('.clients-stat');
       if (stats.length > 0) {
         gsap.fromTo(
@@ -108,6 +122,30 @@ export const BrandsSection: React.FC = () => {
             },
           }
         );
+
+        // Count-up animation for each stat number
+        STATS.forEach((stat, i) => {
+          const el = statNumRefs.current[i];
+          if (!el) return;
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: stat.value,
+            duration: 2,
+            delay: 0.12 * i + 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section.querySelector('.clients-stats-row') || section,
+              start: 'top 82%',
+              once: true,
+            },
+            onUpdate: () => {
+              el.textContent = `${Math.round(obj.val)}${stat.suffix}`;
+            },
+            onComplete: () => {
+              el.textContent = `${stat.value}${stat.suffix}`;
+            },
+          });
+        });
       }
 
       // 3. Logo items stagger reveal
@@ -155,31 +193,20 @@ export const BrandsSection: React.FC = () => {
 
         {/* Stats row */}
         <div className="clients-stats-row">
-          <div className="clients-stat">
-            <span className="clients-stat-number">
-              50<span className="clients-stat-plus">+</span>
-            </span>
-            <span className="clients-stat-label">Brands Served</span>
-          </div>
-          <div className="clients-stat-divider" aria-hidden="true" />
-          <div className="clients-stat">
-            <span className="clients-stat-number">
-              200<span className="clients-stat-plus">+</span>
-            </span>
-            <span className="clients-stat-label">Campaigns Launched</span>
-          </div>
-          <div className="clients-stat-divider" aria-hidden="true" />
-          <div className="clients-stat">
-            <span className="clients-stat-number">6</span>
-            <span className="clients-stat-label">Cities Covered</span>
-          </div>
-          <div className="clients-stat-divider" aria-hidden="true" />
-          <div className="clients-stat">
-            <span className="clients-stat-number">
-              10M<span className="clients-stat-plus">+</span>
-            </span>
-            <span className="clients-stat-label">Daily Impressions</span>
-          </div>
+          {STATS.map((stat, i) => (
+            <React.Fragment key={stat.label}>
+              {i > 0 && <div className="clients-stat-divider" aria-hidden="true" />}
+              <div className="clients-stat">
+                <span
+                  className="clients-stat-number"
+                  ref={(el) => { statNumRefs.current[i] = el; }}
+                >
+                  0{stat.suffix}
+                </span>
+                <span className="clients-stat-label">{stat.label}</span>
+              </div>
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Flat Logo Grid */}

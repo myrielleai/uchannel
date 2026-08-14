@@ -1313,7 +1313,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   perspective: 1000px;
   transform-style: preserve-3d;
   margin-bottom: 0.35rem;
-  font-size: clamp(5rem, 13.5vw, 11.5rem);
+  font-size: clamp(4rem, 10.5vw, 9rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1.0;
@@ -1347,7 +1347,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(5rem, 13.5vw, 11.5rem);
+  font-size: clamp(4rem, 10.5vw, 9rem);
   letter-spacing: -0.02em;
   line-height: 1.0;
   
@@ -1365,10 +1365,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform-style: preserve-3d;
   will-change: transform, filter;
   padding-inline: 0.02em;
-  filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
 }
 
-/* Ambient backlight glow behind each character */
+/* Ambient backlight glow behind each character — disabled */
 .hero-char::after {
   content: attr(data-char);
   position: absolute;
@@ -1379,7 +1378,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: blur(20px);
-  opacity: 0.35;
+  opacity: 0;
   transition: opacity 0.35s ease, filter 0.35s ease;
   pointer-events: none;
 }
@@ -1410,7 +1409,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes u-channel-ripple-pulse {
   0% {
     transform: translateY(0) scale(1) translateZ(0) rotate(0deg);
-    filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
   }
   30% {
     transform: translateY(-24px) scale(1.32) translateZ(60px) rotate(4deg);
@@ -1425,7 +1423,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   100% {
     transform: translateY(0) scale(1) translateZ(0) rotate(0deg);
-    filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
   }
 }
 

@@ -346,10 +346,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
                     aria-label={`${prod.title} solution card`}
                   >
                     <div className="adv-card-inner">
-                      {/* Card Badge Number */}
-                      <div className="adv-card-badge">
-                        <span className="adv-card-num">{prod.number}</span>
-                      </div>
+
 
                       {/* Background Image */}
                       <img
@@ -376,7 +373,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
           return (
             <div className="adv-active-details container">
               <div className="adv-active-details-inner" key={activeProd.id}>
-                <span className="adv-active-num">{activeProd.number}</span>
+
                 <h3 className="adv-active-title">{activeProd.title}</h3>
                 <p className="adv-active-desc">{activeProd.description}</p>
                 <div className="adv-active-action">
