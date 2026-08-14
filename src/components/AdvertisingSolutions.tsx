@@ -119,9 +119,16 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const trackRef = useRef<HTMLDivElement>(null);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (bgVideoRef.current) {
+      bgVideoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   // The real 0-based index into PRODUCTS array
   const realIndex = ((trackIndex % N) + N) % N;
@@ -253,6 +260,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
       {!isLight && (
         <>
           <video
+            ref={bgVideoRef}
             className="adv-solutions-bg-video"
             autoPlay
             loop
@@ -260,6 +268,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
             playsInline
             preload="auto"
           >
+            <source src="assets/showcase.mp4" type="video/mp4" />
             <source src="/assets/showcase.mp4" type="video/mp4" />
           </video>
           <div className="adv-solutions-bg-overlay" aria-hidden="true" />

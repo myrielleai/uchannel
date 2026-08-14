@@ -5363,9 +5363,9 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  pointer-events: none;
   opacity: 0.4;
   mix-blend-mode: luminosity;
-  pointer-events: none;
 }
 
 .adv-solutions-bg-overlay {

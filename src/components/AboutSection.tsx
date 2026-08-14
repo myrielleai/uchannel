@@ -80,7 +80,14 @@ const STAT_CARDS = [
 
 export const AboutSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -189,18 +196,20 @@ export const AboutSection: React.FC = () => {
     >
       {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 opacity-40 mix-blend-luminosity"
+        ref={videoRef}
+        className="services-video-bg"
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
       >
+        <source src="assets/showcase.mp4" type="video/mp4" />
         <source src="/assets/showcase.mp4" type="video/mp4" />
       </video>
 
       {/* Background radial gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(48,87,156,0.35),rgba(2,6,23,0.95))] pointer-events-none z-0" />
+      <div className="services-video-overlay" aria-hidden="true" />
       <div className="absolute top-1/4 left-10 w-[550px] h-[350px] bg-[#30579C]/25 blur-[140px] rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-10 right-10 w-[450px] h-[280px] bg-[#6C97D3]/20 blur-[130px] rounded-full pointer-events-none z-0" />
 
