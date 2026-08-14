@@ -363,7 +363,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Guadalupe EDSA Prime Highway Facing Screen',
     category: 'LED Displays',
     formatSlug: 'digital-led-billboards',
-    image: '/assets/guadalupe.png',
+    image: '/assets/guadalupe.webp',
     alt: 'High-impact EDSA Guadalupe billboard display',
     location: 'EDSA Guadalupe Bridge',
     aspectRatio: 'tall'
@@ -373,7 +373,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Clark Freeport Zone Highway Billboard',
     category: 'Billboards',
     formatSlug: 'static-billboards',
-    image: '/assets/clark.png',
+    image: '/assets/clark.webp',
     alt: 'Clark Freeport highway static billboard display',
     location: 'Subic-Clark Expressway',
     aspectRatio: 'portrait'
@@ -383,7 +383,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Davao Prime Commercial District Display',
     category: 'Campaign Installations',
     formatSlug: 'custom-advertising',
-    image: '/assets/davao.png',
+    image: '/assets/davao.webp',
     alt: 'Davao city commercial district billboard installation',
     location: 'J.P. Laurel Avenue, Davao City',
     aspectRatio: 'square'

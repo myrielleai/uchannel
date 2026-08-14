@@ -871,6 +871,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background-color: #020617;
   color: #ffffff;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: var(--nav-height, 60px);
+  box-sizing: border-box;
 }
 
 /* ── HERO VIDEO BACKGROUND ──────────────────────────────────────── */
@@ -1164,9 +1171,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 #hero .hero-content-wrapper {
   position: relative;
-  max-width: min(780px, 90vw);
+  width: 100%;
+  max-width: min(1280px, 96vw);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   z-index: 10;
   transform-origin: center center;
@@ -1176,42 +1187,55 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-align: center;
   margin-inline: auto;
   padding-inline: 0;
+  width: 100%;
 }
 
 #hero .step-1-subtitle {
   text-align: center;
   margin-inline: auto;
   padding-inline: 0;
+  width: 100%;
 }
 
 /* LED Display Provider — tagline accent label */
 .hero-led-tagline {
-  font-family: var(--font-display);
-  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
   font-weight: 600;
+  line-height: 1.4;
   text-align: center;
   margin-inline: auto;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #5b9fff;
-  margin-top: 1.25rem;
-  text-shadow: 0 0 16px rgba(91, 159, 255, 0.5);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #3b82f6;
+  width: 100%;
+  max-width: 960px;
+  margin-top: 0.35rem;
+  text-shadow: none;
   position: relative;
   z-index: 1;
+}
+
+.hero-led-tagline .hero-tagline-orange,
+.text-orange,
+.hero-tagline-orange {
+  color: #FB9B51;
+  font-weight: 600;
 }
 
 /* LED Display Provider — body copy */
 .hero-led-body {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   font-weight: 400;
   line-height: 1.65;
-  color: rgba(203, 213, 225, 0.82);
+  color: #f1f5f9;
   text-align: center;
   margin-inline: auto;
-  max-width: 660px;
+  width: 100%;
+  max-width: 920px;
   margin-top: 0.85rem;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: none;
   position: relative;
   z-index: 1;
 }
@@ -1221,14 +1245,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-weight: 600;
 }
 
+@media (min-width: 768px) {
+  .hero-led-body .hero-line-1 {
+    white-space: nowrap;
+  }
+}
+
 /* Hero CTA Group & Buttons */
 .hero-cta-group {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-inline: auto;
+  width: 100%;
   gap: 14px;
-  margin-top: 1.75rem;
+  margin-top: 1rem;
   position: relative;
   z-index: 10;
   pointer-events: auto;
@@ -1243,7 +1274,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero-cta-btn {
   padding: 14px 30px;
   font-size: 0.95rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
 }
 
 .hero-cta-secondary {
@@ -1260,7 +1291,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: rgba(255, 255, 255, 0.22);
   border-color: rgba(255, 255, 255, 0.48);
   color: #ffffff;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 126, 255, 0.25);
+  box-shadow: none;
 }
 
 
@@ -1271,24 +1302,148 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 }
 
+/* ── HERO TITLE "U CHANNEL" ANIMATION & INTERACTIVITY ────────────── */
 .hero-step-headline.step-1-title {
-  font-size: clamp(3.8rem, 9.5vw, 7rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  background: linear-gradient(135deg, #ffffff 10%, #cbd5e1 50%, #94a3b8 90%);
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  position: relative;
+  z-index: 15;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  margin-bottom: 0.35rem;
+  font-size: clamp(5rem, 13.5vw, 11.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.u-channel-interactive-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  padding: 4px 12px;
+}
+
+.hero-word {
+  display: inline-flex;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.word-space {
+  display: inline-block;
+  width: 0.28em;
+}
+
+.hero-char {
+  display: inline-block;
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(5rem, 13.5vw, 11.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  
+  /* Shimmer Gradient: White to glowing cyan and electric blue */
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 22%, #93c5fd 52%, #3b82f6 78%, #ffffff 100%);
+  background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(29, 92, 255, 0.25));
-  margin-bottom: 1.25rem;
+  
+  animation: u-channel-shimmer 7s ease-in-out infinite alternate;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              filter 0.35s ease, 
+              -webkit-text-fill-color 0.35s ease;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+  padding-inline: 0.02em;
+  filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
 }
 
-/* Ensure the dynamically split characters inherit the gradient background and clip properly */
-.hero-step-headline.step-1-title .char-inner {
-  background: linear-gradient(135deg, #ffffff 10%, #cbd5e1 50%, #94a3b8 90%) !important;
+/* Ambient backlight glow behind each character */
+.hero-char::after {
+  content: attr(data-char);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(20px);
+  opacity: 0.35;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+  pointer-events: none;
+}
+
+/* Hover state on individual letters */
+.hero-char:hover,
+.hero-char.hover-active {
+  transform: translateY(-8px) scale(1.1) translateZ(15px) rotate(-1.5deg);
+  background: linear-gradient(135deg, #ffffff 0%, #ffe3cb 25%, #ffb074 55%, #FB9B51 80%, #f97316 100%) !important;
+  background-size: 200% 200% !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
+  filter: drop-shadow(0 0 35px rgba(251, 155, 81, 0.95)) drop-shadow(0 0 16px rgba(249, 115, 22, 0.85)) !important;
+}
+
+.hero-char:hover::after,
+.hero-char.hover-active::after {
+  opacity: 1;
+  background: linear-gradient(135deg, #FB9B51, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(26px);
+}
+
+/* Click / Tap Ripple Energy Pulse */
+@keyframes u-channel-ripple-pulse {
+  0% {
+    transform: translateY(0) scale(1) translateZ(0) rotate(0deg);
+    filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
+  }
+  30% {
+    transform: translateY(-24px) scale(1.32) translateZ(60px) rotate(4deg);
+    filter: drop-shadow(0 0 45px rgba(251, 155, 81, 1)) drop-shadow(0 0 20px rgba(249, 115, 22, 0.9));
+    background: linear-gradient(135deg, #ffffff 0%, #ffb074 50%, #FB9B51 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  65% {
+    transform: translateY(-6px) scale(1.08) translateZ(20px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) translateZ(0) rotate(0deg);
+    filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.25));
+  }
+}
+
+.hero-char.ripple-active {
+  animation: u-channel-ripple-pulse 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Shimmer animation keyframes */
+@keyframes u-channel-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .hero-step-subtitle {
@@ -1299,7 +1454,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #94a3b8;
   letter-spacing: -0.01em;
   opacity: 0.9;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
   max-width: 800px;
   line-height: 1.4;
   position: relative;
@@ -5738,7 +5893,7 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   color: #f1f5f9;
   line-height: 1.65;
   max-width: 720px;
-  margin-bottom: 40px;
+  margin-bottom: 0.75rem;
   text-shadow: 0 3px 20px rgba(0, 0, 0, 0.8), 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 

@@ -345,6 +345,190 @@ function initHeroAnimations(playTimeline = true) {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   3.b U CHANNEL Hero Title Animation & Mouse Parallax Interactivity
+   ───────────────────────────────────────────────────────────── */
+function initUChannelTitleInteractivity() {
+  const container = document.getElementById('hero-title-uchannel');
+  if (!container) return;
+
+  const titleInner = container.querySelector('.u-channel-interactive-title');
+  const wordU = container.querySelector('.word-u');
+  const wordChannel = container.querySelector('.word-channel');
+  const chars = container.querySelectorAll('.hero-char');
+  if (!titleInner || !chars.length) return;
+
+  const heroSection = document.getElementById('hero') || container.closest('.hero-step') || document.body;
+
+  let targetX = 0;
+  let targetY = 0;
+  let currX = 0;
+  let currY = 0;
+  let mouseActive = false;
+  let latestClientX = null;
+  let latestClientY = null;
+  let isHeroVisible = true;
+  let rafId = null;
+
+  // Track hero visibility with IntersectionObserver to save CPU/battery when scrolled away
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isHeroVisible = entry.isIntersecting;
+      });
+    }, { threshold: 0.05 });
+    observer.observe(heroSection);
+  }
+
+  const updateTargetFromPointer = (clientX, clientY) => {
+    mouseActive = true;
+    latestClientX = clientX;
+    latestClientY = clientY;
+
+    // Calculate normalized offsets (-1 to +1) relative to viewport center
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    targetX = (clientX - centerX) / centerX;
+    targetY = (clientY - centerY) / centerY;
+
+    // Clamp range [-1, 1]
+    targetX = Math.max(-1, Math.min(1, targetX));
+    targetY = Math.max(-1, Math.min(1, targetY));
+  };
+
+  const onMouseMove = (e) => {
+    if (REDUCED) return;
+    const clientX = e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches && e.touches[0] ? e.touches[0].clientY : e.clientY;
+    updateTargetFromPointer(clientX, clientY);
+  };
+
+  const onPointerLeave = () => {
+    mouseActive = false;
+    latestClientX = null;
+    latestClientY = null;
+    targetX = 0;
+    targetY = 0;
+  };
+
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  window.addEventListener('touchmove', onMouseMove, { passive: true });
+  document.addEventListener('mouseleave', onPointerLeave);
+  window.addEventListener('touchend', onPointerLeave);
+
+  // RAF Continuous Physics Parallax Interpolation Loop
+  let time = 0;
+  const animateParallax = () => {
+    if (REDUCED) return;
+
+    if (isHeroVisible) {
+      time += 0.02;
+
+      // If mouse is inactive, add subtle breathing idle float
+      const idleX = mouseActive ? 0 : Math.sin(time * 0.8) * 0.12;
+      const idleY = mouseActive ? 0 : Math.cos(time * 0.6) * 0.12;
+
+      const destX = targetX + idleX;
+      const destY = targetY + idleY;
+
+      // Smooth lerp (0.08 rate) for organic physics inertia
+      currX += (destX - currX) * 0.08;
+      currY += (destY - currY) * 0.08;
+
+      // 3D Parallax Rotation & Multi-axis Translation on Main Title (subtle, refined feel)
+      const rotateY = currX * 5;   // -5deg to +5deg (reduced from 18deg)
+      const rotateX = -currY * 5;  // -5deg to +5deg (reduced from 18deg)
+      const transX = currX * 8;    // -8px to +8px parallax horizontal shift (reduced from 32px)
+      const transY = currY * 6;    // -6px to +6px parallax vertical shift (reduced from 24px)
+
+      titleInner.style.transform = `translate3d(${transX}px, ${transY}px, 10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      // Depth Parallax layer separation between "U" and "CHANNEL"
+      if (wordU) {
+        wordU.style.transform = `translate3d(${currX * 3}px, ${currY * 2}px, 10px)`;
+      }
+      if (wordChannel) {
+        wordChannel.style.transform = `translate3d(${-currX * 2}px, ${-currY * 2}px, 5px)`;
+      }
+
+      // Per-character mouse proximity lift & dynamic directional drop shadow
+      chars.forEach((char) => {
+        if (char.classList.contains('ripple-active')) return;
+
+        let liftY = 0;
+        let scale = 1;
+        let rot = 0;
+        let extraZ = 0;
+
+        if (latestClientX !== null && latestClientY !== null) {
+          const rect = char.getBoundingClientRect();
+          const charCenterX = rect.left + rect.width / 2;
+          const charCenterY = rect.top + rect.height / 2;
+
+          const dist = Math.hypot(latestClientX - charCenterX, latestClientY - charCenterY);
+          const maxDist = 90;
+
+          if (dist < maxDist) {
+            const factor = Math.pow(1 - dist / maxDist, 2);
+            liftY = factor * -6;
+            scale = 1 + factor * 0.08;
+            rot = (latestClientX > charCenterX ? -1 : 1) * factor * 2;
+            extraZ = factor * 10;
+          }
+        }
+
+        // Drop shadow shifts opposite to light source / cursor direction for realistic 3D depth
+        const shadowX = -currX * 5;
+        const shadowY = -currY * 5;
+        const shadowBlur = 16 + Math.abs(currX) * 6;
+        const shadowAlpha = 0.3 + Math.abs(currX) * 0.15;
+
+        char.style.transform = `translate3d(0, ${liftY}px, ${extraZ}px) scale(${scale}) rotate(${rot}deg)`;
+        if (!char.matches(':hover') && !char.classList.contains('hover-active')) {
+          char.style.filter = `drop-shadow(${shadowX}px ${shadowY}px ${shadowBlur}px rgba(59, 130, 246, ${shadowAlpha}))`;
+        } else {
+          char.style.filter = '';
+        }
+      });
+    }
+
+    rafId = requestAnimationFrame(animateParallax);
+  };
+
+  rafId = requestAnimationFrame(animateParallax);
+
+  // Click Wave Ripple Effect cascading across all letters
+  const triggerRippleWave = (originIndex) => {
+    chars.forEach((char, idx) => {
+      const distanceIndex = Math.abs(idx - originIndex);
+      const delayMs = distanceIndex * 55;
+
+      setTimeout(() => {
+        char.classList.remove('ripple-active');
+        void char.offsetWidth; // trigger reflow
+        char.classList.add('ripple-active');
+
+        setTimeout(() => {
+          char.classList.remove('ripple-active');
+        }, 750);
+      }, delayMs);
+    });
+  };
+
+  chars.forEach((char, index) => {
+    char.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerRippleWave(index);
+    });
+  });
+
+  container.addEventListener('click', () => {
+    triggerRippleWave(Math.floor(chars.length / 2));
+  });
+}
+
+
+/* ─────────────────────────────────────────────────────────────
    4. HERO sticky scroll transition
    ───────────────────────────────────────────────────────────── */
 function initHeroStickyScroll() {
@@ -987,6 +1171,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mount React Advertising Solutions component
   initAdvertisingSolutions();
+
+  // Initialize U CHANNEL title interactive animations
+  initUChannelTitleInteractivity();
 
   // Initialize Lenis first – it will be idle while preloader is active.
   initLenis();
