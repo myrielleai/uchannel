@@ -3924,9 +3924,9 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 /* Hero layout */
 .locations-hero {
   position: relative;
-  min-height: clamp(340px, 45vh, 480px);
-  padding-top: calc(var(--site-header-height, 80px) + 20px);
-  padding-bottom: 40px;
+  min-height: clamp(640px, 82vh, 960px);
+  padding-top: 0;
+  padding-bottom: 60px;
   background-color: #ffffff;
   border-bottom: 1px solid var(--c-border, rgba(0, 0, 0, 0.08));
   overflow: hidden;
@@ -3957,10 +3957,9 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   max-width: 100%;
   margin-inline: 0;
   margin-bottom: 0;
-  overflow: hidden;
+  overflow: visible;
   z-index: 2;
   transform: translateZ(0);
-  contain: layout paint;
 }
 
 .ribbon,
@@ -3993,15 +3992,16 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateZ(0);
-  height: 88%;
+  transform: translate(-50%, -50%) scale(1.07415) translateZ(0);
+  height: 200%;
+  max-height: 1200px;
   width: auto;
-  max-width: 42%;
+  max-width: 140%;
   object-fit: contain;
   z-index: 3;
   pointer-events: none;
-  opacity: 0.18;
-  filter: grayscale(1) brightness(0.2);
+  opacity: 1;
+  filter: grayscale(1) brightness(0.12);
   will-change: transform;
 }
 
@@ -4050,7 +4050,7 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   z-index: 2;
   width: 220px;
   flex-shrink: 0;
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .ph-map-svg {
@@ -4114,11 +4114,11 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 
 .region-name {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--c-text);
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .region-desc {
@@ -4554,7 +4554,6 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
 
 @media (max-width: 640px) {
   .locations-region-section { padding-block: 3.5rem 3rem; }
-  .region-name { font-size: 2rem; }
 }
 
 /* ══════════════════════════════════════ LOCATIONS FOCUS GALLERY STYLES ══ */
@@ -4772,14 +4771,11 @@ body:has(.adv-hero-section) #site-header.scrolled .logo-divider {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: #ffffff;
   line-height: 1;
   margin-bottom: 0;
   text-align: center;
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.75) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .focus-category-desc {

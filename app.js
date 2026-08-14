@@ -1763,7 +1763,7 @@ function initLocationsRibbon() {
   let glyphCache = null;
 
   // Middle band Y range in viewBox coordinates (where ribbon crosses the map center)
-  const MIDDLE_BAND_TOP = 340;
+  const MIDDLE_BAND_TOP = 420;
   const MIDDLE_BAND_BOTTOM = 660;
 
   let ribbonBgCanvasBack = null;

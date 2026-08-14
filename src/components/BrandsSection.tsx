@@ -37,7 +37,7 @@ export const BrandsSection: React.FC = () => {
     },
     {
       name: 'Cebu Pacific',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Cebu_Pacific_logo.png',
+      src: '/assets/cebu_pacific.png',
     },
     {
       name: 'Samsung',
