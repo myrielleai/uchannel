@@ -201,8 +201,10 @@ export const AdvertisingSolutionsPage: React.FC = () => {
       <section ref={heroRef} className="adv-hero-section">
         <div className="adv-hero-media-wrapper">
           <img
-            src="/assets/solutions_hero_visual.png"
+            src="/assets/solutions_hero_visual.webp"
             alt="Solutions that make brands seen - U Channel"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 

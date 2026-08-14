@@ -18,7 +18,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Digital LED Billboards',
     description:
       'Ultra-HD dynamic 4K screens contextually scheduled across high-density commercial hubs to captivate audiences with unmatched visual brilliance.',
-    image: '/assets/solutions_digital_led.png',
+    image: '/assets/solutions_digital_led.webp',
     alt: 'High-tech 3D ultra-HD curved digital LED billboard display in Manila at dusk',
     buttonLabel: 'Explore Digital LED',
     link: '/advertising-solutions/digital-led-billboards/',
@@ -29,7 +29,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Static Billboards',
     description:
       'Large-format static displays positioned along major transit arteries, delivering continuous, unmissable brand authority day and night.',
-    image: '/assets/solutions_static_billboard.png',
+    image: '/assets/solutions_static_billboard.webp',
     alt: 'Massive luxury static billboard display on modern highway overpass at golden hour',
     buttonLabel: 'Explore Static Billboards',
     link: '/advertising-solutions/static-billboards/',
@@ -40,7 +40,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Transit Advertising',
     description:
       'Full-vehicle wraps and high-definition digital screens synced across high-frequency transport routes to move your message everywhere commuters travel.',
-    image: '/assets/solutions_transit.png',
+    image: '/assets/solutions_transit.webp',
     alt: 'Sleek electric transit bus fully wrapped in luxury brand campaign',
     buttonLabel: 'Explore Transit Ads',
     link: '/advertising-solutions/transit-advertising/',
@@ -51,7 +51,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Building Wraps',
     description:
       'Mega-scale building facade graphics that transform landmark urban architecture into colossal, unmissable brand spectacles visible across entire cities.',
-    image: '/assets/solutions_building_wrap.png',
+    image: '/assets/solutions_building_wrap.webp',
     alt: 'Colossal full-facade building wrap advertisement on a skyscraper at sunset',
     buttonLabel: 'Explore Building Wraps',
     link: '/advertising-solutions/building-wraps/',
@@ -62,7 +62,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Pole Banners',
     description:
       'High-density double-sided street-level banner placements lining premier shopping and financial avenues to reinforce brand identity through high repetition.',
-    image: '/assets/solutions_pole_banner.png',
+    image: '/assets/solutions_pole_banner.webp',
     alt: 'Row of elegant double-sided street pole banners on sunlit boulevard',
     buttonLabel: 'Explore Pole Banners',
     link: '/advertising-solutions/pole-banners/',
@@ -73,7 +73,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Mall Advertising',
     description:
       'High-impact indoor and outdoor digital displays positioned throughout premier commercial hubs to engage shoppers at key decision points.',
-    image: '/assets/solutions_mall_advertising.png',
+    image: '/assets/solutions_mall_advertising.webp',
     alt: 'Vibrant digital LED displays in high-foot-traffic luxury shopping mall atrium',
     buttonLabel: 'Explore Mall Ads',
     link: '/advertising-solutions/mall-advertising/',
@@ -84,7 +84,7 @@ const PRODUCTS: SolutionProduct[] = [
     title: 'Custom Solutions',
     description:
       'Bespoke 3D anamorphic displays, interactive sensory installations, and custom OOH activations engineered to create viral moments and lasting impact.',
-    image: '/assets/solutions_custom_ooh.png',
+    image: '/assets/solutions_custom_ooh.webp',
     alt: 'Mind-bending 3D anamorphic corner LED screen display popping out of structure at night',
     buttonLabel: 'Explore Custom Solutions',
     link: '/advertising-solutions/custom-advertising/',

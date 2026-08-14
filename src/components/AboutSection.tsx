@@ -18,7 +18,7 @@ const ABOUT_PHOTOS: PhotoItem[] = [
   // Row 1: [ large immersive display photo ] [ smaller photo ]
   {
     id: 1,
-    src: '/assets/about_digital_led.png',
+    src: '/assets/about_digital_led.webp',
     alt: 'Colossal ultra-HD curved digital LED display at night in Manila',
     title: 'Ultra-HD Curved LED Displays',
     category: 'Digital Display Tech',
@@ -27,7 +27,7 @@ const ABOUT_PHOTOS: PhotoItem[] = [
   },
   {
     id: 2,
-    src: '/assets/about_billboard_install.png',
+    src: '/assets/about_billboard_install.webp',
     alt: 'Premium billboard installation by expert crew along major highway',
     title: 'Prime Highway Billboards',
     category: 'Static & Mega Structures',
@@ -37,7 +37,7 @@ const ABOUT_PHOTOS: PhotoItem[] = [
   // Row 2: [ smaller photo ] [ large display photo ]
   {
     id: 3,
-    src: '/assets/about_campaign_execution.png',
+    src: '/assets/about_campaign_execution.webp',
     alt: 'Sequential high-end advertising street banners at twilight',
     title: 'Nationwide Campaign Execution',
     category: 'Transit & Street Network',
@@ -46,7 +46,7 @@ const ABOUT_PHOTOS: PhotoItem[] = [
   },
   {
     id: 4,
-    src: '/assets/solutions_building_wrap.png',
+    src: '/assets/solutions_building_wrap.webp',
     alt: 'Colossal building wrap billboard dominating city skyline',
     title: 'High-Rise Building Wraps',
     category: 'Iconic Landmarks',
@@ -194,7 +194,7 @@ export const AboutSection: React.FC = () => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
       >
         <source src="/assets/showcase.mp4" type="video/mp4" />
       </video>

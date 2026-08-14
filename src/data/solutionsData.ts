@@ -43,9 +43,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Showcase how dynamic LED displays capture attention with bright, high-resolution content that can be updated in real time across high-density corridors.',
     fullDescription:
       'U Channel’s Ultra-HD Digital LED Billboards provide dynamic, high-impact visibility across premier metropolitan traffic corridors. Equipped with high-refresh rate LED modules and automated day/night brightness adjustment, your brand delivers vivid motion graphics and real-time messaging that impossible to ignore.',
-    image: '/assets/solutions_digital_led.png',
+    image: '/assets/solutions_digital_led.webp',
     alt: 'High-tech 3D ultra-HD curved digital LED billboard display in Manila at dusk',
-    heroBgImage: '/assets/solutions_digital_led.png',
+    heroBgImage: '/assets/solutions_digital_led.webp',
     specs: [
       { label: 'Resolution', value: '4K Ultra-HD P8/P10' },
       { label: 'Daily Traffic', value: '380,000+ Vehicles' },
@@ -79,9 +79,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Large-format static displays positioned along major transit arteries, delivering continuous, unmissable brand authority day and night.',
     fullDescription:
       'Our massive static billboard structures command undivided attention along EDSA, Roxas Boulevard, and key provincial expressways. Built with heavy-duty weather-resistant vinyl substrate and high-lumen LED floodlighting, static billboards deliver 100% share of voice 24 hours a day.',
-    image: '/assets/solutions_static_billboard.png',
+    image: '/assets/solutions_static_billboard.webp',
     alt: 'Massive luxury static billboard display on modern highway overpass at golden hour',
-    heroBgImage: '/assets/solutions_static_billboard.png',
+    heroBgImage: '/assets/solutions_static_billboard.webp',
     specs: [
       { label: 'Share of Voice', value: '100% Exclusive Ownership' },
       { label: 'Visibility Range', value: 'Up to 1.5 Kilometers' },
@@ -115,9 +115,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Full-vehicle wraps and high-definition digital screens synced across high-frequency transport routes to move your message everywhere commuters travel.',
     fullDescription:
       'Transform public and commercial transport fleets into moving canvases that infiltrate high-density urban zones. From premium bus wraps along major avenues to interior HD screen networks, transit advertising drives repetitive impressions across diverse demographics.',
-    image: '/assets/solutions_transit.png',
+    image: '/assets/solutions_transit.webp',
     alt: 'Sleek electric transit bus fully wrapped in luxury brand campaign',
-    heroBgImage: '/assets/solutions_transit.png',
+    heroBgImage: '/assets/solutions_transit.webp',
     specs: [
       { label: 'Fleet Options', value: 'Busses, Shuttles, Light Rail' },
       { label: 'Coverage Area', value: 'Metro Manila & Key Regional Routes' },
@@ -151,9 +151,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Mega-scale building facade graphics that transform landmark urban architecture into colossal, unmissable brand spectacles visible across entire cities.',
     fullDescription:
       'Building Wraps represent the pinnacle of architectural out-of-home advertising. Covering hundreds of square meters of glass and concrete on high-profile skyscrapers, these spectacular installations turn iconic structures into unforgettable monuments for your brand.',
-    image: '/assets/solutions_building_wrap.png',
+    image: '/assets/solutions_building_wrap.webp',
     alt: 'Colossal full-facade building wrap advertisement on a skyscraper at sunset',
-    heroBgImage: '/assets/solutions_building_wrap.png',
+    heroBgImage: '/assets/solutions_building_wrap.webp',
     specs: [
       { label: 'Scale', value: 'Multi-Story Facade (up to 300ft tall)' },
       { label: 'Substrate', value: 'Micro-Perforated One-Way Vision Mesh' },
@@ -187,9 +187,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'High-density double-sided street-level banner placements lining premier shopping and financial avenues to reinforce brand identity through high repetition.',
     fullDescription:
       'Linings of double-sided street pole banners create an immersive red-carpet canopy for pedestrians and slow-moving traffic. Strategically installed along financial avenues, luxury shopping streets, and festival routes, pole banners provide repetitive frequency that cements campaign messaging.',
-    image: '/assets/solutions_pole_banner.png',
+    image: '/assets/solutions_pole_banner.webp',
     alt: 'Row of elegant double-sided street pole banners on sunlit boulevard',
-    heroBgImage: '/assets/solutions_pole_banner.png',
+    heroBgImage: '/assets/solutions_pole_banner.webp',
     specs: [
       { label: 'Placement', value: 'Boulevards, Commercial Avenues, Plazas' },
       { label: 'Format', value: 'Double-Sided Heavy Duty Canvas' },
@@ -223,9 +223,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Engage shoppers at the exact moment of purchase with sleek atrium screens, digital kiosks, and escalators in premier shopping destinations.',
     fullDescription:
       'Capitalize on high shopper foot traffic and purchasing mindset. U Channel’s Mall Advertising network spans atrium high-definition screens, interactive digital pillars, elevator wraps, and entrance archways across top lifestyle centers nationwide.',
-    image: '/assets/solutions_mall_advertising.png',
+    image: '/assets/solutions_mall_advertising.webp',
     alt: 'Ultra luxury high-tech digital screen advertisement inside a high-end mall in Manila',
-    heroBgImage: '/assets/solutions_mall_advertising.png',
+    heroBgImage: '/assets/solutions_mall_advertising.webp',
     specs: [
       { label: 'Foot Traffic', value: '500,000+ Weekend Visitors' },
       { label: 'Screen Tech', value: 'Fine-Pitch Ultra HD Indoor LED' },
@@ -259,9 +259,9 @@ export const ADVERTISING_SOLUTIONS: AdvertisingSolution[] = [
       'Bespoke 3D anamorphic displays, interactive sensory installations, and custom OOH activations engineered to create viral moments and lasting impact.',
     fullDescription:
       'Push the boundaries of conventional media with U Channel’s Custom Engineering team. From corner-curved 3D optical illusion screens that make characters jump out of the wall to interactive projection mapping and kinetic installations, we turn audacious concepts into reality.',
-    image: '/assets/solutions_custom_ooh.png',
+    image: '/assets/solutions_custom_ooh.webp',
     alt: 'Mind-bending 3D anamorphic corner LED screen display popping out of structure at night',
-    heroBgImage: '/assets/solutions_custom_ooh.png',
+    heroBgImage: '/assets/solutions_custom_ooh.webp',
     specs: [
       { label: 'Technology', value: '3D Anamorphic LED + Projection Mapping' },
       { label: 'Engineering', value: 'Custom Steel Fabrication & Optics' },
@@ -293,7 +293,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'EDSA Ortigas Landmark 3D LED',
     category: 'LED Displays',
     formatSlug: 'digital-led-billboards',
-    image: '/assets/solutions_digital_led.png',
+    image: '/assets/solutions_digital_led.webp',
     alt: 'High-tech 3D ultra-HD curved digital LED billboard display in Manila at dusk',
     location: 'EDSA Junction, Metro Manila',
     aspectRatio: 'wide'
@@ -303,7 +303,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Roxas Boulevard Super-Format Static',
     category: 'Billboards',
     formatSlug: 'static-billboards',
-    image: '/assets/solutions_static_billboard.png',
+    image: '/assets/solutions_static_billboard.webp',
     alt: 'Massive luxury static billboard display on modern highway overpass at golden hour',
     location: 'Roxas Boulevard Bayfront',
     aspectRatio: 'portrait'
@@ -313,7 +313,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Metro Rapid Bus Full Fleet Wrap',
     category: 'Transit Ads',
     formatSlug: 'transit-advertising',
-    image: '/assets/solutions_transit.png',
+    image: '/assets/solutions_transit.webp',
     alt: 'Sleek electric transit bus fully wrapped in luxury brand campaign',
     location: 'Ayala Ave - BGC Route',
     aspectRatio: 'wide'
@@ -323,7 +323,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'High Street Skyscraper Mega Facade Wrap',
     category: 'Building Wraps',
     formatSlug: 'building-wraps',
-    image: '/assets/solutions_building_wrap.png',
+    image: '/assets/solutions_building_wrap.webp',
     alt: 'Colossal full-facade building wrap advertisement on a skyscraper at sunset',
     location: 'Bonifacio Global City',
     aspectRatio: 'tall'
@@ -333,7 +333,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Financial District Double-Sided Banners',
     category: 'Billboards',
     formatSlug: 'pole-banners',
-    image: '/assets/solutions_pole_banner.png',
+    image: '/assets/solutions_pole_banner.webp',
     alt: 'Row of elegant double-sided street pole banners on sunlit boulevard',
     location: 'Makati Avenue Canopy',
     aspectRatio: 'square'
@@ -343,7 +343,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Luxury Mall Atrium 3D Curved Screen',
     category: 'LED Displays',
     formatSlug: 'mall-advertising',
-    image: '/assets/solutions_mall_advertising.png',
+    image: '/assets/solutions_mall_advertising.webp',
     alt: 'Ultra luxury high-tech digital screen advertisement inside a high-end shopping mall',
     location: 'Shangri-La Plaza, Manila',
     aspectRatio: 'square'
@@ -353,7 +353,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: '3D Anamorphic Corner Illusion Installation',
     category: 'Campaign Installations',
     formatSlug: 'custom-advertising',
-    image: '/assets/solutions_custom_ooh.png',
+    image: '/assets/solutions_custom_ooh.webp',
     alt: 'Mind-bending 3D anamorphic corner LED screen display popping out of structure',
     location: 'BGC High Street Corner',
     aspectRatio: 'wide'

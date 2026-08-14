@@ -112,12 +112,6 @@
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </noscript>
-
-  <!-- Preload hero and showcase videos so they start downloading immediately -->
-  <link rel="preload" as="video" href="/assets/hero.mp4" type="video/mp4">
-  <link rel="preload" as="video" href="/assets/services.mp4" type="video/mp4">
-  <link rel="preload" as="video" href="/assets/showcase.mp4" type="video/mp4">
-
   <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -457,7 +451,7 @@
     <!-- Step 3 -->
     <section id="hero-step-3" class="hero-step">
       <!-- Background Video -->
-      <video class="services-video-bg" autoplay loop muted playsinline fetchpriority="high">
+      <video class="services-video-bg" autoplay loop muted playsinline preload="metadata">
         <source src="assets/services.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
