@@ -196,7 +196,7 @@ export const AboutSection: React.FC = () => {
         playsInline
         preload="auto"
       >
-        <source src="assets/services.mp4" type="video/mp4" />
+        <source src="assets/showcase.mp4" type="video/mp4" />
       </video>
 
       {/* Background radial gradients */}

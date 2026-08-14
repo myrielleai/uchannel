@@ -14,29 +14,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const AdvertisingSolutionsPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const solutionsRef = useRef<HTMLDivElement>(null);
   const featuredRef = useRef<HTMLDivElement>(null);
   const whyRef = useRef<HTMLDivElement>(null);
   const [activeWhyId, setActiveWhyId] = useState<string>('feat-1');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Hero entrance animations
+      // 1. Hero entrance animations (Staggered blur-to-clear fade)
       const heroNodes = heroRef.current?.querySelectorAll('.adv-hero-anim');
       if (heroNodes && heroNodes.length > 0) {
         gsap.fromTo(
           heroNodes,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out' }
+          { opacity: 0, y: 40, filter: 'blur(10px)' },
+          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, stagger: 0.15, ease: 'power3.out' }
         );
       }
 
-      // 2. Hero Image ScrollTrigger fade into Our Solutions section
+      // 2. Hero Image ScrollTrigger parallax & fade
       if (heroRef.current) {
         const heroImg = heroRef.current.querySelector('.adv-hero-media-wrapper img');
         if (heroImg) {
           gsap.to(heroImg, {
-            opacity: 0.25,
-            y: 60,
+            opacity: 0.2,
+            y: 75,
             ease: 'none',
             scrollTrigger: {
               trigger: heroRef.current,
@@ -48,24 +49,90 @@ export const AdvertisingSolutionsPage: React.FC = () => {
         }
       }
 
-      // 3. Featured Solution ScrollTrigger (Separate Image and Text Animations)
+      // 3. Our Solutions Section Header entrance animation
+      if (solutionsRef.current) {
+        const solHeader = solutionsRef.current.querySelector('.section-header-container');
+        if (solHeader) {
+          gsap.fromTo(
+            solHeader,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: solutionsRef.current,
+                start: 'top 82%',
+                once: true,
+              },
+            }
+          );
+        }
+      }
+
+      // 4. Why Choose U Channel Section (Header + Cards)
+      if (whyRef.current) {
+        const whyHeader = whyRef.current.querySelector('.adv-section-header');
+        if (whyHeader) {
+          gsap.fromTo(
+            whyHeader,
+            { opacity: 0, y: 35 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.85,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: whyRef.current,
+                start: 'top 80%',
+                once: true,
+              },
+            }
+          );
+        }
+
+        const whyCards = whyRef.current.querySelectorAll('.adv-why-card');
+        if (whyCards && whyCards.length > 0) {
+          gsap.fromTo(
+            whyCards,
+            { opacity: 0, y: 50, scale: 0.94 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.85,
+              stagger: 0.12,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: whyRef.current.querySelector('.adv-why-container') || whyRef.current,
+                start: 'top 82%',
+                once: true,
+              },
+            }
+          );
+        }
+      }
+
+      // 5. Featured Solution ScrollTrigger (Image stage + Text box + Stat cards)
       if (featuredRef.current) {
         const featImg = featuredRef.current.querySelector('.adv-featured-media-stage');
         const featText = featuredRef.current.querySelector('.adv-featured-text-box');
+        const featStats = featuredRef.current.querySelectorAll('.adv-featured-text-box > div > div');
 
         if (featImg) {
           gsap.fromTo(
             featImg,
-            { opacity: 0, x: -60, scale: 0.96 },
+            { opacity: 0, x: -50, scale: 0.94 },
             {
               opacity: 1,
               x: 0,
               scale: 1,
-              duration: 1.1,
+              duration: 1.0,
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: featuredRef.current,
-                start: 'top 75%',
+                start: 'top 78%',
                 once: true,
               },
             }
@@ -75,46 +142,53 @@ export const AdvertisingSolutionsPage: React.FC = () => {
         if (featText) {
           gsap.fromTo(
             featText,
-            { opacity: 0, x: 60 },
+            { opacity: 0, x: 50 },
             {
               opacity: 1,
               x: 0,
-              duration: 1.1,
-              delay: 0.15,
+              duration: 1.0,
+              delay: 0.1,
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: featuredRef.current,
-                start: 'top 75%',
+                start: 'top 78%',
+                once: true,
+              },
+            }
+          );
+        }
+
+        if (featStats && featStats.length > 0) {
+          gsap.fromTo(
+            featStats,
+            { opacity: 0, y: 20, scale: 0.9 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.12,
+              delay: 0.25,
+              ease: 'back.out(1.4)',
+              scrollTrigger: {
+                trigger: featuredRef.current,
+                start: 'top 78%',
                 once: true,
               },
             }
           );
         }
       }
-
-      // 4. Why Choose U Channel Staggered Cards
-      const whyCards = whyRef.current?.querySelectorAll('.adv-why-card');
-      if (whyCards && whyCards.length > 0) {
-        gsap.fromTo(
-          whyCards,
-          { opacity: 0, y: 45 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.85,
-            stagger: 0.12,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: whyRef.current,
-              start: 'top 78%',
-              once: true,
-            },
-          }
-        );
-      }
     });
 
-    return () => ctx.revert();
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, []);
 
   const featuredSolution = ADVERTISING_SOLUTIONS.find((s) => s.id === 'digital-led') || ADVERTISING_SOLUTIONS[0];
@@ -162,7 +236,9 @@ export const AdvertisingSolutionsPage: React.FC = () => {
       {/* ─────────────────────────────────────────────────────────────
          2. OUR SOLUTIONS SHOWCASE (3D Interactive Carousel)
          ───────────────────────────────────────────────────────────── */}
-      <AdvertisingSolutions variant="light" />
+      <div ref={solutionsRef}>
+        <AdvertisingSolutions variant="light" />
+      </div>
 
       {/* ─────────────────────────────────────────────────────────────
          3. HARDWARE CATALOG (LED SOLUTIONS)
@@ -188,7 +264,7 @@ export const AdvertisingSolutionsPage: React.FC = () => {
 
         <div className="adv-why-container">
           <div className="adv-why-accordion">
-            {WHY_CHOOSE_FEATURES.map((feat) => {
+            {WHY_CHOOSE_FEATURES.map((feat, idx) => {
               const isActive = activeWhyId === feat.id;
               return (
                 <div
@@ -204,7 +280,7 @@ export const AdvertisingSolutionsPage: React.FC = () => {
                   }
                 >
                   <div className="adv-why-card-top">
-                    <span className="adv-why-card-num">{feat.number}</span>
+                    <span className="adv-why-card-num">0{idx + 1}</span>
                     <span className="adv-why-card-badge">U Channel</span>
                   </div>
 

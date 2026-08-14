@@ -91,31 +91,62 @@ const PRODUCTS: SolutionProduct[] = [
   },
 ];
 
-// Extend PRODUCTS array to 3 full sets: [clones left] + [real items] + [clones right]
-// This provides an ample buffer for rapid navigation and seamless looping.
-const extendedProducts = [...PRODUCTS, ...PRODUCTS, ...PRODUCTS];
+// Extend PRODUCTS array to 5 sets so we have plenty of clones on both sides.
+// Middle set sits at index range [N*2 .. N*3 - 1] (indices 14..20).
+const extendedProducts = [
+  ...PRODUCTS,
+  ...PRODUCTS,
+  ...PRODUCTS,
+  ...PRODUCTS,
+  ...PRODUCTS,
+];
 
 export interface AdvertisingSolutionsProps {
   variant?: 'dark' | 'light';
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
 }
 
-export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ variant = 'dark' }) => {
-  // Real items sit at indices PRODUCTS.length .. PRODUCTS.length * 2 - 1 (indices 7..13)
-  const [trackIndex, setTrackIndex] = useState<number>(PRODUCTS.length);
+export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
+  variant = 'dark',
+  autoPlay = true,
+  autoPlayInterval = 4500,
+}) => {
+  const N = PRODUCTS.length;
+  // Start at middle set (index N * 2 = 14)
+  const [trackIndex, setTrackIndex] = useState<number>(N * 2);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+
   const trackRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // The real index into PRODUCTS (0-based)
-  const realIndex =
-    ((trackIndex - PRODUCTS.length) % PRODUCTS.length + PRODUCTS.length) % PRODUCTS.length;
+  // The real 0-based index into PRODUCTS array
+  const realIndex = ((trackIndex % N) + N) % N;
 
-  const goToTrackIndex = useCallback((newIndex: number) => {
-    if (trackRef.current) {
-      trackRef.current.style.transition = '';
-    }
-    setTrackIndex(newIndex);
-  }, []);
+  const goToTrackIndex = useCallback(
+    (targetIndex: number) => {
+      if (trackIndex >= N * 3 || trackIndex < N * 2) {
+        // If already outside middle set, normalize before moving
+        const currentNorm = N * 2 + (((trackIndex % N) + N) % N);
+        const diff = targetIndex - trackIndex;
+        setIsTransitioning(false);
+        setTrackIndex(currentNorm);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setIsTransitioning(true);
+            setTrackIndex(currentNorm + diff);
+          });
+        });
+      } else {
+        setIsTransitioning(true);
+        setTrackIndex(targetIndex);
+      }
+    },
+    [N, trackIndex]
+  );
 
   const prevSlide = useCallback(() => {
     goToTrackIndex(trackIndex - 1);
@@ -125,39 +156,39 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
     goToTrackIndex(trackIndex + 1);
   }, [trackIndex, goToTrackIndex]);
 
-  // After the CSS transition ends, silently reset to the real position if we're in a clone zone.
-  // Crucial: Filter events so ONLY the track's own transform transitionend triggers the silent jump.
+  // Clean, seamless loop boundary check on transition end
   const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
     if (e.target !== e.currentTarget || e.propertyName !== 'transform') return;
 
-    const N = PRODUCTS.length;
-    const track = trackRef.current;
-    if (!track) return;
+    // If we moved outside the middle set (indices N*2..N*3-1), silently snap back into the middle set
+    if (trackIndex >= N * 3 || trackIndex < N * 2) {
+      const normalizedIndex = N * 2 + (((trackIndex % N) + N) % N);
+      setIsTransitioning(false);
+      setTrackIndex(normalizedIndex);
 
-    if (trackIndex >= N * 2) {
-      // Slid into the right clone set — jump back by N items silently
-      const targetIndex = trackIndex - N;
-      track.style.transition = 'none';
-      setTrackIndex(targetIndex);
-      void track.offsetHeight; // Synchronous reflow commit
+      // Re-enable transition on the next frame after DOM reflow
       requestAnimationFrame(() => {
-        if (trackRef.current) {
-          trackRef.current.style.transition = '';
-        }
-      });
-    } else if (trackIndex < N) {
-      // Slid into the left clone set — jump forward by N items silently
-      const targetIndex = trackIndex + N;
-      track.style.transition = 'none';
-      setTrackIndex(targetIndex);
-      void track.offsetHeight; // Synchronous reflow commit
-      requestAnimationFrame(() => {
-        if (trackRef.current) {
-          trackRef.current.style.transition = '';
-        }
+        requestAnimationFrame(() => {
+          setIsTransitioning(true);
+        });
       });
     }
   };
+
+  // AutoPlay timer effect
+  useEffect(() => {
+    if (!autoPlay || isPaused) return;
+
+    autoPlayTimerRef.current = setInterval(() => {
+      nextSlide();
+    }, autoPlayInterval);
+
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
+  }, [autoPlay, autoPlayInterval, isPaused, nextSlide]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -174,6 +205,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
 
   // Touch swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
     touchStartX.current = e.touches[0].clientX;
   };
 
@@ -182,6 +214,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
   };
 
   const handleTouchEnd = () => {
+    setIsPaused(false);
     if (touchStartX.current === null || touchEndX.current === null) return;
     const diffX = touchStartX.current - touchEndX.current;
     const minSwipeDistance = 40;
@@ -197,14 +230,13 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
   // Go to a specific real product index using the shortest path
   const goToRealIndex = useCallback(
     (realIdx: number) => {
-      const N = PRODUCTS.length;
-      const currentReal = ((trackIndex - N) % N + N) % N;
+      const currentReal = ((trackIndex % N) + N) % N;
       let diff = realIdx - currentReal;
       if (diff > N / 2) diff -= N;
       if (diff < -N / 2) diff += N;
       goToTrackIndex(trackIndex + diff);
     },
-    [trackIndex, goToTrackIndex]
+    [N, trackIndex, goToTrackIndex]
   );
 
   const isLight = variant === 'light';
@@ -214,6 +246,8 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
       id="advertising-solutions"
       className={`adv-solutions-section ${isLight ? 'adv-solutions-light' : 'adv-solutions-dark'}`}
       aria-label="Advertising Solutions Showcase"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       {/* Background Video (Dark Mode Only) */}
       {!isLight && (
@@ -239,7 +273,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
         {/* Section Header */}
         <div className="container section-header-container">
           <div className="section-header reveal-on-scroll">
-            <h2 className="section-headline">Our Solutions</h2>
+            <h2 className="adv-section-h2">Our Solutions</h2>
           </div>
         </div>
 
@@ -250,13 +284,39 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {/* Navigation Arrows */}
+          <button
+            type="button"
+            className="adv-carousel-arrow adv-carousel-arrow--prev"
+            onClick={prevSlide}
+            aria-label="Previous solution"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            className="adv-carousel-arrow adv-carousel-arrow--next"
+            onClick={nextSlide}
+            aria-label="Next solution"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
           {/* Carousel Track Viewport */}
-          <div className="adv-carousel-viewport">
+          <div className={`adv-carousel-viewport ${!isTransitioning ? 'no-transition' : ''}`}>
             <div
               ref={trackRef}
-              className="adv-carousel-track"
+              className={`adv-carousel-track ${!isTransitioning ? 'no-transition' : ''}`}
               style={{
                 transform: `translateX(calc(50vw - ${(trackIndex + 0.5)} * var(--card-eff-width, 440px)))`,
+                transition: isTransitioning
+                  ? 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                  : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}
             >
@@ -286,12 +346,17 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
                     aria-label={`${prod.title} solution card`}
                   >
                     <div className="adv-card-inner">
+                      {/* Card Badge Number */}
+                      <div className="adv-card-badge">
+                        <span className="adv-card-num">{prod.number}</span>
+                      </div>
+
                       {/* Background Image */}
                       <img
                         src={prod.image}
                         alt={prod.alt}
                         className="adv-card-img"
-                        loading={Math.abs(distance) <= 2 ? 'eager' : 'lazy'}
+                        loading="eager"
                         decoding="async"
                       />
 
@@ -311,6 +376,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
           return (
             <div className="adv-active-details container">
               <div className="adv-active-details-inner" key={activeProd.id}>
+                <span className="adv-active-num">{activeProd.number}</span>
                 <h3 className="adv-active-title">{activeProd.title}</h3>
                 <p className="adv-active-desc">{activeProd.description}</p>
                 <div className="adv-active-action">
@@ -358,3 +424,4 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({ vari
 };
 
 export default AdvertisingSolutions;
+

@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface BrandItem {
   name: string;
@@ -6,6 +10,8 @@ interface BrandItem {
 }
 
 export const BrandsSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
   const BRANDS: BrandItem[] = [
     {
       name: 'San Miguel Corporation',
@@ -45,11 +51,11 @@ export const BrandsSection: React.FC = () => {
     },
     {
       name: 'Skechers',
-      src: 'https://cdn.simpleicons.org/skechers/002b49',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Skechers_wordmark.svg',
     },
     {
       name: 'Yamaha',
-      src: 'https://cdn.simpleicons.org/yamaha/e60012',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Yamaha_logo_text.svg',
     },
     {
       name: 'Bingo Plus',
@@ -57,8 +63,81 @@ export const BrandsSection: React.FC = () => {
     },
   ];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Header reveal
+      const header = section.querySelector('.clients-header');
+      if (header) {
+        gsap.fromTo(
+          header,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: header,
+              start: 'top 82%',
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 2. Stats reveal
+      const stats = section.querySelectorAll('.clients-stat');
+      if (stats.length > 0) {
+        gsap.fromTo(
+          stats,
+          { opacity: 0, y: 30, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: section.querySelector('.clients-stats-row') || section,
+              start: 'top 82%',
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 3. Logo items stagger reveal
+      const logoItems = section.querySelectorAll('.flat-logo-item');
+      if (logoItems.length > 0) {
+        gsap.fromTo(
+          logoItems,
+          { opacity: 0, y: 25, scale: 0.92 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.05,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section.querySelector('.flat-logo-grid') || section,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="partners" className="clients-section" aria-label="Our Partners and Clients">
+    <section ref={sectionRef} id="partners" className="clients-section" aria-label="Our Partners and Clients">
       {/* Subtle background pattern */}
       <div className="clients-bg-pattern" aria-hidden="true" />
 
