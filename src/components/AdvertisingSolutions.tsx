@@ -267,6 +267,7 @@ export const AdvertisingSolutions: React.FC<AdvertisingSolutionsProps> = ({
             muted
             playsInline
             preload="auto"
+            poster="assets/showcase_poster.jpg"
           >
             <source src="assets/showcase.mp4" type="video/mp4" />
             <source src="/assets/showcase.mp4" type="video/mp4" />

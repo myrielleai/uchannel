@@ -203,6 +203,7 @@ export const AboutSection: React.FC = () => {
         muted
         playsInline
         preload="auto"
+        poster="assets/showcase_poster.jpg"
       >
         <source src="assets/showcase.mp4" type="video/mp4" />
         <source src="/assets/showcase.mp4" type="video/mp4" />

@@ -112,6 +112,7 @@
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </noscript>
+  <link rel="preload" href="assets/hero_poster.jpg" as="image" fetchpriority="high">
   <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -188,7 +189,7 @@
     <!-- Step 1 -->
     <section id="hero" class="hero-step" aria-label="U Channel — Billboard & LED Advertising Philippines">
       <!-- Background Video -->
-      <video class="hero-video-bg" autoplay loop muted playsinline fetchpriority="high">
+      <video class="hero-video-bg" autoplay loop muted playsinline fetchpriority="high" poster="assets/hero_poster.jpg">
         <source src="assets/hero.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -451,7 +452,7 @@
     <!-- Step 3 -->
     <section id="hero-step-3" class="hero-step">
       <!-- Background Video -->
-      <video class="services-video-bg" autoplay loop muted playsinline preload="metadata">
+      <video class="services-video-bg" autoplay loop muted playsinline preload="metadata" poster="assets/services_poster.jpg">
         <source src="assets/services.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -572,7 +573,7 @@
   <!-- ══════════════════════════════════════ LOCATIONS FOCUS GALLERY ══ -->
   <section id="work" class="section-work focus-gallery-section">
     <!-- Background video -->
-    <video class="focus-gallery-bg-video" autoplay loop muted playsinline aria-hidden="true">
+    <video class="focus-gallery-bg-video" autoplay loop muted playsinline aria-hidden="true" poster="assets/locbg_poster.jpg">
       <source src="assets/locbg.mp4" type="video/mp4">
     </video>
     <div class="focus-gallery-video-overlay" aria-hidden="true"></div>
