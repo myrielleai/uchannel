@@ -3,8 +3,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { inject } from '@vercel/analytics';
 import AdvertisingSolutions from './src/components/AdvertisingSolutions';
 import AboutSection from './src/components/AboutSection';
+
+// Initialize Vercel Analytics
+inject();
 
 
 /* ─── register GSAP plugins immediately ─────────────────────── */
