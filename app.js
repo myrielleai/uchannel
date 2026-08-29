@@ -40,7 +40,8 @@ const SPRING_SNAP = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'; // snappy back.ou
 let lenis = null;
 
 function initLenis() {
-  if (!HAS_LENIS || REDUCED) return;
+  const isMobileTouch = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window && window.innerWidth <= 1024);
+  if (!HAS_LENIS || REDUCED || isMobileTouch) return;
 
   lenis = new Lenis({
     duration:        1.2,
@@ -455,8 +456,10 @@ function initUChannelTitleInteractivity() {
         wordChannel.style.transform = `translate3d(${-currX * 2}px, ${-currY * 2}px, 5px)`;
       }
 
-      // Per-character mouse proximity lift & dynamic directional drop shadow
-      chars.forEach((char) => {
+      // Per-character mouse proximity lift & dynamic directional drop shadow (Desktop fine pointers only)
+      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+      if (isFinePointer) {
+        chars.forEach((char) => {
         if (char.classList.contains('ripple-active')) return;
 
         let liftY = 0;
@@ -488,12 +491,13 @@ function initUChannelTitleInteractivity() {
         const shadowAlpha = 0.3 + Math.abs(currX) * 0.15;
 
         char.style.transform = `translate3d(0, ${liftY}px, ${extraZ}px) scale(${scale}) rotate(${rot}deg)`;
-        if (!char.matches(':hover') && !char.classList.contains('hover-active')) {
-          char.style.filter = `drop-shadow(${shadowX}px ${shadowY}px ${shadowBlur}px rgba(59, 130, 246, ${shadowAlpha}))`;
-        } else {
-          char.style.filter = '';
-        }
-      });
+          if (!char.matches(':hover') && !char.classList.contains('hover-active')) {
+            char.style.filter = `drop-shadow(${shadowX}px ${shadowY}px ${shadowBlur}px rgba(59, 130, 246, ${shadowAlpha}))`;
+          } else {
+            char.style.filter = '';
+          }
+        });
+      }
     }
 
     rafId = requestAnimationFrame(animateParallax);
@@ -991,13 +995,33 @@ function initBillboardShowcase() {
 
   if (!container || !structure) return;
 
-  // Programmatic video autoplay initialization
+  // Smart video power management for mobile viewports vs desktop
+  const isMobileViewport = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
   const videos = document.querySelectorAll('video');
-  videos.forEach(video => {
-    video.play().catch(err => {
-      console.warn("Video autoplay blocked, waiting for user interaction:", err);
+
+  if (isMobileViewport && 'IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    videos.forEach(video => {
+      video.setAttribute('playsinline', '');
+      videoObserver.observe(video);
     });
-  });
+  } else {
+    videos.forEach(video => {
+      video.play().catch(err => {
+        console.warn("Video autoplay blocked, waiting for user interaction:", err);
+      });
+    });
+  }
 
   /* ─── Pinned Scroll-Driven 3D Screen Flip ─── */
   if (HAS_GSAP && HAS_ST && !REDUCED && flipper && showcaseSec) {
@@ -1051,7 +1075,7 @@ function initBillboardShowcase() {
   }
 
   /* ─── Mouse-Tracking 3D Perspective Tilt ─── */
-  if (REDUCED) return;
+  if (REDUCED || window.matchMedia('(pointer: coarse)').matches) return;
 
   const wrapper = document.querySelector('.billboard-structure-wrapper');
   if (!wrapper) return;
@@ -1580,7 +1604,7 @@ function initPageTransitions() {
    Uses GSAP quickSetter for high-fps DOM mutations.
    ───────────────────────────────────────────────────────────── */
 function initCardTilt() {
-  if (!HAS_GSAP || REDUCED) return;
+  if (!HAS_GSAP || REDUCED || window.matchMedia('(pointer: coarse)').matches) return;
 
   const cards = document.querySelectorAll('.service-card, .work-card, .glass-card');
 
@@ -1889,7 +1913,8 @@ function initLocationsRibbon() {
   };
 
   const setupDimensionsAndMetrics = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    const isMobileViewport = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+    const dpr = isMobileViewport ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.25);
     const viewBoxWidth = 1920;
     const viewBoxHeight = 1080;
 
@@ -1935,8 +1960,10 @@ function initLocationsRibbon() {
     const dt = Math.min((now - lastTime) / 1000, 0.1);
     lastTime = now;
 
-    // Frame-pacing throttle: ~60fps target (15.5ms interval) to avoid 120Hz display overdraw
-    if (lastFrameTime && (now - lastFrameTime) < 15) {
+    // Frame-pacing throttle: 30fps target on mobile to save GPU battery, 60fps on desktop
+    const isMobileViewport = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+    const frameInterval = isMobileViewport ? 30 : 15;
+    if (lastFrameTime && (now - lastFrameTime) < frameInterval) {
       if (isRibbonVisible && !REDUCED) {
         animId = requestAnimationFrame(renderFrame);
       }
