@@ -1,3 +1,6 @@
+/* always open a new page at the top */
+try{ history.scrollRestoration='manual'; }catch(e){}
+if(!location.hash){ scrollTo(0,0); const top0=()=>{ scrollTo(0,0); if(typeof lenis!=='undefined'&&lenis) lenis.scrollTo(0,{immediate:true}); }; addEventListener('load',()=>{ if(window.ScrollTrigger) ScrollTrigger.clearScrollMemory('manual'); top0(); setTimeout(top0,60); }); }
 /* U Channel shared behaviour for inner pages. Exposes window.UC. */
 (function(){
 'use strict';
