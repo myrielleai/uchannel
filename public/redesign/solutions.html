@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Advertising Solutions · U Channel</title>
+<meta name="description" content="Seven out-of-home formats from U Channel: digital LED, static billboards, transit, building wraps, pole banners, mall media and custom builds.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+
+.hero{padding-block:clamp(140px,16vw,190px) clamp(64px,8vw,110px)}
+.hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:end}
+.hero h1{font-size:clamp(56px,8.6vw,132px)}
+.picker{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:clamp(260px,26vw,360px)}
+.pick{display:flex;flex-direction:column;justify-content:space-between;padding:12px 10px;border-radius:16px;color:var(--navy);font-weight:800;line-height:1.05;transition:translate .35s cubic-bezier(.34,1.56,.64,1),filter .2s;min-width:0}
+.pick b{font-size:clamp(18px,1.8vw,26px);letter-spacing:-.04em}
+.pick span{font-size:clamp(11px,.95vw,13px);word-break:break-word}
+.pick:hover,.pick:focus-visible{translate:0 -12px}
+.preview{position:relative;height:clamp(220px,22vw,300px);border-radius:22px;overflow:hidden;background:var(--navy2);margin-bottom:16px}
+.preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.preview .px{position:absolute;inset:0;background-image:radial-gradient(rgba(17,33,61,0) 55%,rgba(17,33,61,.55) 56%);background-size:5px 5px;mix-blend-mode:multiply;opacity:.5}
+.preview figcaption{position:absolute;left:0;bottom:0;padding:12px 18px;background:var(--navy);color:#fff;font-weight:800;font-size:18px;letter-spacing:-.03em;border-top-right-radius:16px}
+.rail{position:fixed;left:max(14px,env(safe-area-inset-left,0px));top:50%;z-index:30;display:flex;flex-direction:column;gap:8px;transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity .3s}
+.rail.on{opacity:1;pointer-events:auto}
+.rail a{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:11px;font-weight:800;background:rgba(17,33,61,.6);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .3s,background .3s,width .3s}
+.rail a.cur{background:var(--orange);color:var(--navy);transform:scale(1.15)}
+@media (max-width:1240px){.rail{display:none}}
+.chap .media{position:relative;height:clamp(320px,42vw,600px);border-radius:28px;overflow:hidden;background:var(--navy2)}
+.chap .media img,.chap .media video{position:absolute;inset:0;width:100%;height:116%;top:-8%;object-fit:cover}
+.chap .media video{opacity:0;transition:opacity .5s}
+.chap .media.playing video{opacity:1}
+.chap .plate{position:absolute;left:0;bottom:0;padding:20px 36px 24px 28px;background:var(--navy);color:#fff;display:flex;align-items:flex-end;gap:20px;border-top-right-radius:24px}
+.chap .plate .num{font-size:clamp(70px,9vw,128px);line-height:.78;font-weight:800;letter-spacing:-.07em;color:var(--orange)}
+.chap .plate h2{font-size:clamp(30px,4vw,58px);line-height:.92;font-weight:800;letter-spacing:-.05em;margin:0;max-width:9ch}
+.chap .play{position:absolute;right:18px;top:18px;display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;border:0;background:rgba(17,33,61,.75);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.chap__grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);margin-top:clamp(28px,4vw,48px);align-items:start}
+.tagline{font-size:12px;font-weight:800;letter-spacing:.14em;opacity:.8}
+.chap .desc{font-size:clamp(17px,1.5vw,21px);line-height:1.5;font-weight:600;letter-spacing:-.01em;margin:14px 0 0;max-width:46ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips span{padding:8px 14px;border-radius:999px;border:2px solid currentColor;font-size:13px;font-weight:700}
+.specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.spec{min-height:132px;border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;color:var(--navy);transition:rotate .35s cubic-bezier(.34,1.56,.64,1),scale .35s cubic-bezier(.34,1.56,.64,1)}
+.spec:hover{rotate:-2deg;scale:1.03}
+.spec small{font-size:12px;font-weight:700;opacity:.75}
+.spec strong{font-size:clamp(17px,1.5vw,21px);line-height:1.12;font-weight:800;letter-spacing:-.025em}
+.chap__more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px);margin-top:clamp(28px,4vw,48px);padding-top:28px;border-top:2px solid currentColor}
+.chap__more h3{margin:0 0 14px;font-size:16px;font-weight:800}
+.ben{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.45}
+.ben li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;align-items:start}
+.ben li::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--orange);margin-top:5px}
+.ideal{display:flex;flex-wrap:wrap;gap:8px}
+.ideal span{padding:8px 12px;border-radius:12px;font-size:13px;font-weight:700;background:rgba(17,33,61,.08)}
+.on-dark .ideal span{background:rgba(255,255,255,.1)}
+.facts{margin:16px 0 0;font-size:14px;line-height:1.5;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px}
+.facts dt{font-weight:800}
+.facts dd{margin:0;opacity:.85}
+.scale{margin:0}
+.scale svg{width:100%;height:auto;display:block;overflow:visible}
+.scale figcaption{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-size:12px;font-weight:700}
+.scale figcaption span{display:flex;align-items:center;gap:6px}
+.scale figcaption i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.chap__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.quiz{max-width:980px}
+.quiz__progress{display:flex;gap:8px;margin:28px 0 22px}
+.quiz__progress i{width:44px;height:14px;border-radius:5px;background:rgba(17,33,61,.15);transition:background .3s}
+.quiz__progress i.on{background:var(--navy)}
+.quiz__q{font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin:0 0 22px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.opt{min-height:96px;padding:18px 20px;border-radius:18px;border:2px solid var(--navy);background:var(--white);color:var(--navy);text-align:left;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 6px 0 var(--navy);translate:0 -6px;transition:translate .15s,box-shadow .15s,background .2s}
+.opt:hover{background:var(--navy);color:var(--white)}
+.opt:active{translate:0 0;box-shadow:0 0 0 var(--navy)}
+.result{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:stretch}
+.result__img{border-radius:22px;overflow:hidden;min-height:280px;position:relative}
+.result__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.result__card{background:var(--navy);color:#fff;border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.result__card .match{font-size:13px;font-weight:800;color:var(--peach)}
+.result__card h3{margin:0;font-size:clamp(30px,3.4vw,46px);font-weight:800;letter-spacing:-.05em;line-height:.95}
+.result__alt{font-size:14px;color:var(--soft)}
+@media (max-width:900px){
+  .hero__grid,.chap__grid,.result{grid-template-columns:minmax(0,1fr)}
+  .chap__more{grid-template-columns:minmax(0,1fr)}
+  .picker{grid-template-columns:repeat(4,minmax(0,1fr));height:auto;align-items:stretch}
+  .pick{height:auto!important;min-height:96px}
+}
+@media (max-width:560px){ .opts{grid-template-columns:minmax(0,1fr)} .picker{grid-template-columns:repeat(2,minmax(0,1fr))} .chap .plate{padding:14px 20px 16px 16px} }
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="uClip"><path d="M100 134 L210 98 V360 A25 25 0 0 0 260 360 V178 L370 142 V360 A135 135 0 0 1 100 360 Z"/></clipPath>
+    <symbol id="uMark" viewBox="92 88 286 416">
+      <g clip-path="url(#uClip)"><rect x="90" y="88" width="290" height="68" fill="#6C97D3"/><rect x="90" y="168" width="290" height="68" fill="#FFC49C"/><rect x="90" y="248" width="290" height="68" fill="#FFAB72"/><rect x="90" y="328" width="290" height="68" fill="#FB9B51"/><rect x="90" y="408" width="290" height="100" fill="#FF8732"/></g>
+      <path d="M260 178 L370 142 V360 A135 135 0 0 1 200 490.4 C212 462 235 430 235 385 A25 25 0 0 0 260 360 Z" fill="#FFFFFF" stroke="#11213D" stroke-width="10" paint-order="stroke" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="lockup" viewBox="0 0 540 136">
+      <image href="assets/logos/u-mark.png" x="0" y="0" width="94" height="135" preserveAspectRatio="xMidYMid meet"/>
+      <text x="126" y="77" font-family="Poppins, sans-serif" font-weight="600" font-size="76" textLength="400" lengthAdjust="spacing" fill="#FFFFFF">CHANNEL</text>
+      <text x="127" y="112" font-family="Poppins, sans-serif" font-weight="500" font-size="30" textLength="398" lengthAdjust="spacing" fill="#FFFFFF">DIGITECH INNOVATION</text>
+    </symbol>
+  </defs>
+</svg>
+<header class="nav">
+  <div class="nav__bar">
+    <a class="nav__logo" href="index.html" aria-label="U Channel home"><svg viewBox="0 0 540 136" role="img" aria-label="U Channel Digitech Innovation"><use href="#lockup"/></svg></a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html#about">Who we are</a>
+      <a href="index.html#process">Services</a>
+      <a href="solutions.html" aria-current="page">Solutions</a>
+      <a href="index.html#products">Products</a>
+      <a href="locations.html">Locations</a>
+      <a href="index.html#billboard" class="try">Try a billboard</a>
+    </nav>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="#contact" class="pill pill--orange nav__cta" data-cursor="Let's talk">Get a Quote</a>
+      <button class="nav__menu" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="drawer__close" id="menuClose" type="button" aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <a href="index.html">Home</a><a href="solutions.html">Solutions</a><a href="locations.html">Locations</a><a href="index.html#products">Products</a><a href="index.html#billboard" style="color:var(--peach)">Try a billboard</a><a href="#contact" style="color:var(--orange)">Get a Quote</a>
+</div>
+<nav class="rail" id="rail" aria-label="Solutions"><a href="#digital-led-billboards" aria-label="Digital LED Billboards">01</a><a href="#static-billboards" aria-label="Static Billboards">02</a><a href="#transit-advertising" aria-label="Transit Advertising">03</a><a href="#building-wraps" aria-label="Building Wraps">04</a><a href="#pole-banners" aria-label="Pole Banners">05</a><a href="#mall-advertising" aria-label="Mall Advertising">06</a><a href="#custom-advertising" aria-label="Custom Advertising">07</a></nav>
+<main id="top">
+<section class="band hero" data-bg="#11213D" data-fg="#FFFFFF" style="--bandbg:#11213D;--bandfg:#FFFFFF">
+  <div class="wrap"><div class="in hero__grid">
+    <div>
+      <h1 class="h-xl">Seven ways to be <span style="color:var(--deep)">seen</span><span class="dot"></span></h1>
+      <p class="lede" style="margin-top:24px;color:var(--soft)">From a 4K screen over EDSA to a banner on every lamp post down the avenue.</p>
+    </div>
+    <div>
+      <figure class="preview" id="preview"><img src="assets/img/ph.svg" alt="" id="previewImg"><div class="px"></div><figcaption id="previewCap">Digital LED Billboards</figcaption></figure>
+      <div class="picker" id="picker"><a class="pick" href="#digital-led-billboards" data-img="assets/img/ph.svg" data-name="Digital LED Billboards" style="height:34%;background:#6C97D3"><b>01</b><span>Digital LED</span></a><a class="pick" href="#static-billboards" data-img="assets/img/ph.svg" data-name="Static Billboards" style="height:44%;background:#FFC49C"><b>02</b><span>Static</span></a><a class="pick" href="#transit-advertising" data-img="assets/img/ph.svg" data-name="Transit Advertising" style="height:54%;background:#FFAB72"><b>03</b><span>Transit</span></a><a class="pick" href="#building-wraps" data-img="assets/img/ph.svg" data-name="Building Wraps" style="height:64%;background:#FB9B51"><b>04</b><span>Building Wraps</span></a><a class="pick" href="#pole-banners" data-img="assets/img/ph.svg" data-name="Pole Banners" style="height:74%;background:#FF8732"><b>05</b><span>Pole Banners</span></a><a class="pick" href="#mall-advertising" data-img="assets/img/ph.svg" data-name="Mall Advertising" style="height:86%;background:#FFC49C"><b>06</b><span>Mall</span></a><a class="pick" href="#custom-advertising" data-img="assets/img/ph.svg" data-name="Custom Advertising" style="height:100%;background:#FFFFFF"><b>07</b><span>Custom</span></a></div>
+    </div>
+  </div></div>
+</section>
+<section class="band chap on-dark" id="digital-led-billboards" data-bg="#11213D" data-fg="#FFFFFF" data-i="0" style="--bandbg:#11213D;--bandfg:#FFFFFF">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Digital LED Billboards example" loading="lazy">
+      <div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">ULTRA-HD DYNAMIC SCREENS</div>
+        <p class="desc">U Channel’s Ultra-HD Digital LED Billboards provide dynamic, high-impact visibility across premier metropolitan traffic corridors. Equipped with high-refresh rate LED modules and automated day/night brightness adjustment, your brand delivers vivid motion graphics and real-time messaging that is impossible to ignore.</p>
+        <div class="chips"><span>4K Ultra-HD</span><span>Programmatic</span><span>High Impact</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Resolution</small><strong>4K Ultra-HD P8/P10</strong></div><div class="spec" style="background:#FFC49C"><small>Daily Traffic</small><strong>380,000+ Vehicles</strong></div><div class="spec" style="background:#FFAB72"><small>Scheduling</small><strong>Real-Time Programmatic</strong></div><div class="spec" style="background:#FB9B51"><small>Illumination</small><strong>24/7 Auto-Dimming Smart LED</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Real-time content updates and dayparting options</li><li>High-brightness modules visible under direct sunlight</li><li>Multi-creative rotation for flexible campaign messaging</li><li>Audience analytics and vehicle impression tracking</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Product Launches</span><span>Automotive &amp; Tech Brands</span><span>E-Commerce &amp; Retail Sales Events</span><span>Financial &amp; Corporate Awareness</span></div>
+        <dl class="facts"><dt>Size</dt><dd>60ft x 40ft (Custom sizes available)</dd><dt>Lighting</dt><dd>High-Density SMD LED Technology</dd></dl></div>
+      <div><h3>How big is it?</h3><figure class="scale" aria-label="Size comparison: 60 × 40 ft next to a person and a jeepney">
+  <svg viewBox="0 0 420 240" role="img" aria-hidden="true"><text x="20" y="18" font-size="15" font-weight="800" fill="currentColor">60 × 40 ft</text><line x1="0" y1="216" x2="420" y2="216" stroke="currentColor" stroke-width="2" opacity=".5"/><rect x="103.6" y="147.4" width="5.7" height="68.6" fill="currentColor" opacity=".45"/><rect class="sc-grow" x="20.0" y="33.1" width="171.4" height="114.3" rx="10.0" fill="#FB9B51"/><g fill="#6C97D3"><circle cx="209.6" cy="202.5" r="2.2"/><rect x="207.4" y="204.9" width="4.4" height="11.1" rx="1.5"/></g><g><rect x="221.8" y="193.1" width="57.1" height="18.3" rx="4.6" fill="#FFAB72"/><circle cx="233.3" cy="211.9" r="4.1" fill="currentColor"/><circle cx="267.5" cy="211.9" r="4.1" fill="currentColor"/></g></svg>
+  <figcaption><span><i style="background:#FB9B51"></i>The format</span><span><i style="background:#6C97D3"></i>A person</span><span><i style="background:#FFAB72"></i>A jeepney</span></figcaption>
+</figure></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Digital LED Billboards" data-cursor="Let's talk">Get a quote for Digital LED Billboards</a>
+      <a class="pill pill--ghost" href="index.html#billboard" data-cursor="Play">Try it on a billboard</a>
+    </div>
+  </div></div>
+</section>
+<section class="band chap" id="static-billboards" data-bg="#FFC49C" data-fg="#11213D" data-i="1" style="--bandbg:#FFC49C;--bandfg:#11213D">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Static Billboards example" loading="lazy">
+      <div class="plate"><span class="num">02</span><h2>Static Billboards.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">HIGH-IMPACT HIGHWAY PRESENCE</div>
+        <p class="desc">Our massive static billboard structures command undivided attention along EDSA, Roxas Boulevard, and key provincial expressways. Built with heavy-duty weather-resistant vinyl substrate and high-lumen LED floodlighting, static billboards deliver 100% share of voice 24 hours a day.</p>
+        <div class="chips"><span>100% Share of Voice</span><span>Highway Arteries</span><span>24/7 Visibility</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Share of Voice</small><strong>100% Exclusive Ownership</strong></div><div class="spec" style="background:#FFAB72"><small>Visibility Range</small><strong>Up to 1.5 Kilometers</strong></div><div class="spec" style="background:#FB9B51"><small>Substrate</small><strong>UV-Protected Frontlit Vinyl</strong></div><div class="spec" style="background:#FFFFFF"><small>Lighting</small><strong>High-Efficiency LED Floodlights</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Uninterrupted 24/7 brand domination without ad sharing</li><li>Maximum brand recall among daily highway commuters</li><li>Long-term strategic positioning in premium commercial hubs</li><li>High structural integrity certified for typhoons and high winds</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Top-of-Mind Brand Awareness</span><span>Real Estate Developments</span><span>Consumer Packaged Goods (CPG)</span><span>Telecom &amp; Insurance Leaders</span></div>
+        <dl class="facts"><dt>Size</dt><dd>80ft x 50ft (Standard Super-Format)</dd><dt>Lighting</dt><dd>Industrial High-Lumen LED Spotlight Grid</dd></dl></div>
+      <div><h3>How big is it?</h3><figure class="scale" aria-label="Size comparison: 80 × 50 ft next to a person and a jeepney">
+  <svg viewBox="0 0 420 240" role="img" aria-hidden="true"><text x="20" y="18" font-size="15" font-weight="800" fill="currentColor">80 × 50 ft</text><line x1="0" y1="216" x2="420" y2="216" stroke="currentColor" stroke-width="2" opacity=".5"/><rect x="118.1" y="156.0" width="5.0" height="60.0" fill="currentColor" opacity=".45"/><rect class="sc-grow" x="20.0" y="31.0" width="200.0" height="125.0" rx="10.0" fill="#FB9B51"/><g fill="#6C97D3"><circle cx="237.9" cy="204.2" r="1.9"/><rect x="236.0" y="206.3" width="3.9" height="9.7" rx="1.3"/></g><g><rect x="249.8" y="196.0" width="50.0" height="16.0" rx="4.0" fill="#FFAB72"/><circle cx="259.9" cy="212.4" r="3.6" fill="currentColor"/><circle cx="289.9" cy="212.4" r="3.6" fill="currentColor"/></g></svg>
+  <figcaption><span><i style="background:#FB9B51"></i>The format</span><span><i style="background:#6C97D3"></i>A person</span><span><i style="background:#FFAB72"></i>A jeepney</span></figcaption>
+</figure></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Static Billboards" data-cursor="Let's talk">Get a quote for Static Billboards</a>
+      <a class="pill pill--ghost" href="index.html#billboard" data-cursor="Play">Try it on a billboard</a>
+    </div>
+  </div></div>
+</section>
+<section class="band chap on-dark" id="transit-advertising" data-bg="#30579C" data-fg="#FFFFFF" data-i="2" style="--bandbg:#30579C;--bandfg:#FFFFFF">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Transit Advertising example" loading="lazy">
+      <div class="plate"><span class="num">03</span><h2>Transit Advertising.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">MOBILE AUDIENCE ENGAGEMENT</div>
+        <p class="desc">Transform public and commercial transport fleets into moving canvases that reach into high-density urban zones. From premium bus wraps along major avenues to interior HD screen networks, transit advertising drives repeated impressions across diverse demographics.</p>
+        <div class="chips"><span>Mobile Reach</span><span>Fleet Wraps</span><span>Urban Reach</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Fleet Options</small><strong>Buses, Shuttles, Light Rail</strong></div><div class="spec" style="background:#FFC49C"><small>Coverage Area</small><strong>Metro Manila &amp; Key Regional Routes</strong></div><div class="spec" style="background:#FFAB72"><small>Impression Rate</small><strong>250,000+ Daily Views per Route</strong></div><div class="spec" style="background:#FB9B51"><small>Material</small><strong>3M Cast Perforated Window &amp; Body Wrap</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Wide geographic coverage, reaching places fixed billboards cannot</li><li>High engagement during commuter dwell times in traffic</li><li>Eye-level pedestrian and passenger viewability</li><li>Integrated GPS fleet tracking and campaign execution reports</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Mass Market Consumer Campaigns</span><span>Entertainment &amp; Streaming Releases</span><span>Food &amp; Beverage Chains</span><span>Fintech &amp; Digital Banking Services</span></div>
+        <dl class="facts"><dt>Size</dt><dd>Full Vehicle Exterior Wrap + Side Panels</dd><dt>Lighting</dt><dd>Reflective Graphic Elements + Interior Screens</dd></dl></div>
+      <div><div><h3>Size</h3><p style="margin:0;font-size:15px">Full Vehicle Exterior Wrap + Side Panels. Every build is sized to the site, so tell us where and we will spec it.</p></div></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Transit Advertising" data-cursor="Let's talk">Get a quote for Transit Advertising</a>
+      
+    </div>
+  </div></div>
+</section>
+<section class="band chap" id="building-wraps" data-bg="#FFFFFF" data-fg="#11213D" data-i="3" style="--bandbg:#FFFFFF;--bandfg:#11213D">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Building Wraps example" loading="lazy">
+      <div class="plate"><span class="num">04</span><h2>Building Wraps.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">SKYLINE-DOMINATING CANVASES</div>
+        <p class="desc">Mega-scale building facade graphics that transform landmark urban architecture into colossal brand spectacles visible across entire cities, printed on breathable mesh that still lets light into the building.</p>
+        <div class="chips"><span>Architectural Scale</span><span>Skyline Landmark</span><span>PR Magnet</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Scale</small><strong>Multi-Story Facade (up to 300ft tall)</strong></div><div class="spec" style="background:#FFC49C"><small>Substrate</small><strong>Micro-Perforated One-Way Vision Mesh</strong></div><div class="spec" style="background:#FFAB72"><small>Illumination</small><strong>Architectural Dynamic Exterior Uplighting</strong></div><div class="spec" style="background:#FB9B51"><small>Impact</small><strong>Iconic Skyline Dominance</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Unmatched prestige and skyline dominance</li><li>Strong social media and PR potential</li><li>Breathable architectural mesh lets light into building windows</li><li>Visible from far away, including from overhead highways</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Flagship Global Launches</span><span>Luxury &amp; Fashion Houses</span><span>Blockbuster Movie Premieres</span><span>Major Corporate Milestones</span></div>
+        <dl class="facts"><dt>Size</dt><dd>Up to 30,000 Sq Ft Surface Area</dd><dt>Lighting</dt><dd>Architectural Grade Dynamic Flood Lighting</dd></dl></div>
+      <div><h3>How big is it?</h3><figure class="scale" aria-label="Size comparison: up to 300 ft tall next to a person and a jeepney">
+  <svg viewBox="0 0 420 240" role="img" aria-hidden="true"><text x="20" y="18" font-size="15" font-weight="800" fill="currentColor">up to 300 ft tall</text><line x1="0" y1="216" x2="420" y2="216" stroke="currentColor" stroke-width="2" opacity=".5"/><rect class="sc-grow" x="39.4" y="22.4" width="64.5" height="193.6" rx="6" fill="#FB9B51"/><line class="sc-grow" x1="39.4" y1="196.6" x2="103.9" y2="196.6" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="177.3" x2="103.9" y2="177.3" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="157.9" x2="103.9" y2="157.9" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="138.6" x2="103.9" y2="138.6" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="119.2" x2="103.9" y2="119.2" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="99.9" x2="103.9" y2="99.9" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="80.5" x2="103.9" y2="80.5" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="61.2" x2="103.9" y2="61.2" stroke="#11213D" stroke-opacity=".25"/><line class="sc-grow" x1="39.4" y1="41.8" x2="103.9" y2="41.8" stroke="#11213D" stroke-opacity=".25"/><g fill="#6C97D3"><circle cx="114.9" cy="213.4" r="1.0"/><rect x="113.9" y="214.5" width="2.0" height="1.4" rx="0.7"/></g><g><rect x="125.9" y="210.8" width="12.9" height="4.1" rx="1.0" fill="#FFAB72"/><circle cx="128.5" cy="215.1" r="0.9" fill="currentColor"/><circle cx="136.2" cy="215.1" r="0.9" fill="currentColor"/></g></svg>
+  <figcaption><span><i style="background:#FB9B51"></i>The format</span><span><i style="background:#6C97D3"></i>A person</span><span><i style="background:#FFAB72"></i>A jeepney</span></figcaption>
+</figure></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Building Wraps" data-cursor="Let's talk">Get a quote for Building Wraps</a>
+      
+    </div>
+  </div></div>
+</section>
+<section class="band chap" id="pole-banners" data-bg="#FB9B51" data-fg="#11213D" data-i="4" style="--bandbg:#FB9B51;--bandfg:#11213D">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Pole Banners example" loading="lazy">
+      <div class="plate"><span class="num">05</span><h2>Pole Banners.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">SEQUENTIAL STREET CANOPIES</div>
+        <p class="desc">High-density, double-sided street-level banners lining premier shopping and financial avenues. Placed in sequence every 15 metres, they reinforce your brand through repetition at eye level.</p>
+        <div class="chips"><span>Sequential</span><span>Street Level</span><span>Pedestrian Reach</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Placement</small><strong>Boulevards, Commercial Avenues, Plazas</strong></div><div class="spec" style="background:#FFC49C"><small>Format</small><strong>Double-Sided Heavy Duty Canvas</strong></div><div class="spec" style="background:#FFAB72"><small>Spacing</small><strong>Sequential 15-metre Staggering</strong></div><div class="spec" style="background:#FFFFFF"><small>Height</small><strong>12–16ft Above Street Level</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Dense sequential repetition reinforces top-of-mind memory</li><li>Targeted local pedestrian and vehicular engagement</li><li>Integrates with urban avenue infrastructure</li><li>Rapid deployment for time-sensitive promotions and events</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Retail Corridor Takeovers</span><span>Concerts &amp; Cultural Festivals</span><span>Local Store Grand Openings</span><span>Municipal &amp; Tourism Campaigns</span></div>
+        <dl class="facts"><dt>Size</dt><dd>3ft x 8ft Double-Sided Set</dd><dt>Lighting</dt><dd>Streetlight Ambient + Dedicated LED Arms</dd></dl></div>
+      <div><h3>How big is it?</h3><figure class="scale" aria-label="Size comparison: 3 × 8 ft, 12 ft up next to a person and a jeepney">
+  <svg viewBox="0 0 420 240" role="img" aria-hidden="true"><text x="20" y="18" font-size="15" font-weight="800" fill="currentColor">3 × 8 ft, 12 ft up</text><line x1="0" y1="216" x2="420" y2="216" stroke="currentColor" stroke-width="2" opacity=".5"/><rect x="24.9" y="137.4" width="13.1" height="78.6" fill="currentColor" opacity=".45"/><rect class="sc-grow" x="20.0" y="85.0" width="19.7" height="52.4" rx="3.3" fill="#FB9B51"/><g fill="#6C97D3"><circle cx="60.7" cy="185.0" r="5.0"/><rect x="55.7" y="190.6" width="10.1" height="25.4" rx="3.4"/></g><g><rect x="75.7" y="163.6" width="131.0" height="41.9" rx="10.5" fill="#FFAB72"/><circle cx="102.0" cy="206.6" r="9.4" fill="currentColor"/><circle cx="180.6" cy="206.6" r="9.4" fill="currentColor"/></g></svg>
+  <figcaption><span><i style="background:#FB9B51"></i>The format</span><span><i style="background:#6C97D3"></i>A person</span><span><i style="background:#FFAB72"></i>A jeepney</span></figcaption>
+</figure></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--navy" href="#contact" data-quote="Pole Banners" data-cursor="Let's talk">Get a quote for Pole Banners</a>
+      
+    </div>
+  </div></div>
+</section>
+<section class="band chap" id="mall-advertising" data-bg="#F3F5F9" data-fg="#11213D" data-i="5" style="--bandbg:#F3F5F9;--bandfg:#11213D">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Mall Advertising example" loading="lazy">
+      <div class="plate"><span class="num">06</span><h2>Mall Advertising.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">HIGH-INTENT POINT OF PURCHASE</div>
+        <p class="desc">Engage shoppers at the moment of purchase with sleek atrium screens, digital kiosks and escalator media in premier shopping destinations, in controlled indoor conditions where people stay and look.</p>
+        <div class="chips"><span>Point of Purchase</span><span>Indoor Ultra-HD</span><span>High Shopper Intent</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Foot Traffic</small><strong>500,000+ Weekend Visitors</strong></div><div class="spec" style="background:#FFC49C"><small>Screen Tech</small><strong>Fine-Pitch Ultra HD Indoor LED</strong></div><div class="spec" style="background:#FFAB72"><small>Interactivity</small><strong>QR Integration &amp; Motion Touch</strong></div><div class="spec" style="background:#FB9B51"><small>Placement</small><strong>Central Atriums &amp; Food Halls</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Direct influence on consumers at the point of sale</li><li>Environmentally controlled, high-dwell viewing conditions</li><li>Targeted reach to families, youth and luxury buyers</li><li>High-resolution indoor displays with vivid colour</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Retail &amp; Fashion Retailers</span><span>Dining &amp; Quick Service Restaurants</span><span>Consumer Electronics &amp; Mobile Devices</span><span>Beauty &amp; Cosmetics Brands</span></div>
+        <dl class="facts"><dt>Size</dt><dd>Various (3D Atrium Curved Screens &amp; Kiosks)</dd><dt>Lighting</dt><dd>Ambient Mall Lighting + Ultra-HD LED Backlight</dd></dl></div>
+      <div><div><h3>Size</h3><p style="margin:0;font-size:15px">Various (3D Atrium Curved Screens &amp; Kiosks). Every build is sized to the site, so tell us where and we will spec it.</p></div></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Mall Advertising" data-cursor="Let's talk">Get a quote for Mall Advertising</a>
+      
+    </div>
+  </div></div>
+</section>
+<section class="band chap on-dark" id="custom-advertising" data-bg="#11213D" data-fg="#FFFFFF" data-i="6" style="--bandbg:#11213D;--bandfg:#FFFFFF">
+  <div class="wrap"><div class="in">
+    <div class="media">
+      <img src="assets/img/ph.svg" alt="Custom Advertising example" loading="lazy">
+      <div class="plate"><span class="num">07</span><h2>Custom Advertising.</h2></div>
+    </div>
+    <div class="chap__grid">
+      <div>
+        <div class="tagline">3D ANAMORPHIC &amp; EXPERIENTIAL</div>
+        <p class="desc">Bespoke 3D anamorphic displays, interactive installations and custom OOH activations, engineered and fabricated by our own team to turn a campaign into a moment people share.</p>
+        <div class="chips"><span>3D Anamorphic</span><span>Bespoke Fabrication</span><span>Shareable</span></div>
+      </div>
+      <div class="specs"><div class="spec" style="background:#6C97D3"><small>Technology</small><strong>3D Anamorphic LED + Projection Mapping</strong></div><div class="spec" style="background:#FFC49C"><small>Engineering</small><strong>Custom Steel Fabrication &amp; Optics</strong></div><div class="spec" style="background:#FFAB72"><small>Engagement</small><strong>Sensory Motion &amp; QR Interactivity</strong></div><div class="spec" style="background:#FB9B51"><small>Reach</small><strong>Built for Social Sharing</strong></div></div>
+    </div>
+    <div class="chap__more">
+      <div><h3>Why it works</h3><ul class="ben"><li>Earned media value from social sharing</li><li>Turns campaigns into immersive events</li><li>Custom fabrication built to your creative vision</li><li>Integrated sensors and real-time interaction</li></ul></div>
+      <div><h3>Ideal for</h3><div class="ideal"><span>Global Product Reveal Events</span><span>Gaming &amp; Entertainment Franchises</span><span>Disruptive Innovation Campaigns</span><span>High-Impact PR &amp; Brand Stunts</span></div>
+        <dl class="facts"><dt>Size</dt><dd>Custom Engineered Specifications</dd><dt>Lighting</dt><dd>Sync Light Systems + Anamorphic 3D LED</dd></dl></div>
+      <div><div><h3>Size</h3><p style="margin:0;font-size:15px">Custom Engineered Specifications. Every build is sized to the site, so tell us where and we will spec it.</p></div></div>
+    </div>
+    <div class="chap__cta">
+      <a class="pill pill--orange" href="#contact" data-quote="Custom Advertising" data-cursor="Let's talk">Get a quote for Custom Advertising</a>
+      
+    </div>
+  </div></div>
+</section>
+<section class="band" id="finder" data-bg="#FFC49C" data-fg="#11213D" style="--bandbg:#FFC49C;--bandfg:#11213D">
+  <div class="wrap"><div class="in quiz">
+    <div class="eyebrow">Format finder</div>
+    <h2 class="h-l" style="margin-top:20px">Not sure which one? <span class="hl">Answer three questions.</span></h2>
+    <div class="quiz__progress" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    <div id="quizBody" aria-live="polite"></div>
+  </div></div>
+</section>
+<section id="contact" class="band" data-bg="#FB9B51" data-fg="#11213D" style="--bandbg:#FB9B51;--bandfg:#11213D">
+  <div class="wrap"><div class="in contact__grid">
+    <div>
+      <h2 class="h-xl" style="font-size:clamp(52px,7vw,104px)">Ready to own the <span style="color:#FFFFFF">spotlight?</span></h2>
+      <p class="lede" style="margin-top:22px">Tell us about your campaign and our sales team will get back to you.</p>
+      <div class="contact__details">
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>(+63) 908-455-8946</span>
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>sales@uchannel.ph</span>
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>18th Floor, Octagon Center, San Miguel Avenue, Pasig City</span>
+      </div>
+    </div>
+    <form class="qf" id="qf" novalidate>
+      <div class="row">
+        <label for="fName">Your name<input id="fName" name="name" autocomplete="name" required></label>
+        <label for="fEmail">Work email<input id="fEmail" name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label for="fCompany">Company<input id="fCompany" name="company" autocomplete="organization"></label>
+        <label for="fPhone">Phone number<input id="fPhone" name="phone" type="tel" autocomplete="tel"></label>
+      </div>
+      <label for="fInterest">I'm interested in<select id="fInterest" name="interest"><option>LED display solutions</option><option selected>Out-of-Home advertising</option><option>Both</option></select></label>
+      <label for="fDetails">Campaign details<textarea id="fDetails" name="details" rows="5"></textarea></label>
+      <button class="pill pill--navy" type="submit" style="min-height:58px;font-size:16px" data-cursor="Send">Send message</button>
+      <div class="sent" id="sent" role="status"></div>
+    </form>
+  </div></div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap"><div class="in">
+    <div class="footer__top">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:320px">
+        <svg viewBox="0 0 540 136" width="240" role="img" aria-label="U Channel Digitech Innovation"><use href="#lockup"/></svg>
+        <span>Where brands are built to be seen.</span>
+      </div>
+      <div class="footer__cols">
+        <div><b>Company</b><a href="index.html#about">Who we are</a><a href="index.html#why">Why U Channel</a><a href="#contact">Contact</a></div>
+        <div><b>What we do</b><a href="index.html#process">LED display solutions</a><a href="solutions.html">Advertising solutions</a><a href="index.html#products">Products</a><a href="locations.html">Locations</a></div>
+        <div><b>Follow</b><a href="https://www.linkedin.com/company/uchannel/" target="_blank" rel="noopener">LinkedIn</a><span>Facebook</span><span>Instagram</span></div>
+      </div>
+    </div>
+    <div class="footer__blocks" id="footBlocks" aria-label="Bouncy blocks: tap one"></div>
+    <div class="footer__legal"><span>© 2026 U Channel. All rights reserved.</span><span>Privacy Policy · Terms of Service</span></div>
+  </div></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="assets/base.js"></script>
+<script>
+(function(){
+const {$,$$,HAS_GSAP,REDUCED,FINE}=UC;
+const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "ph.svg", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "ph.svg", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "ph.svg", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "ph.svg", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
+/* hero picker preview */
+const pImg=$('#previewImg'), pCap=$('#previewCap');
+$$('.pick').forEach(p=>{ const show=()=>{ if(pImg.getAttribute('src')===p.dataset.img) return; pImg.style.opacity=0; setTimeout(()=>{ pImg.src=p.dataset.img; pCap.textContent=p.dataset.name; pImg.style.opacity=1; },150); };
+  p.addEventListener('pointerenter',show); p.addEventListener('focus',show); });
+if(HAS_GSAP&&!REDUCED){
+  gsap.from('.pick',{scaleY:0,transformOrigin:'50% 100%',duration:.9,ease:'back.out(1.8)',stagger:.06,delay:.4});
+  gsap.from('.hero h1',{y:40,opacity:0,duration:1,ease:'expo.out',delay:.2});
+  $$('.chap').forEach(ch=>{
+    const m=$('.media',ch);
+    gsap.fromTo(m,{clipPath:'inset(10% 8% 10% 8% round 40px)'},{clipPath:'inset(0% 0% 0% 0% round 28px)',ease:'none',scrollTrigger:{trigger:m,start:'top 95%',end:'top 35%',scrub:true}});
+    gsap.fromTo($$('img,video',m),{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:m,start:'top bottom',end:'bottom top',scrub:true}});
+    gsap.from($('.plate',m),{xPercent:-100,duration:.9,ease:'expo.out',scrollTrigger:{trigger:m,start:'top 60%'}});
+    gsap.from($$('.spec',ch),{y:40,rotate:()=>gsap.utils.random(-8,8),opacity:0,duration:.8,ease:'back.out(1.7)',stagger:.08,scrollTrigger:{trigger:$('.specs',ch),start:'top 85%'}});
+    gsap.from($$('.ben li',ch),{x:-20,opacity:0,duration:.6,stagger:.07,scrollTrigger:{trigger:$('.ben',ch),start:'top 88%'}});
+    const g=$$('.sc-grow',ch); if(g.length) gsap.from(g,{scaleY:0,transformOrigin:'50% 100%',duration:1.2,ease:'elastic.out(1,.55)',stagger:.03,scrollTrigger:{trigger:$('.scale',ch),start:'top 85%'}});
+  });
+  gsap.fromTo('#finder .hl',{'--hl':0},{'--hl':1,duration:1,ease:'expo.out',scrollTrigger:{trigger:'#finder',start:'top 70%'}});
+}
+/* clips */
+$$('.chap .media').forEach(m=>{ const v=$('video',m), b=$('.play',m); if(!v) return;
+  const on=()=>v.play().then(()=>{m.classList.add('playing'); b.textContent='❚❚ Pause clip'; b.setAttribute('aria-pressed','true');}).catch(()=>{});
+  const off=()=>{v.pause(); m.classList.remove('playing'); b.textContent='▶ Play clip'; b.setAttribute('aria-pressed','false');};
+  if(FINE){ m.addEventListener('pointerenter',on); m.addEventListener('pointerleave',off); }
+  b.addEventListener('click',e=>{ e.stopPropagation(); v.paused?on():off(); }); });
+/* rail */
+const rail=$('#rail'), rl=$$('a',rail);
+document.addEventListener('uc:section',e=>{ const i=e.detail.dataset.i; rail.classList.toggle('on',i!=null); rl.forEach((a,j)=>a.classList.toggle('cur',String(j)===i)); });
+/* quote buttons */
+$$('[data-quote]').forEach(b=>b.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); UC.prefill({interest:'Out-of-Home advertising',details:`I'm interested in ${b.dataset.quote}. Our campaign: `}); }));
+/* format finder */
+const Q=[
+  ['What do you want the campaign to do?',[['Launch something new',{0:2,6:2,3:1}],['Keep us top of mind',{1:2,2:2}],['Bring people into stores',{5:2,4:2}],['Create a moment people share',{6:2,3:2}]]],
+  ['Who do you most want to reach?',[['Drivers on highways',{1:2,0:2}],['Commuters on the move',{2:2,0:1}],['Shoppers ready to buy',{5:3}],['People walking busy streets',{4:2,3:1}]]],
+  ['How should the message work?',[['Change it often, even daily',{0:2,5:1}],['One big, fixed statement',{1:2,3:2}],['Repeat it along a route',{4:2,2:2}],['Something nobody has seen',{6:3}]]]];
+const body=$('#quizBody'), bars=$$('.quiz__progress i'); let step=0, score=new Array(7).fill(0);
+function render(){
+  bars.forEach((b,i)=>b.classList.toggle('on',i<=Math.min(step,2)));
+  if(step<3){ const [q,opts]=Q[step];
+    body.innerHTML=`<p class="quiz__q">${q}</p><div class="opts">${opts.map((o,i)=>`<button class="opt" type="button" data-i="${i}">${o[0]}</button>`).join('')}</div>`;
+    $$('.opt',body).forEach(b=>b.addEventListener('click',()=>{ const w=opts[+b.dataset.i][1]; for(const k in w) score[k]+=w[k]; step++; render(); }));
+    if(HAS_GSAP&&!REDUCED) gsap.from($$('.opt',body),{y:30,opacity:0,stagger:.06,duration:.5,ease:'back.out(2)'});
+  } else {
+    const rank=score.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]); const top=SOL[rank[0][1]], alt=SOL[rank[1][1]];
+    body.innerHTML=`<div class="result"><div class="result__img"><img src="assets/img/${top.img}" alt="${top.title} example"></div><div class="result__card"><span class="match">Your best match</span><h3>${top.title}.</h3><p style="margin:0;color:var(--soft)">${top.tag.charAt(0)+top.tag.slice(1).toLowerCase()}. Also worth a look: <a href="#${alt.slug}" style="color:var(--peach);text-decoration:underline">${alt.title}</a>.</p><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:auto"><a class="pill pill--orange" href="#${top.slug}">See ${top.short}</a><button class="pill pill--white" type="button" id="qQuote">Get a quote</button><button class="pill pill--ghost" type="button" id="qAgain">Start over</button></div></div></div>`;
+    $('#qAgain').addEventListener('click',()=>{step=0;score.fill(0);render();});
+    $('#qQuote').addEventListener('click',()=>UC.prefill({interest:'Out-of-Home advertising',details:`The format finder suggested ${top.title} (or ${alt.title}). Our campaign: `}));
+    if(HAS_GSAP&&!REDUCED) gsap.from('.result > *',{y:40,opacity:0,stagger:.1,duration:.7,ease:'expo.out'});
+  }
+}
+render();
+UC.drench();
+addEventListener('load',()=>window.ScrollTrigger&&ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
