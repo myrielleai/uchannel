@@ -1,6 +1,3 @@
-/* always open a new page at the top */
-try{ history.scrollRestoration='manual'; }catch(e){}
-if(!location.hash){ scrollTo(0,0); const top0=()=>{ scrollTo(0,0); if(typeof lenis!=='undefined'&&lenis) lenis.scrollTo(0,{immediate:true}); }; addEventListener('load',()=>{ if(window.ScrollTrigger) ScrollTrigger.clearScrollMemory('manual'); top0(); setTimeout(top0,60); }); }
 /* U Channel shared behaviour for inner pages. Exposes window.UC. */
 (function(){
 'use strict';
@@ -21,6 +18,9 @@ if(HAS_GSAP && window.Lenis && !REDUCED && FINE){
   lenis.on('scroll',ScrollTrigger.update);
   gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
 }
+/* always open a new page at the top */
+try{ history.scrollRestoration='manual'; }catch(e){}
+if(!location.hash){ scrollTo(0,0); const top0=()=>{ scrollTo(0,0); if(typeof lenis!=='undefined'&&lenis) lenis.scrollTo(0,{immediate:true}); }; addEventListener('load',()=>{ if(window.ScrollTrigger) ScrollTrigger.clearScrollMemory('manual'); top0(); setTimeout(top0,60); }); }
 function scrollToEl(el,offset){ if(!el) return; if(lenis) lenis.scrollTo(el,{offset:offset==null?-10:offset,duration:1.4}); else el.scrollIntoView({behavior:REDUCED?'auto':'smooth'}); }
 
 /* page transition */

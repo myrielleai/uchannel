@@ -439,17 +439,6 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
   </div></div>
 </section>
 
-<!-- ================= LED WALL ================= -->
-<section class="band wall" id="wall" data-bg="#11213D" data-fg="#FFFFFF" style="--bandbg:#11213D;--bandfg:#FFFFFF">
-  <div class="wrap"><div class="in">
-    <div class="wall__top">
-      <h2 class="h-l">Go on, <span style="color:var(--orange)">light it up.</span></h2>
-      
-    </div>
-    <canvas class="wall__canvas" id="wallCanvas" data-cursor="Paint" aria-label="Interactive LED wall. Move the pointer to light the blocks; click to send a ripple." role="img"></canvas>
-  </div></div>
-</section>
-
 <!-- ================= PROCESS (scroll-built) ================= -->
 <section id="process" data-bg="#FB9B51" data-fg="#11213D" class="band" style="--bandbg:#FB9B51;--bandfg:#11213D;padding-block:0">
   <div class="process__pin" id="processPin">
@@ -700,7 +689,6 @@ if(FINE && !REDUCED){
 /* ---------------- hero: block wall ---------------- */
 (function(){
   const wall=$('#hwall'), stage=$('#heroStage'), center=$('#heroCenter');
-  const LOGOS=[['sanmiguel.png','San Miguel'],['jollibee.png','Jollibee'],['cebupacific.png','Cebu Pacific'],['samsung.svg','Samsung'],['grab.svg','Grab'],['bfar.svg','BFAR'],['yamaha.svg','Yamaha'],['foodpanda.svg','foodpanda'],['newbalance.svg','New Balance'],['skechers.svg','Skechers'],['bingoplus.png','BingoPlus'],['emperador.png','Emperador']];
   const COLS=['#30579C','#FB9B51','#FF8732','#6C97D3'];
   let blocks=[], li=0, ci=0, lastUser=0;
   function build(){
@@ -712,7 +700,7 @@ if(FINE && !REDUCED){
     wall.style.setProperty('--cols',cols); wall.style.setProperty('--cell',cell+'px'); wall.style.setProperty('--g',g+'px');
     wall.innerHTML=''; blocks=[];
     const frag=document.createDocumentFragment();
-    for(let i=0;i<cols*rows;i++){ const d=document.createElement('div'); d.className='hb'; d.innerHTML='<img alt="" decoding="async">'; frag.appendChild(d); blocks.push(d); }
+    for(let i=0;i<cols*rows;i++){ const d=document.createElement('div'); d.className='hb'; frag.appendChild(d); blocks.push(d); }
     wall.appendChild(frag);
     // open a clean window around the tagline
     requestAnimationFrame(()=>{
@@ -726,7 +714,7 @@ if(FINE && !REDUCED){
   }
   function light(b,hold){
     if(b._t) clearTimeout(b._t);
-    if(!b.classList.contains('lit')){ const [f,n]=LOGOS[li++%LOGOS.length]; const img=b.firstChild; img.src='assets/logos/'+f; img.alt=''; b.title=n; b.style.setProperty('--c',COLS[ci++%COLS.length]); b.classList.add('lit'); }
+    if(!b.classList.contains('lit')){ b.style.setProperty('--c',COLS[ci++%COLS.length]); b.classList.add('lit'); }
     b._t=setTimeout(()=>{ b.classList.remove('lit'); b._t=null; },hold);
   }
   build();
@@ -817,8 +805,6 @@ class LedWall{
       if(x.roundRect){x.beginPath();x.roundRect(px,py,s,s,radius);x.fill();} else x.fillRect(px,py,s,s); }
   }
 }
-const wall=new LedWall($('#wallCanvas'),{message:'WHERE BRANDS ARE BUILT TO BE SEEN.   ',ambient:!REDUCED});
-if(REDUCED){ wall.o.message=null; wall.bitmap=null; }
 /* product panel: dim grid + randomly scattered lit blocks, paintable on hover */
 const panel=$('#ledPanel');
 new LedWall($('#panelCanvas'),{cell:innerWidth<600?36:46,gap:8,radius:10,dim:[28,47,85],bg:'#11213D',ambient:false,brush:1.6,noClick:true,listen:panel,
