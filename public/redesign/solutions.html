@@ -31,18 +31,24 @@
 <link rel="stylesheet" href="assets/base.css">
 <style>
 
-.hero{padding-block:clamp(140px,16vw,190px) clamp(64px,8vw,110px)}
-.hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:end}
-.hero h1{font-size:clamp(56px,8.6vw,132px)}
-.picker{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:clamp(260px,26vw,360px)}
-.pick{display:flex;flex-direction:column;justify-content:space-between;padding:12px 10px;border-radius:16px;color:var(--navy);font-weight:800;line-height:1.05;transition:translate .35s cubic-bezier(.34,1.56,.64,1),filter .2s;min-width:0}
-.pick b{font-size:clamp(18px,1.8vw,26px);letter-spacing:-.04em}
-.pick span{font-size:clamp(11px,.95vw,13px);word-break:break-word}
-.pick:hover,.pick:focus-visible{translate:0 -12px}
-.preview{position:relative;height:clamp(220px,22vw,300px);border-radius:22px;overflow:hidden;background:var(--navy2);margin-bottom:16px}
-.preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
-.preview .px{position:absolute;inset:0;background-image:radial-gradient(rgba(17,33,61,0) 55%,rgba(17,33,61,.55) 56%);background-size:5px 5px;mix-blend-mode:multiply;opacity:.5}
-.preview figcaption{position:absolute;left:0;bottom:0;padding:12px 18px;background:var(--navy);color:#fff;font-weight:800;font-size:18px;letter-spacing:-.03em;border-top-right-radius:16px}
+.hero{padding-block:clamp(140px,15vw,180px) clamp(64px,8vw,110px)}
+.hero__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);align-items:start}
+.hero__head{position:sticky;top:130px}
+.hero h1{font-size:clamp(52px,7.4vw,118px)}
+.hero__head .lede{margin-top:24px;color:var(--soft);max-width:30ch}
+.idx{list-style:none;margin:0;padding:0;border-top:2px solid rgba(255,255,255,.18);counter-reset:none}
+.idx li{border-bottom:2px solid rgba(255,255,255,.18)}
+.idx a{position:relative;display:grid;grid-template-columns:clamp(44px,5vw,72px) minmax(0,1fr) auto;align-items:center;gap:clamp(12px,2vw,28px);padding:clamp(16px,1.9vw,24px) clamp(10px,1.4vw,20px);isolation:isolate;transition:color .3s}
+.idx a::before{content:"";position:absolute;inset:6px 0;border-radius:18px;background:var(--c);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s cubic-bezier(.77,0,.18,1);z-index:-1}
+.idx a:hover::before,.idx a:focus-visible::before{transform:scaleX(1)}
+.idx a:hover,.idx a:focus-visible{color:var(--navy)}
+.idx .n{font-family:var(--label);font-size:clamp(14px,1.2vw,17px);color:var(--orange);transition:color .3s}
+.idx a:hover .n,.idx a:focus-visible .n{color:var(--navy)}
+.idx .t{display:flex;flex-direction:column;gap:4px;min-width:0}
+.idx strong{font-size:clamp(24px,2.9vw,46px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.idx small{font-size:14px;font-weight:600;opacity:.65;max-width:52ch}
+.idx .arr{width:clamp(40px,3.4vw,52px);height:clamp(40px,3.4vw,52px);border-radius:14px;display:grid;place-items:center;border:2px solid currentColor;font-size:20px;font-weight:800;transition:translate .35s cubic-bezier(.34,1.56,.64,1),background .3s}
+.idx a:hover .arr,.idx a:focus-visible .arr{translate:0 4px;background:var(--navy);color:var(--white);border-color:var(--navy)}
 .rail{position:fixed;left:max(14px,env(safe-area-inset-left,0px));top:50%;z-index:30;display:flex;flex-direction:column;gap:8px;transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity .3s}
 .rail.on{opacity:1;pointer-events:auto}
 .rail a{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:11px;font-weight:800;background:rgba(17,33,61,.6);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .3s,background .3s,width .3s}
@@ -105,10 +111,9 @@
 @media (max-width:900px){
   .hero__grid,.chap__grid,.result{grid-template-columns:minmax(0,1fr)}
   .chap__more{grid-template-columns:minmax(0,1fr)}
-  .picker{grid-template-columns:repeat(4,minmax(0,1fr));height:auto;align-items:stretch}
-  .pick{height:auto!important;min-height:96px}
+  .hero__head{position:static}
 }
-@media (max-width:560px){ .opts{grid-template-columns:minmax(0,1fr)} .picker{grid-template-columns:repeat(2,minmax(0,1fr))} .chap .plate{padding:14px 20px 16px 16px} }
+@media (max-width:560px){ .opts{grid-template-columns:minmax(0,1fr)} .idx small{display:none} .idx a{grid-template-columns:28px minmax(0,1fr) auto;gap:12px} .chap .plate{padding:14px 20px 16px 16px} }
 
 </style>
 </head>
@@ -152,14 +157,11 @@
 <main id="top">
 <section class="band hero" data-bg="#11213D" data-fg="#FFFFFF" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in hero__grid">
-    <div>
+    <div class="hero__head">
       <h1 class="h-xl">Seven ways to be <span style="color:var(--deep)">seen</span><span class="dot"></span></h1>
-      <p class="lede" style="margin-top:24px;color:var(--soft)">From a 4K screen over EDSA to a banner on every lamp post down the avenue.</p>
+      <p class="lede">From a 4K screen over EDSA to a banner on every lamp post down the avenue.</p>
     </div>
-    <div>
-      <figure class="preview" id="preview"><img src="assets/img/ph.svg" alt="" id="previewImg"><div class="px"></div><figcaption id="previewCap">Digital LED Billboards</figcaption></figure>
-      <div class="picker" id="picker"><a class="pick" href="#digital-led-billboards" data-img="assets/img/ph.svg" data-name="Digital LED Billboards" style="height:34%;background:#6C97D3"><b>01</b><span>Digital LED</span></a><a class="pick" href="#static-billboards" data-img="assets/img/ph.svg" data-name="Static Billboards" style="height:44%;background:#FFC49C"><b>02</b><span>Static</span></a><a class="pick" href="#transit-advertising" data-img="assets/img/ph.svg" data-name="Transit Advertising" style="height:54%;background:#FFAB72"><b>03</b><span>Transit</span></a><a class="pick" href="#building-wraps" data-img="assets/img/ph.svg" data-name="Building Wraps" style="height:64%;background:#FB9B51"><b>04</b><span>Building Wraps</span></a><a class="pick" href="#pole-banners" data-img="assets/img/ph.svg" data-name="Pole Banners" style="height:74%;background:#FF8732"><b>05</b><span>Pole Banners</span></a><a class="pick" href="#mall-advertising" data-img="assets/img/ph.svg" data-name="Mall Advertising" style="height:86%;background:#FFC49C"><b>06</b><span>Mall</span></a><a class="pick" href="#custom-advertising" data-img="assets/img/ph.svg" data-name="Custom Advertising" style="height:100%;background:#FFFFFF"><b>07</b><span>Custom</span></a></div>
-    </div>
+    <nav aria-label="Advertising solutions"><ol class="idx" id="idx"><li><a href="#digital-led-billboards" style="--c:#6C97D3"><span class="n">01</span><span class="t"><strong>Digital LED Billboards</strong><small>4K LED screens on Metro Manila’s busiest corridors, with content you can change in real time.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#static-billboards" style="--c:#FFC49C"><span class="n">02</span><span class="t"><strong>Static Billboards</strong><small>Giant billboards along EDSA, Roxas Boulevard and major expressways, yours alone 24 hours a day.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#transit-advertising" style="--c:#FFAB72"><span class="n">03</span><span class="t"><strong>Transit Advertising</strong><small>Bus and shuttle wraps and onboard screens that carry your brand along commuter routes.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#building-wraps" style="--c:#FB9B51"><span class="n">04</span><span class="t"><strong>Building Wraps</strong><small>Multi-storey facade graphics that turn a landmark building into your billboard.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#pole-banners" style="--c:#FF8732"><span class="n">05</span><span class="t"><strong>Pole Banners</strong><small>Double-sided street banners in sequence along shopping and business avenues.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#mall-advertising" style="--c:#FFC49C"><span class="n">06</span><span class="t"><strong>Mall Advertising</strong><small>Atrium screens, kiosks and escalator media where shoppers are ready to buy.</small></span><span class="arr" aria-hidden="true">↓</span></a></li><li><a href="#custom-advertising" style="--c:#FFFFFF"><span class="n">07</span><span class="t"><strong>Custom Advertising</strong><small>3D anamorphic screens and custom installations, designed and built by our own team.</small></span><span class="arr" aria-hidden="true">↓</span></a></li></ol></nav>
   </div></div>
 </section>
 <section class="band chap on-dark" id="digital-led-billboards" data-bg="#11213D" data-fg="#FFFFFF" data-i="0" style="--bandbg:#11213D;--bandfg:#FFFFFF">
@@ -341,12 +343,8 @@
 (function(){
 const {$,$$,HAS_GSAP,REDUCED,FINE}=UC;
 const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "ph.svg", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "ph.svg", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "ph.svg", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "ph.svg", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
-/* hero picker preview */
-const pImg=$('#previewImg'), pCap=$('#previewCap');
-$$('.pick').forEach(p=>{ const show=()=>{ if(pImg.getAttribute('src')===p.dataset.img) return; pImg.style.opacity=0; setTimeout(()=>{ pImg.src=p.dataset.img; pCap.textContent=p.dataset.name; pImg.style.opacity=1; },150); };
-  p.addEventListener('pointerenter',show); p.addEventListener('focus',show); });
 if(HAS_GSAP&&!REDUCED){
-  gsap.from('.pick',{scaleY:0,transformOrigin:'50% 100%',duration:.9,ease:'back.out(1.8)',stagger:.06,delay:.4});
+  gsap.from('.idx li',{y:30,opacity:0,duration:.8,ease:'expo.out',stagger:.06,delay:.35});
   gsap.from('.hero h1',{y:40,opacity:0,duration:1,ease:'expo.out',delay:.2});
   $$('.chap').forEach(ch=>{
     const m=$('.media',ch);
