@@ -146,5 +146,10 @@ function drench(){
   if(lenis) lenis.on('scroll',q); addEventListener('scroll',q,{passive:true}); addEventListener('resize',q); check();
 }
 
+/* label photo placeholders */
+(function(){ let q=false;
+  const run=()=>{ q=false; document.querySelectorAll('img[src$="ph.svg"]').forEach(i=>{ const p=i.parentElement; if(!p||p.classList.contains('is-ph')) return; p.classList.add('is-ph'); if(getComputedStyle(p).position==='static') p.style.position='relative'; i.alt=''; }); };
+  run(); new MutationObserver(()=>{ if(!q){ q=true; requestAnimationFrame(run); } }).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
+})();
 window.UC={$,$$,REDUCED,FINE,HAS_GSAP,PAL,PALRGB,lenis,LedWall,textBitmap,scrollToEl,counters,prefill,drench,go};
 })();
