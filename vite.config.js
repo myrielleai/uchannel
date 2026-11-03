@@ -18,19 +18,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         locations: resolve(__dirname, 'locations/index.html'),
         advertisingSolutions: resolve(__dirname, 'advertising-solutions/index.html'),
-      },
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'vendor-react';
-          }
-          if (id.includes('node_modules/gsap')) {
-            return 'vendor-gsap';
-          }
-          if (id.includes('node_modules/lenis')) {
-            return 'vendor-lenis';
-          }
-        },
+        privacy: resolve(__dirname, 'privacy/index.html'),
       },
     },
   },

@@ -11,23 +11,21 @@
 <meta property="og:url" content="https://uchannel.ph/advertising-solutions/">
 <meta property="og:title" content="Advertising Solutions | Billboards, LED &amp; OOH Media Philippines | U Channel">
 <meta property="og:description" content="Seven out-of-home advertising formats from U Channel: digital LED billboards, static billboards, transit ads, building wraps, pole banners, mall media and custom builds across the Philippines.">
-<meta property="og:image" content="https://uchannel.ph/assets/og-image.png">
+<meta property="og:image" content="https://uchannel.ph/ux/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Advertising Solutions | Billboards, LED &amp; OOH Media Philippines | U Channel">
 <meta name="twitter:description" content="Seven out-of-home advertising formats from U Channel: digital LED billboards, static billboards, transit ads, building wraps, pole banners, mall media and custom builds across the Philippines.">
-<meta name="twitter:image" content="https://uchannel.ph/assets/og-image.png">
+<meta name="twitter:image" content="https://uchannel.ph/ux/og-image.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://uchannel.ph/#organization", "name": "U Channel", "alternateName": "U Channel Advertising Corporation", "url": "https://uchannel.ph/", "logo": "https://uchannel.ph/assets/logo.png", "image": "https://uchannel.ph/assets/og-image.png", "description": "U Channel is a next-generation out-of-home media and advertising company operating premium LED billboards and digital displays across the Philippines.", "telephone": "+639084558946", "email": "sales@uchannel.ph", "address": {"@type": "PostalAddress", "streetAddress": "18th Floor, Octagon Center, San Miguel Avenue", "addressLocality": "Pasig City", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "geo": {"@type": "GeoCoordinates", "latitude": "14.5832", "longitude": "121.0610"}, "areaServed": ["Metro Manila", "Cebu", "Davao", "Iloilo", "Cagayan de Oro", "Philippines"], "serviceType": ["Billboard Advertising", "LED Display Advertising", "Out-of-Home Advertising", "Digital Campaigns", "Brand Activations", "Transit Advertising"], "parentOrganization": {"@type": "Organization", "name": "RUCS Konsult Corp."}, "sameAs": ["https://www.linkedin.com/company/uchannel/"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://uchannel.ph/"}, {"@type": "ListItem", "position": 2, "name": "Advertising Solutions", "item": "https://uchannel.ph/advertising-solutions/"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://uchannel.ph/#organization", "name": "U Channel", "alternateName": "U Channel Advertising Corporation", "url": "https://uchannel.ph/", "logo": "https://uchannel.ph/assets/logo.png", "image": "https://uchannel.ph/ux/og-image.png", "description": "U Channel is a next-generation out-of-home media and advertising company operating premium LED billboards and digital displays across the Philippines.", "telephone": "+639084558946", "email": "sales@uchannel.ph", "address": {"@type": "PostalAddress", "streetAddress": "18th Floor, Octagon Center, San Miguel Avenue", "addressLocality": "Pasig City", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "geo": {"@type": "GeoCoordinates", "latitude": "14.5832", "longitude": "121.0610"}, "areaServed": ["Metro Manila", "Cebu", "Davao", "Iloilo", "Cagayan de Oro", "Philippines"], "serviceType": ["Billboard Advertising", "LED Display Advertising", "Out-of-Home Advertising", "Digital Campaigns", "Brand Activations", "Transit Advertising"], "parentOrganization": {"@type": "Organization", "name": "RUCS Konsult Corp."}, "sameAs": ["https://www.linkedin.com/company/uchannel/"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://uchannel.ph/"}, {"@type": "ListItem", "position": 2, "name": "Advertising Solutions", "item": "https://uchannel.ph/advertising-solutions/"}]}]}</script>
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap">
+<link rel="stylesheet" href="/ux/fonts.css">
 <link rel="stylesheet" href="/ux/base.css">
 <style>
 
@@ -85,6 +83,16 @@
 .scale figcaption i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .chap__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .best{margin-top:26px}
+.more{margin-top:clamp(24px,3vw,36px);border-top:2px solid currentColor;padding-top:18px}
+.more summary{display:inline-flex;align-items:center;gap:12px;cursor:pointer;list-style:none;font-weight:800;font-size:16px;padding:8px 0}
+.more summary::-webkit-details-marker{display:none}
+.more__ic{position:relative;width:30px;height:30px;border-radius:9px;border:2px solid currentColor;flex:none}
+.more__ic::before,.more__ic::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:currentColor;translate:-50% -50%;transition:rotate .3s}
+.more__ic::after{rotate:90deg}
+.more[open] .more__ic::after{rotate:0deg}
+.more__grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);padding:18px 0 6px}
+.more__grid h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.more__desc{margin:0 0 22px;font-size:16px;line-height:1.65;max-width:60ch}
 .best h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
 .chap .desc{font-size:clamp(22px,2.2vw,32px);line-height:1.25;font-weight:700;letter-spacing:-.025em;max-width:24ch;margin:0}
 .quiz{max-width:980px}
@@ -107,6 +115,7 @@
   .hero__grid,.chap__grid,.result{grid-template-columns:minmax(0,1fr)}
   .chap__more{grid-template-columns:minmax(0,1fr)}
   .hero__top{grid-template-columns:minmax(0,1fr)}
+  .more__grid{grid-template-columns:minmax(0,1fr)}
   .blk{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){ .opts{grid-template-columns:minmax(0,1fr)} .blk a{aspect-ratio:auto;min-height:150px} .chap .plate{padding:14px 20px 16px 16px} }
@@ -163,7 +172,7 @@
 <section class="band chap on-dark" id="digital-led-billboards" data-bg="#11213D" data-fg="#FFFFFF" data-i="0" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
     <div class="media">
-      <img src="/assets/solutions_digital_led.webp" alt="Digital LED Billboards example" loading="lazy">
+      <img src="/assets/about_digital_led.webp" alt="Digital LED Billboards example" loading="lazy">
       <div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div>
     </div>
     <div class="chap__grid">
@@ -176,6 +185,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Resolution</small><strong>4K Ultra-HD P8/P10</strong></div><div class="spec" style="background:#FFC49C"><small>Daily Traffic</small><strong>380,000+ Vehicles</strong></div><div class="spec" style="background:#FFAB72"><small>Scheduling</small><strong>Real-Time Programmatic</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Digital LED Billboards</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">U Channel’s Ultra-HD Digital LED Billboards provide dynamic, high-impact visibility across premier metropolitan traffic corridors. Equipped with high-refresh rate LED modules and automated day/night brightness adjustment, your brand delivers vivid motion graphics and real-time messaging that is impossible to ignore.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Real-time content updates and dayparting options</li><li>High-brightness modules visible under direct sunlight</li><li>Multi-creative rotation for flexible campaign messaging</li><li>Audience analytics and vehicle impression tracking</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Resolution</dt><dd>4K Ultra-HD P8/P10</dd><dt>Daily Traffic</dt><dd>380,000+ Vehicles</dd><dt>Scheduling</dt><dd>Real-Time Programmatic</dd><dt>Illumination</dt><dd>24/7 Auto-Dimming Smart LED</dd><dt>Size</dt><dd>60ft x 40ft (Custom sizes available)</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Product Launches</span><span>Automotive &amp; Tech Brands</span><span>E-Commerce &amp; Retail Sales Events</span><span>Financial &amp; Corporate Awareness</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap" id="static-billboards" data-bg="#FFC49C" data-fg="#11213D" data-i="1" style="--bandbg:#FFC49C;--bandfg:#11213D">
@@ -194,6 +212,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Share of Voice</small><strong>100% Exclusive Ownership</strong></div><div class="spec" style="background:#FFAB72"><small>Visibility Range</small><strong>Up to 1.5 Kilometers</strong></div><div class="spec" style="background:#FB9B51"><small>Lighting</small><strong>High-Efficiency LED Floodlights</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Static Billboards</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">Our massive static billboard structures command undivided attention along EDSA, Roxas Boulevard, and key provincial expressways. Built with heavy-duty weather-resistant vinyl substrate and high-lumen LED floodlighting, static billboards deliver 100% share of voice 24 hours a day.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Uninterrupted 24/7 brand domination without ad sharing</li><li>Maximum brand recall among daily highway commuters</li><li>Long-term strategic positioning in premium commercial hubs</li><li>High structural integrity certified for typhoons and high winds</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Share of Voice</dt><dd>100% Exclusive Ownership</dd><dt>Visibility Range</dt><dd>Up to 1.5 Kilometers</dd><dt>Substrate</dt><dd>UV-Protected Frontlit Vinyl</dd><dt>Lighting</dt><dd>High-Efficiency LED Floodlights</dd><dt>Size</dt><dd>80ft x 50ft (Standard Super-Format)</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Top-of-Mind Brand Awareness</span><span>Real Estate Developments</span><span>Consumer Packaged Goods (CPG)</span><span>Telecom &amp; Insurance Leaders</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap on-dark" id="transit-advertising" data-bg="#30579C" data-fg="#FFFFFF" data-i="2" style="--bandbg:#30579C;--bandfg:#FFFFFF">
@@ -212,6 +239,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Fleet Options</small><strong>Buses, Shuttles, Light Rail</strong></div><div class="spec" style="background:#FFC49C"><small>Coverage Area</small><strong>Metro Manila &amp; Key Regional Routes</strong></div><div class="spec" style="background:#FFAB72"><small>Impression Rate</small><strong>250,000+ Daily Views per Route</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Transit Advertising</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">Transform public and commercial transport fleets into moving canvases that reach into high-density urban zones. From premium bus wraps along major avenues to interior HD screen networks, transit advertising drives repeated impressions across diverse demographics.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Wide geographic coverage, reaching places fixed billboards cannot</li><li>High engagement during commuter dwell times in traffic</li><li>Eye-level pedestrian and passenger viewability</li><li>Integrated GPS fleet tracking and campaign execution reports</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Fleet Options</dt><dd>Buses, Shuttles, Light Rail</dd><dt>Coverage Area</dt><dd>Metro Manila &amp; Key Regional Routes</dd><dt>Impression Rate</dt><dd>250,000+ Daily Views per Route</dd><dt>Material</dt><dd>3M Cast Perforated Window &amp; Body Wrap</dd><dt>Size</dt><dd>Full Vehicle Exterior Wrap + Side Panels</dd><dt>Lighting</dt><dd>Reflective Graphic Elements + Interior Screens</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Mass Market Consumer Campaigns</span><span>Entertainment &amp; Streaming Releases</span><span>Food &amp; Beverage Chains</span><span>Fintech &amp; Digital Banking Services</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap" id="building-wraps" data-bg="#FFFFFF" data-fg="#11213D" data-i="3" style="--bandbg:#FFFFFF;--bandfg:#11213D">
@@ -230,6 +266,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Scale</small><strong>Multi-Story Facade (up to 300ft tall)</strong></div><div class="spec" style="background:#FFC49C"><small>Substrate</small><strong>Micro-Perforated One-Way Vision Mesh</strong></div><div class="spec" style="background:#FFAB72"><small>Illumination</small><strong>Architectural Dynamic Exterior Uplighting</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Building Wraps</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">Mega-scale building facade graphics that transform landmark urban architecture into colossal brand spectacles visible across entire cities, printed on breathable mesh that still lets light into the building.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Unmatched prestige and skyline dominance</li><li>Strong social media and PR potential</li><li>Breathable architectural mesh lets light into building windows</li><li>Visible from far away, including from overhead highways</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Scale</dt><dd>Multi-Story Facade (up to 300ft tall)</dd><dt>Substrate</dt><dd>Micro-Perforated One-Way Vision Mesh</dd><dt>Illumination</dt><dd>Architectural Dynamic Exterior Uplighting</dd><dt>Impact</dt><dd>Iconic Skyline Dominance</dd><dt>Size</dt><dd>Up to 30,000 Sq Ft Surface Area</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Flagship Global Launches</span><span>Luxury &amp; Fashion Houses</span><span>Blockbuster Movie Premieres</span><span>Major Corporate Milestones</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap" id="pole-banners" data-bg="#FB9B51" data-fg="#11213D" data-i="4" style="--bandbg:#FB9B51;--bandfg:#11213D">
@@ -248,6 +293,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Placement</small><strong>Boulevards, Commercial Avenues, Plazas</strong></div><div class="spec" style="background:#FFC49C"><small>Format</small><strong>Double-Sided Heavy Duty Canvas</strong></div><div class="spec" style="background:#FFAB72"><small>Height</small><strong>12–16ft Above Street Level</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Pole Banners</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">High-density, double-sided street-level banners lining premier shopping and financial avenues. Placed in sequence every 15 metres, they reinforce your brand through repetition at eye level.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Dense sequential repetition reinforces top-of-mind memory</li><li>Targeted local pedestrian and vehicular engagement</li><li>Integrates with urban avenue infrastructure</li><li>Rapid deployment for time-sensitive promotions and events</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Placement</dt><dd>Boulevards, Commercial Avenues, Plazas</dd><dt>Format</dt><dd>Double-Sided Heavy Duty Canvas</dd><dt>Spacing</dt><dd>Sequential 15-metre Staggering</dd><dt>Height</dt><dd>12–16ft Above Street Level</dd><dt>Size</dt><dd>3ft x 8ft Double-Sided Set</dd><dt>Lighting</dt><dd>Streetlight Ambient + Dedicated LED Arms</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Retail Corridor Takeovers</span><span>Concerts &amp; Cultural Festivals</span><span>Local Store Grand Openings</span><span>Municipal &amp; Tourism Campaigns</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap" id="mall-advertising" data-bg="#F3F5F9" data-fg="#11213D" data-i="5" style="--bandbg:#F3F5F9;--bandfg:#11213D">
@@ -266,6 +320,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Foot Traffic</small><strong>500,000+ Weekend Visitors</strong></div><div class="spec" style="background:#FFC49C"><small>Screen Tech</small><strong>Fine-Pitch Ultra HD Indoor LED</strong></div><div class="spec" style="background:#FFAB72"><small>Placement</small><strong>Central Atriums &amp; Food Halls</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Mall Advertising</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">Engage shoppers at the moment of purchase with sleek atrium screens, digital kiosks and escalator media in premier shopping destinations, in controlled indoor conditions where people stay and look.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Direct influence on consumers at the point of sale</li><li>Environmentally controlled, high-dwell viewing conditions</li><li>Targeted reach to families, youth and luxury buyers</li><li>High-resolution indoor displays with vivid colour</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Foot Traffic</dt><dd>500,000+ Weekend Visitors</dd><dt>Screen Tech</dt><dd>Fine-Pitch Ultra HD Indoor LED</dd><dt>Interactivity</dt><dd>QR Integration &amp; Motion Touch</dd><dt>Placement</dt><dd>Central Atriums &amp; Food Halls</dd><dt>Size</dt><dd>Various (3D Atrium Curved Screens &amp; Kiosks)</dd><dt>Lighting</dt><dd>Ambient Mall Lighting + Ultra-HD LED Backlight</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Retail &amp; Fashion Retailers</span><span>Dining &amp; Quick Service Restaurants</span><span>Consumer Electronics &amp; Mobile Devices</span><span>Beauty &amp; Cosmetics Brands</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section class="band chap on-dark" id="custom-advertising" data-bg="#11213D" data-fg="#FFFFFF" data-i="6" style="--bandbg:#11213D;--bandfg:#FFFFFF">
@@ -284,6 +347,15 @@
       </div>
       <div class="specs"><div class="spec" style="background:#6C97D3"><small>Technology</small><strong>3D Anamorphic LED + Projection Mapping</strong></div><div class="spec" style="background:#FFC49C"><small>Engineering</small><strong>Custom Steel Fabrication &amp; Optics</strong></div><div class="spec" style="background:#FFAB72"><small>Engagement</small><strong>Sensory Motion &amp; QR Interactivity</strong></div></div>
     </div>
+    <details class="more">
+      <summary><span class="more__ic" aria-hidden="true"></span>More about Custom Advertising</summary>
+      <div class="more__grid">
+        <div><p class="more__desc">Bespoke 3D anamorphic displays, interactive installations and custom OOH activations, engineered and fabricated by our own team to turn a campaign into a moment people share.</p>
+          <h3>Why it works</h3><ul class="ben"><li>Earned media value from social sharing</li><li>Turns campaigns into immersive events</li><li>Custom fabrication built to your creative vision</li><li>Integrated sensors and real-time interaction</li></ul></div>
+        <div><h3>Specifications</h3><dl class="facts"><dt>Technology</dt><dd>3D Anamorphic LED + Projection Mapping</dd><dt>Engineering</dt><dd>Custom Steel Fabrication &amp; Optics</dd><dt>Engagement</dt><dd>Sensory Motion &amp; QR Interactivity</dd><dt>Reach</dt><dd>Built for Social Sharing</dd><dt>Size</dt><dd>Custom Engineered Specifications</dd><dt>Lighting</dt><dd>Sync Light Systems + Anamorphic 3D LED</dd></dl>
+          <h3 style="margin-top:22px">Ideal for</h3><div class="ideal"><span>Global Product Reveal Events</span><span>Gaming &amp; Entertainment Franchises</span><span>Disruptive Innovation Campaigns</span><span>High-Impact PR &amp; Brand Stunts</span></div></div>
+      </div>
+    </details>
   </div></div>
 </section>
 <section id="contact" class="band" data-bg="#FB9B51" data-fg="#11213D" style="--bandbg:#FB9B51;--bandfg:#11213D">
@@ -309,6 +381,7 @@
       <label for="fInterest">I'm interested in<select id="fInterest" name="interest"><option>LED display solutions</option><option selected>Out-of-Home advertising</option><option>Both</option></select></label>
       <label for="fDetails">Campaign details<textarea id="fDetails" name="details" rows="5"></textarea></label>
       <button class="pill pill--navy" type="submit" style="min-height:58px;font-size:16px" data-cursor="Send">Send message</button>
+      <p class="qf__note">By sending, you agree that U Channel may use these details to reply to you, as described in our <a href="/privacy">Privacy Notice</a>.</p>
       <div class="sent" id="sent" role="status" aria-live="polite"></div>
     </form>
   </div></div>
@@ -324,21 +397,21 @@
       <div class="footer__cols">
         <div><b>Company</b><a href="/#about">Who we are</a><a href="/#why">Why U Channel</a><a href="#contact">Contact</a></div>
         <div><b>What we do</b><a href="/#process">LED display solutions</a><a href="/advertising-solutions/">Advertising solutions</a><a href="/#products">Products</a><a href="/locations">Locations</a></div>
-        <div><b>Follow</b><a href="https://www.linkedin.com/company/uchannel/" target="_blank" rel="noopener">LinkedIn</a><span>Facebook</span><span>Instagram</span></div>
+        <div><b>Follow</b><a href="https://www.linkedin.com/company/uchannel/" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
     </div>
     <div class="footer__blocks" id="footBlocks" aria-label="Bouncy blocks: tap one"></div>
-    <div class="footer__legal"><span>© 2026 U Channel. All rights reserved.</span><span>Privacy Policy · Terms of Service</span></div>
+    <div class="footer__legal"><span>© 2026 U Channel. All rights reserved.</span><a href="/privacy">Privacy Notice</a></div>
   </div></div>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="/ux/vendor/gsap.min.js"></script>
+<script src="/ux/vendor/ScrollTrigger.min.js"></script>
+<script src="/ux/vendor/lenis.min.js"></script>
 <script src="/ux/base.js"></script>
 <script>
 (function(){
 const {$,$$,HAS_GSAP,REDUCED,FINE}=UC;
-const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "solutions_digital_led.webp", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "solutions_static_billboard.webp", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "solutions_transit.webp", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "solutions_building_wrap.webp", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "solutions_pole_banner.webp", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "solutions_mall_advertising.webp", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "solutions_custom_ooh.webp", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
+const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "about_digital_led.webp", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "solutions_static_billboard.webp", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "solutions_transit.webp", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "solutions_building_wrap.webp", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "solutions_pole_banner.webp", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "solutions_mall_advertising.webp", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "solutions_custom_ooh.webp", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
 if(HAS_GSAP&&!REDUCED){
   gsap.from('.blk li',{scale:.6,opacity:0,duration:.8,ease:'back.out(1.7)',stagger:{each:.05,grid:'auto',from:'start'},delay:.3});
   gsap.from('.hero h1',{y:40,opacity:0,duration:1,ease:'expo.out',delay:.2});

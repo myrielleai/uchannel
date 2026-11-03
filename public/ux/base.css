@@ -106,3 +106,8 @@ form.qf{background:var(--white);color:var(--navy);border-radius:24px;padding:cla
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
 
 img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
+
+.qf__note{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+.qf__note a{text-decoration:underline;text-underline-offset:3px}
+.footer__legal a{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:600px){ .footer__cols a{padding:6px 0} }
