@@ -41,7 +41,7 @@ document.addEventListener('click',e=>{
   const a=e.target.closest('a[href]'); if(!a || a.target==='_blank' || e.metaKey || e.ctrlKey) return;
   const href=a.getAttribute('href');
   if(href.startsWith('#')){ const id=href.slice(1); const el=id?document.getElementById(id):document.body; if(!el) return; e.preventDefault(); closeMenu(); scrollToEl(el); return; }
-  if(/^[\w-]+\.html(#[\w-]+)?$/.test(href)){ e.preventDefault(); closeMenu(); go(href); }
+  if(/^[\w-]+\.html(#[\w-]+)?$/.test(href) || /^\/(?:[\w-]+\/?)*(#[\w-]+)?$/.test(href)){ e.preventDefault(); closeMenu(); go(href); }
 });
 addEventListener('load',()=>{ const id=location.hash.slice(1); if(id && /^[\w-]+$/.test(id)){ const el=document.getElementById(id); if(el) setTimeout(()=>scrollToEl(el,-80),350); } });
 
@@ -114,8 +114,21 @@ function prefill(o){ if(o.company!=null) $('#fCompany').value=o.company; if(o.in
 const qf=$('#qf');
 qf && qf.addEventListener('submit',e=>{ e.preventDefault(); const name=$('#fName').value.trim(), email=$('#fEmail').value.trim(), s=$('#sent');
   if(!name||!/.+@.+\..+/.test(email)){ s.textContent='Add your name and a work email so we can reply.'; qf.classList.add('done'); (!name?$('#fName'):$('#fEmail')).focus(); return; }
-  s.textContent=`Thanks, ${name}. This is a prototype, so nothing was sent yet. On the live site this goes straight to sales@uchannel.ph.`; qf.classList.add('done');
-  if(HAS_GSAP&&!REDUCED) gsap.fromTo(s,{scale:.9},{scale:1,duration:.5,ease:'back.out(2)'}); });
+  sendQuote(qf,s,name,()=>{ if(HAS_GSAP&&!REDUCED) gsap.fromTo(s,{scale:.9},{scale:1,duration:.5,ease:'back.out(2)'}); }); });
+function sendQuote(f,s,name,done){
+  const btn=f.querySelector('button[type="submit"]'), label=btn.textContent, d=Object.fromEntries(new FormData(f));
+  if(d._honey) return; delete d._honey;
+  btn.disabled=true; btn.textContent='Sending…'; s.textContent=''; f.classList.remove('done');
+  const subject='Website quote request from '+name+(d.company?' ('+d.company+')':'');
+  fetch('https://formsubmit.co/ajax/sales@uchannel.ph',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(Object.assign({},d,{_subject:subject,_replyto:d.email,_template:'table',_captcha:'false'}))})
+  .then(r=>r.json().catch(()=>({})).then(j=>{ if(!r.ok||String(j.success)==='false') throw new Error('send failed'); }))
+  .then(()=>{ s.textContent='Thanks, '+name+'. Your request is with our sales team, and we will reply to '+d.email+' soon.'; f.reset(); })
+  .catch(()=>{ const body=Object.entries(d).filter(([k,v])=>v).map(([k,v])=>k+': '+v).join('\n');
+    s.textContent='Sorry, that did not go through. Please email us at '; const a=document.createElement('a'); a.href='mailto:sales@uchannel.ph?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); a.textContent='sales@uchannel.ph'; a.style.textDecoration='underline'; s.appendChild(a); s.append(' or call (+63) 908-455-8946.'); })
+  .finally(()=>{ btn.disabled=false; btn.textContent=label; f.classList.add('done'); if(done) done(); });
+}
+
 
 /* footer blocks */
 const fb=$('#footBlocks');

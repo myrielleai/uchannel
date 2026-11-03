@@ -14,6 +14,81 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/$1" }
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/advertising-solutions/digital-led-billboards",
+      "destination": "/advertising-solutions/#digital-led-billboards",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/static-billboards",
+      "destination": "/advertising-solutions/#static-billboards",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/transit-advertising",
+      "destination": "/advertising-solutions/#transit-advertising",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/building-wraps",
+      "destination": "/advertising-solutions/#building-wraps",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/pole-banners",
+      "destination": "/advertising-solutions/#pole-banners",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/mall-advertising",
+      "destination": "/advertising-solutions/#mall-advertising",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/custom-advertising",
+      "destination": "/advertising-solutions/#custom-advertising",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/digital-led-billboards/",
+      "destination": "/advertising-solutions/#digital-led-billboards",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/static-billboards/",
+      "destination": "/advertising-solutions/#static-billboards",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/transit-advertising/",
+      "destination": "/advertising-solutions/#transit-advertising",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/building-wraps/",
+      "destination": "/advertising-solutions/#building-wraps",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/pole-banners/",
+      "destination": "/advertising-solutions/#pole-banners",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/mall-advertising/",
+      "destination": "/advertising-solutions/#mall-advertising",
+      "permanent": true
+    },
+    {
+      "source": "/advertising-solutions/custom-advertising/",
+      "destination": "/advertising-solutions/#custom-advertising",
+      "permanent": true
+    }
   ]
 }

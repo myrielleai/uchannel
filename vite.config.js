@@ -18,13 +18,6 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         locations: resolve(__dirname, 'locations/index.html'),
         advertisingSolutions: resolve(__dirname, 'advertising-solutions/index.html'),
-        advertisingDigitalLed: resolve(__dirname, 'advertising-solutions/digital-led-billboards/index.html'),
-        advertisingStatic: resolve(__dirname, 'advertising-solutions/static-billboards/index.html'),
-        advertisingTransit: resolve(__dirname, 'advertising-solutions/transit-advertising/index.html'),
-        advertisingBuildingWraps: resolve(__dirname, 'advertising-solutions/building-wraps/index.html'),
-        advertisingPoleBanners: resolve(__dirname, 'advertising-solutions/pole-banners/index.html'),
-        advertisingMall: resolve(__dirname, 'advertising-solutions/mall-advertising/index.html'),
-        advertisingCustom: resolve(__dirname, 'advertising-solutions/custom-advertising/index.html'),
       },
       output: {
         manualChunks(id) {
