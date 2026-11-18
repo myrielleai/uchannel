@@ -134,7 +134,7 @@ button{font:inherit;color:inherit}
 .about__grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
 .about__words{font-size:clamp(24px,2.6vw,38px);line-height:1.22;font-weight:700;letter-spacing:-.03em;margin:28px 0 0;max-width:24ch}
 .about__words .w{opacity:var(--wo,1)}
-.bigU{width:min(100%,420px);margin-inline:auto;display:block;overflow:visible}
+.bigU{width:auto;height:auto;max-width:min(100%,300px);margin-inline:auto;display:block;filter:drop-shadow(0 30px 40px rgba(17,33,61,.28))}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:clamp(40px,6vw,72px)}
 .stat{border-radius:var(--r);padding:20px 22px;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;color:var(--navy)}
 .stat b{font-size:clamp(44px,5vw,72px);line-height:.85;font-weight:800;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
@@ -214,29 +214,6 @@ button{font:inherit;color:inherit}
 .follower{position:fixed;left:0;top:0;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:28px;background:var(--navy);display:none;align-items:center;justify-content:center;pointer-events:none;z-index:40;box-shadow:0 20px 40px -10px rgba(17,33,61,.5)}
 .follower svg{width:80px;height:80px}
 
-/* ---------- billboard maker ---------- */
-.bb__grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,64px);align-items:center}
-.bb__form{display:flex;flex-direction:column;gap:18px}
-.field{display:flex;flex-direction:column;gap:8px}
-.field label,.field .lab{font-size:13px;font-weight:700;color:var(--peach)}
-.field input{height:58px;padding:0 18px;border-radius:16px;border:2px solid var(--navy3);background:var(--navy2);color:var(--white);font:inherit;font-size:20px;font-weight:700;letter-spacing:-.01em}
-.field input:focus{border-color:var(--orange);outline:none}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 16px 0 8px;border-radius:999px;border:2px solid var(--navy3);background:transparent;cursor:pointer;font-size:14px;font-weight:600}
-.chip[aria-pressed="true"]{border-color:var(--orange);background:var(--navy2)}
-.chip .sw{width:30px;height:30px;border-radius:999px;display:inline-grid;place-items:center;font-size:11px;font-weight:800}
-.locs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.loc{position:relative;border:2px solid transparent;border-radius:14px;overflow:hidden;padding:0;background:var(--navy2);cursor:pointer;text-align:left}
-.loc img{width:100%;height:84px;object-fit:cover;opacity:.75;transition:opacity .2s}
-.loc span{display:block;padding:8px 10px;font-size:12px;font-weight:700}
-.loc[aria-pressed="true"]{border-color:var(--orange)}
-.loc[aria-pressed="true"] img,.loc:hover img{opacity:1}
-.bb__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
-.bb__stage{position:relative;width:100%;max-width:720px;margin-inline:auto;aspect-ratio:1;border-radius:26px;overflow:hidden;background:var(--navy2)}
-.bb__stage > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.bb__screen{position:absolute;left:0;top:0;transform-origin:0 0;filter:drop-shadow(0 0 14px rgba(255,180,120,.35));will-change:transform}
-.bb__badge{position:absolute;left:14px;bottom:14px;padding:8px 14px;border-radius:999px;background:var(--navy);font-size:12px;font-weight:700;color:var(--peach)}
-
 /* ---------- locations ---------- */
 .locs__head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
 .counts{display:flex;gap:12px;flex-wrap:wrap}
@@ -304,7 +281,7 @@ form.qf{background:var(--white);color:var(--navy);border-radius:24px;padding:cla
   .gallery{grid-template-columns:minmax(0,1fr)}
   .gfig.wide{grid-column:auto}
   .ledpanel{position:relative;top:auto}
-  .bigU{max-width:260px}
+  .bigU{max-width:190px}
   .process__pin{min-height:auto}
   .stage{max-width:380px}
 }
@@ -359,7 +336,6 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <a href="/advertising-solutions/">Solutions</a>
       <a href="#products">Products</a>
       <a href="/locations">Locations</a>
-      <a href="#billboard" class="try">Try a billboard</a>
     </nav>
     <div style="display:flex;gap:8px;align-items:center">
       <a href="#contact" class="pill pill--orange nav__cta" data-cursor="Let's talk">Get a Quote</a>
@@ -369,7 +345,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 </header>
 <div class="drawer" id="drawer" aria-hidden="true">
   <button class="drawer__close" id="menuClose" type="button" aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <a href="#about">Who we are</a><a href="#process">Services</a><a href="/advertising-solutions/">Solutions</a><a href="#products">Products</a><a href="/locations">Locations</a><a href="#billboard" style="color:var(--peach)">Try a billboard</a><a href="#contact" style="color:var(--orange)">Get a Quote</a>
+  <a href="#about">Who we are</a><a href="#process">Services</a><a href="/advertising-solutions/">Solutions</a><a href="#products">Products</a><a href="/locations">Locations</a><a href="#contact" style="color:var(--orange)">Get a Quote</a>
 </div>
 
 <main id="top">
@@ -383,7 +359,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <p class="hero__sub" id="heroSub">LED screens and billboards across the Philippines.</p>
       <div class="hero__ctas">
         <a href="#contact" class="pill pill--orange" data-cursor="Let's talk">Get a Quote <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#billboard" class="pill pill--ghost" data-cursor="View">Put your brand on a billboard</a>
+        <a href="/locations" class="pill pill--ghost" data-cursor="View">See our locations</a>
       </div>
     </div>
     
@@ -423,12 +399,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
         <h2 class="h-l">Where brands are <span class="hl" id="aboutHl">built to be seen.</span></h2>
         <p class="about__words" id="aboutWords">Founded in 2022 by Rico Uy, U Channel is built on over 28 years of LED and Out-of-Home experience. We supply, build and run the screens and billboards that help brands meet their audiences across the Philippines.</p>
       </div>
-      <svg class="bigU" id="bigU" viewBox="92 88 286 416" role="img" aria-label="The U Channel mark">
-        <defs><clipPath id="uClipBig"><path d="M100 134 L210 98 V360 A25 25 0 0 0 260 360 V178 L370 142 V360 A135 135 0 0 1 100 360 Z"/></clipPath></defs>
-        <path d="M100 134 L210 98 V360 A25 25 0 0 0 260 360 V178 L370 142 V360 A135 135 0 0 1 100 360 Z" fill="rgba(17,33,61,.08)"/>
-        <g clip-path="url(#uClipBig)"><rect class="ust" x="90" y="88" width="290" height="68" fill="#6C97D3"/><rect class="ust" x="90" y="168" width="290" height="68" fill="#FFFFFF"/><rect class="ust" x="90" y="248" width="290" height="68" fill="#FFAB72"/><rect class="ust" x="90" y="328" width="290" height="68" fill="#FB9B51"/><rect class="ust" x="90" y="408" width="290" height="100" fill="#FF8732"/></g>
-        <path id="uSwoosh" d="M260 178 L370 142 V360 A135 135 0 0 1 200 490.4 C212 462 235 430 235 385 A25 25 0 0 0 260 360 Z" fill="#11213D" stroke="#FFC49C" stroke-width="10" paint-order="stroke" stroke-linejoin="round"/>
-      </svg>
+      <img class="bigU" id="bigU" src="/ux/logos/u-mark.png" alt="U Channel logo" width="244" height="352">
     </div>
     <div class="stats">
       <div class="stat" style="background:#6C97D3"><b data-count="28" data-suffix="+">28+</b><span>years in LED and OOH</span></div>
@@ -482,10 +453,10 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>SEQUENTIAL STREET CANOPIES</small><h3>Pole Banners</h3><p>Double-sided street banners lining premier avenues for high-repetition reach.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>HIGH-INTENT POINT OF PURCHASE</small><h3>Mall Advertising</h3><p>Atrium screens, kiosks and escalator media at the moment of purchase.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>3D ANAMORPHIC &amp; EXPERIENTIAL</small><h3>Custom Advertising</h3><p>Bespoke 3D displays and activations, built by our own crew to create moments people share.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card card--cta" href="#billboard" data-cursor="View">
-        <span style="position:relative;font-size:32px;line-height:.98;font-weight:800;letter-spacing:-.04em">Not sure which fits? <span style="color:var(--orange)">Try one on.</span></span>
+      <a class="card card--cta" href="#contact" data-cursor="Let's talk">
+        <span style="position:relative;font-size:32px;line-height:.98;font-weight:800;letter-spacing:-.04em">Not sure which fits? <span style="color:var(--orange)">Ask us.</span></span>
         <svg viewBox="0 0 400 400" aria-hidden="true"><rect x="20" y="338" width="62" height="62" rx="14" fill="#6C97D3"/><rect x="94" y="338" width="62" height="62" rx="14" fill="#FFC49C"/><rect x="94" y="264" width="62" height="62" rx="14" fill="#FFC49C"/><rect x="168" y="338" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="168" y="264" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="168" y="190" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="242" y="338" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="264" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="190" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="116" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="316" y="338" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="264" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="190" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="116" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="42" width="62" height="62" rx="14" fill="#FFFFFF"/></svg>
-        <span class="pill pill--orange" style="position:relative;align-self:flex-start">Make a billboard</span>
+        <span class="pill pill--orange" style="position:relative;align-self:flex-start">Get a quote</span>
       </a>
     </div>
   </div>
@@ -516,29 +487,6 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
   </div></div>
 </section>
 
-
-<!-- ================= BILLBOARD MAKER ================= -->
-<section id="billboard" class="band" data-bg="#11213D" data-fg="#FFFFFF" style="--bandbg:#11213D;--bandfg:#FFFFFF">
-  <div class="wrap"><div class="in bb__grid">
-    <div class="bb__form">
-      <h2 class="h-l" style="font-size:clamp(40px,5vw,76px)">Your brand, <span style="color:var(--orange)">up in lights.</span></h2>
-      <p class="lede" style="color:#DCE6F5">Your brand, on one of our screens.</p>
-      <div class="field"><label for="bbBrand">Your brand</label><input id="bbBrand" maxlength="22" value="YOUR BRAND" autocomplete="organization" data-cursor="Type"></div>
-      <div class="field"><label for="bbLine">Your line</label><input id="bbLine" maxlength="34" value="Now showing on EDSA" style="font-size:16px;font-weight:600" data-cursor="Type"></div>
-      <div class="field"><span class="lab">Look</span><div class="chips" id="bbThemes"></div></div>
-      <div class="field"><span class="lab">Location</span><div class="locs" id="bbLocs"></div></div>
-      <div class="bb__actions">
-        <a href="#contact" class="pill pill--orange" id="bbReal" data-cursor="Let's go">Make it real →</a>
-        <button type="button" class="pill pill--ghost" id="bbShuffle" data-cursor="Shuffle">Surprise me</button>
-      </div>
-    </div>
-    <div class="bb__stage" id="bbStage">
-      <img id="bbPhoto" src="/assets/guadalupe.webp" alt="LED billboard tower over EDSA Guadalupe at dusk">
-      <canvas class="bb__screen" id="bbScreen" aria-hidden="true"></canvas>
-      <span class="bb__badge" id="bbBadge">EDSA Guadalupe</span>
-    </div>
-  </div></div>
-</section>
 
 <!-- ================= LOCATIONS ================= -->
 <section id="locations" class="band" data-bg="#FFC49C" data-fg="#11213D" style="--bandbg:#FFC49C;--bandfg:#11213D">
@@ -760,9 +708,7 @@ if(FINE && !REDUCED){
   if(!HAS_GSAP||REDUCED) return;
   gsap.fromTo('#aboutHl',{'--hl':0},{'--hl':1,duration:1,ease:'expo.out',scrollTrigger:{trigger:'#aboutHl',start:'top 80%'}});
   gsap.fromTo('#aboutWords .w',{'--wo':.22},{'--wo':1,stagger:.05,ease:'none',scrollTrigger:{trigger:'#aboutWords',start:'top 80%',end:'bottom 45%',scrub:true}});
-  gsap.timeline({scrollTrigger:{trigger:'#bigU',start:'top 85%',end:'bottom 45%',scrub:1}})
-    .from('#bigU .ust',{scaleX:0,transformOrigin:(i)=>i%2?'right center':'left center',stagger:.25,ease:'power2.out'})
-    .from('#uSwoosh',{y:80,opacity:0,ease:'back.out(2)'},'-=.2');
+  gsap.from('#bigU',{y:80,rotate:-6,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'#bigU',start:'top 85%'}});
   $$('.gfig img').forEach(img=>gsap.to(img,{yPercent:8,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}}));
   gsap.from('.gfig',{y:60,opacity:0,duration:1,stagger:.12,ease:'expo.out',scrollTrigger:{trigger:'#gallery',start:'top 85%'}});
 })();
@@ -872,53 +818,8 @@ new LedWall($('#panelCanvas'),{cell:innerWidth<600?36:46,gap:8,radius:10,dim:[28
   $('#plist').addEventListener('pointerleave',()=>gsap.to(f,{scale:0,duration:.25,onComplete:()=>f.style.display='none'}));
 })();
 
-/* ---------------- billboard maker ---------------- */
-const BB=(function(){
-  const LOCS=[
-    {id:'edsa',name:'EDSA Guadalupe',src:'/assets/guadalupe.webp',alt:'LED billboard tower over EDSA Guadalupe at dusk',line:'Now showing on EDSA',q:[[567,249],[846,204],[846,396],[567,388]]},
-    {id:'clark',name:'Clark, Pampanga',src:'/assets/clark.webp',alt:'Highway LED billboard near Clark at sunset',line:'Next exit: Clark',q:[[139,152],[531,246],[531,460],[139,442]]},
-    {id:'iloilo',name:'Iloilo City',src:'/assets/iloilo.webp',alt:'Billboard above a busy Iloilo street',line:'Hello, Iloilo!',q:[[541,214],[929,120],[935,432],[543,478]]}];
-  const THEMES=[{n:'Sunset',bg:'#FB9B51',fg:'#11213D',ac:'#FFFFFF'},{n:'Midnight',bg:'#11213D',fg:'#FFFFFF',ac:'#FB9B51'},{n:'Sky',bg:'#30579C',fg:'#FFFFFF',ac:'#FFC49C'},{n:'Peach',bg:'#FFC49C',fg:'#11213D',ac:'#30579C'}];
-  const st={loc:0,theme:0,reveal:1};
-  const brand=$('#bbBrand'), line=$('#bbLine'), cv=$('#bbScreen'), ctx=cv.getContext('2d'), stage=$('#bbStage'), photo=$('#bbPhoto');
-  const tWrap=$('#bbThemes'), lWrap=$('#bbLocs');
-  THEMES.forEach((t,i)=>{ const b=document.createElement('button'); b.type='button'; b.className='chip'; b.setAttribute('aria-pressed',i===0); b.innerHTML=`<span class="sw" style="background:${t.bg};color:${t.fg};box-shadow:inset 0 0 0 3px ${t.ac}">Aa</span>${t.n}`; b.addEventListener('click',()=>{st.theme=i;sync();}); tWrap.appendChild(b); });
-  LOCS.forEach((l,i)=>{ const b=document.createElement('button'); b.type='button'; b.className='loc'; b.setAttribute('aria-pressed',i===0); b.innerHTML=`<img src="${l.src}" alt=""><span>${l.name}</span>`; b.addEventListener('click',()=>{ if(st.loc!==i){ const userLine=line.value===LOCS[st.loc].line; st.loc=i; if(userLine) line.value=l.line; } sync(true); }); lWrap.appendChild(b); });
-  function adj(m){return [m[4]*m[8]-m[5]*m[7],m[2]*m[7]-m[1]*m[8],m[1]*m[5]-m[2]*m[4],m[5]*m[6]-m[3]*m[8],m[0]*m[8]-m[2]*m[6],m[2]*m[3]-m[0]*m[5],m[3]*m[7]-m[4]*m[6],m[1]*m[6]-m[0]*m[7],m[0]*m[4]-m[1]*m[3]];}
-  function mm(a,b){const c=[];for(let i=0;i<3;i++)for(let j=0;j<3;j++){let s=0;for(let k=0;k<3;k++)s+=a[3*i+k]*b[3*k+j];c[3*i+j]=s;}return c;}
-  function mv(m,v){return [m[0]*v[0]+m[1]*v[1]+m[2]*v[2],m[3]*v[0]+m[4]*v[1]+m[5]*v[2],m[6]*v[0]+m[7]*v[1]+m[8]*v[2]];}
-  function basis(p){const m=[p[0][0],p[1][0],p[2][0],p[0][1],p[1][1],p[2][1],1,1,1];const v=mv(adj(m),[p[3][0],p[3][1],1]);return mm(m,[v[0],0,0,0,v[1],0,0,0,v[2]]);}
-  function proj(src,dst){const s=basis(src),d=basis(dst);const t=mm(d,adj(s));for(let i=0;i<9;i++)t[i]/=t[8];return [t[0],t[3],0,t[6],t[1],t[4],0,t[7],0,0,1,0,t[2],t[5],0,t[8]];}
-  function place(){ const L=LOCS[st.loc], W=stage.clientWidth, k=W/1024; const q=L.q;
-    const aspect=((q[1][0]-q[0][0])+(q[2][0]-q[3][0]))/((q[3][1]-q[0][1])+(q[2][1]-q[1][1]));
-    const cw=640, ch=Math.round(cw/aspect); if(cv.width!==cw||cv.height!==ch){cv.width=cw;cv.height=ch;}
-    cv.style.width=cw+'px'; cv.style.height=ch+'px';
-    const pad=1.5; const c=[[q[0][0]-pad,q[0][1]-pad],[q[1][0]+pad,q[1][1]-pad],[q[3][0]-pad,q[3][1]+pad],[q[2][0]+pad,q[2][1]+pad]].map(p=>[p[0]*k,p[1]*k]);
-    cv.style.transform='matrix3d('+proj([[0,0],[cw,0],[0,ch],[cw,ch]],c).join(',')+')'; render(); }
-  function fit(text,maxW,maxH,weight){ let s=maxH; do{ ctx.font=`${weight} ${s}px Poppins, Arial, sans-serif`; s-=2; } while(ctx.measureText(text).width>maxW && s>10); return s+2; }
-  function render(){ const T=THEMES[st.theme], w=cv.width, h=cv.height; const b=(brand.value||' ').toUpperCase(), l=line.value;
-    ctx.fillStyle=T.bg; ctx.fillRect(0,0,w,h);
-    ctx.fillStyle=T.ac; const bs=h*.11; [[0,1],[1,2],[2,3],[3,4]].forEach(([c,n])=>{ for(let k=0;k<n;k++){ ctx.globalAlpha=.9; ctx.beginPath(); (ctx.roundRect?ctx.roundRect.bind(ctx):ctx.rect.bind(ctx))(w-(4-c)*bs*1.12-bs*.4, h-(k+1)*bs*1.12-bs*.3, bs, bs, bs*.22); ctx.fill(); } }); ctx.globalAlpha=1;
-    const fs=fit(b,w*.82,h*.36,800); ctx.fillStyle=T.fg; ctx.font=`800 ${fs}px Poppins, Arial, sans-serif`; ctx.textBaseline='alphabetic'; ctx.fillText(b,w*.07,h*.52);
-    const ls=fit(l,w*.62,h*.1,700); ctx.font=`700 ${ls}px Poppins, Arial, sans-serif`; ctx.fillStyle=T.ac; ctx.fillText(l,w*.07,h*.52+ls*1.6);
-    ctx.font=`600 ${Math.round(h*.055)}px Poppins, Arial, sans-serif`; ctx.fillStyle=T.fg; ctx.globalAlpha=.7; ctx.fillText('on U Channel',w*.07,h*.9); ctx.globalAlpha=1;
-    if(st.reveal<1){ ctx.fillStyle='#000'; ctx.fillRect(0,h*st.reveal,w,h*(1-st.reveal)); ctx.fillStyle=T.ac; ctx.fillRect(0,h*st.reveal-3,w,3); }
-    ctx.fillStyle='rgba(0,0,0,.22)'; for(let x=0;x<w;x+=4) ctx.fillRect(x,0,1,h); for(let y=0;y<h;y+=4) ctx.fillRect(0,y,w,1);
-  }
-  function wipe(){ if(REDUCED||!HAS_GSAP){st.reveal=1;render();return;} gsap.fromTo(st,{reveal:0},{reveal:1,duration:.7,ease:'power2.inOut',onUpdate:render,overwrite:true}); }
-  function sync(changedLoc){ $$('.chip',tWrap).forEach((b,i)=>b.setAttribute('aria-pressed',i===st.theme)); $$('.loc',lWrap).forEach((b,i)=>b.setAttribute('aria-pressed',i===st.loc));
-    const L=LOCS[st.loc]; $('#bbBadge').textContent=L.name;
-    if(changedLoc && photo.getAttribute('src')!==L.src){ photo.alt=L.alt; photo.src=L.src; photo.decode?photo.decode().then(()=>{place();wipe();}).catch(place):place(); } else { place(); wipe(); } }
-  let typeT; [brand,line].forEach(i=>i.addEventListener('input',()=>{ render(); clearTimeout(typeT); typeT=setTimeout(wipe,450); }));
-  brand.addEventListener('focus',()=>{ if(brand.value==='YOUR BRAND') brand.select(); });
-  $('#bbShuffle').addEventListener('click',()=>{ st.theme=(st.theme+1+Math.floor(Math.random()*3))%THEMES.length; const nl=(st.loc+1)%LOCS.length; const userLine=line.value===LOCS[st.loc].line; st.loc=nl; if(userLine) line.value=LOCS[nl].line; sync(true); });
-  $('#portfolioBtn').addEventListener('click',()=>{ $('#fInterest').value='LED display solutions'; if(!$('#fDetails').value.trim()) $('#fDetails').value='Please send me the U Channel LED product portfolio.'; });
-  $('#bbReal').addEventListener('click',()=>{ const b=brand.value.trim(); if(b && b!=='YOUR BRAND'){ $('#fCompany').value=b; } $('#fInterest').value='Out-of-Home advertising'; $('#fDetails').value=`I'd like to put ${b&&b!=='YOUR BRAND'?b:'our brand'} on a billboard at ${LOCS[st.loc].name}.`; });
-  new ResizeObserver(place).observe(stage);
-  if(document.fonts) document.fonts.ready.then(render);
-  photo.complete?place():photo.addEventListener('load',place,{once:true});
-  return {render};
-})();
+/* ---------------- portfolio request ---------------- */
+$('#portfolioBtn').addEventListener('click',()=>{ $('#fInterest').value='LED display solutions'; if(!$('#fDetails').value.trim()) $('#fDetails').value='Please send me the U Channel LED product portfolio.'; });
 
 /* ---------------- locations stack ---------------- */
 (function(){
