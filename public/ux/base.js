@@ -151,5 +151,13 @@ function drench(){
   const run=()=>{ q=false; document.querySelectorAll('img[src$="ph.svg"]').forEach(i=>{ const p=i.parentElement; if(!p||p.classList.contains('is-ph')) return; p.classList.add('is-ph'); if(getComputedStyle(p).position==='static') p.style.position='relative'; i.alt=''; }); };
   run(); new MutationObserver(()=>{ if(!q){ q=true; requestAnimationFrame(run); } }).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
 })();
+/* navbar: hide on scroll down, show on scroll up */
+(function(){ const nav=document.getElementById('nav'); if(!nav) return; let last=scrollY, ticking=false;
+  const upd=()=>{ ticking=false; const y=scrollY, d=y-last; const open=document.getElementById('drawer')&&document.getElementById('drawer').classList.contains('open');
+    if(y<120||open||d<-6) nav.classList.remove('nav--hidden'); else if(d>6) nav.classList.add('nav--hidden');
+    if(Math.abs(d)>6) last=y; };
+  addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
+  nav.addEventListener('focusin',()=>nav.classList.remove('nav--hidden'));
+})();
 window.UC={$,$$,REDUCED,FINE,HAS_GSAP,PAL,PALRGB,lenis,LedWall,textBitmap,scrollToEl,counters,prefill,drench,go};
 })();

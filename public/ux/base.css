@@ -113,3 +113,14 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 @media (max-width:600px){ .footer__cols a{padding:6px 0} }
 
 .is-ph::after{content:"Photo coming soon";position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2;padding:9px 16px;border-radius:999px;background:#FFFFFF;color:#5A6785;font-family:var(--label,"Andika"),sans-serif;font-size:12px;font-weight:700;line-height:1;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;pointer-events:none;box-shadow:0 6px 18px -8px rgba(17,33,61,.35)}
+
+.skip{position:fixed;left:16px;top:-80px;z-index:100;padding:12px 18px;border-radius:12px;background:var(--orange);color:var(--navy);font-weight:800;transition:top .2s}
+.skip:focus{top:16px}
+.nav{transition:translate .45s cubic-bezier(.2,.8,.2,1)}
+.nav.nav--hidden{translate:0 calc(-100% - 20px)}
+.nav__right{display:flex;gap:8px;align-items:center}
+.nav__call{width:44px;height:44px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;color:var(--white);background:rgba(255,255,255,.1);transition:background .2s}
+.nav__call:hover{background:rgba(255,255,255,.2)}
+.drawer .drawer__call{display:inline-flex;align-items:center;gap:12px;margin-top:18px;font-size:20px;letter-spacing:0;font-weight:700;color:var(--peach)}
+@media (max-width:560px){ .nav__cta{display:inline-flex!important;min-height:44px;padding:0 14px;font-size:13px;white-space:nowrap} .nav__bar{gap:8px;padding:8px 8px 8px 14px} .nav__logo svg{width:118px!important} .nav__right{gap:6px} }
+@media (max-width:360px){ .nav__call{display:none} }
