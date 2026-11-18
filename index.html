@@ -175,6 +175,9 @@ button{font:inherit;color:inherit}
 .sol__intro .num{font-size:clamp(90px,10vw,140px);font-weight:800;letter-spacing:-.07em;line-height:.78;color:var(--orange)}
 .card{width:min(340px,78vw);flex-shrink:0;border-radius:22px;background:var(--white);color:var(--navy);overflow:hidden;display:flex;flex-direction:column;transform-style:preserve-3d;will-change:transform;box-shadow:0 30px 60px -30px rgba(10,20,40,.55)}
 .card__media{position:relative;height:250px;overflow:hidden;background:var(--navy2)}
+.card__media--plain{display:flex;align-items:flex-end;padding:18px 22px}
+.card__num{font-size:110px;line-height:.75;font-weight:800;letter-spacing:-.07em;opacity:.9}
+.credit{position:absolute;right:10px;bottom:8px;z-index:2;font-size:10px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);pointer-events:none}
 .card__media img,.card__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:scale .7s cubic-bezier(.2,.8,.2,1),opacity .4s}
 .card__media video{opacity:0}
 .card.playing .card__media video{opacity:1}
@@ -404,14 +407,14 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
     <div class="stats">
       <div class="stat" style="background:#6C97D3"><b data-count="28" data-suffix="+">28+</b><span>years in LED and OOH</span></div>
       <div class="stat" style="background:#FFFFFF"><b data-count="2022" data-from="1990">2022</b><span>founded by Rico Uy</span></div>
-      <div class="stat" style="background:#FB9B51"><b data-count="20">20</b><span>premium sites nationwide</span></div>
+      <div class="stat" style="background:#FB9B51"><b data-count="172">172</b><span>billboard sites nationwide</span></div>
       <div class="stat" style="background:#11213D;color:#FFFFFF"><b data-count="3">3</b><span>island groups: Luzon, Visayas, Mindanao</span></div>
     </div>
     <div class="gallery" id="gallery">
-      <figure class="gfig wide" data-cursor="Look"><img src="/assets/ph.svg" alt="Ultra-HD curved LED display on a Manila tower at night"><figcaption><small>Digital Display Tech</small><strong>Ultra-HD Curved LED Displays</strong><span>EDSA &amp; Key Financial Districts</span></figcaption></figure>
-      <figure class="gfig" data-cursor="Look"><img src="/assets/ph.svg" alt="Crew installing a highway billboard"><figcaption><small>Static &amp; Mega Structures</small><strong>Prime Highway Billboards</strong><span>SLEX &amp; NLEX Corridors</span></figcaption></figure>
-      <figure class="gfig" data-cursor="Look"><img src="/assets/ph.svg" alt="Street banners and screens along a city avenue"><figcaption><small>Transit &amp; Street Network</small><strong>Nationwide Campaign Execution</strong><span>Luzon, Visayas &amp; Mindanao</span></figcaption></figure>
-      <figure class="gfig wide" data-cursor="Look"><img src="/assets/ph.svg" alt="Building wrap on a high-rise at sunset" style="object-position:center 30%"><figcaption><small>Iconic Landmarks</small><strong>High-Rise Building Wraps</strong><span>BGC, Makati &amp; Ortigas Center</span></figcaption></figure>
+      <figure class="gfig wide" data-cursor="Look"><img src="/ux/sites/s013.webp" alt="EDSA Pasay F.B. Harrison (Frame A) billboard" loading="lazy"><span class="credit">Imagery © Google</span><figcaption><small>EDSA · Luzon</small><strong>EDSA Pasay F.B. Harrison (Frame A)</strong><span>Pasay City, Metro Manila</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/sites/s121.webp" alt="CCLEX - Cebu City Point (SRP) billboard" loading="lazy"><span class="credit">Imagery © Google</span><figcaption><small>Cebu · Visayas</small><strong>CCLEX - Cebu City Point (SRP)</strong><span>Cebu City, Cebu</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/sites/s118.webp" alt="Cebu- Fuente Osmeña billboard" loading="lazy"><span class="credit">Imagery © Google</span><figcaption><small>Cebu · Visayas</small><strong>Cebu- Fuente Osmeña</strong><span>Cebu City, Cebu</span></figcaption></figure>
+      <figure class="gfig wide" data-cursor="Look"><img src="/ux/sites/s047.webp" alt="Skyway Paco to Makati (NB) billboard" loading="lazy"><span class="credit">Imagery © Google</span><figcaption><small>Skyway · Luzon</small><strong>Skyway Paco to Makati (NB)</strong><span>Manila, Metro Manila</span></figcaption></figure>
     </div>
   </div></div>
 </section>
@@ -446,13 +449,13 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
         <p class="lede" style="color:#DCE6F5">Seven ways to put your brand where people look.</p>
         <a href="/advertising-solutions/" class="pill pill--orange" style="align-self:flex-start" data-cursor="Explore">See all solutions</a>
       </div>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>ULTRA-HD DYNAMIC SCREENS</small><h3>Digital LED Billboards</h3><p>Bright, high-resolution content you can update in real time across high-density corridors.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>HIGH-IMPACT HIGHWAY PRESENCE</small><h3>Static Billboards</h3><p>Large-format displays along major transit arteries, delivering brand authority day and night.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>MOBILE AUDIENCE ENGAGEMENT</small><h3>Transit Advertising</h3><p>Vehicle wraps and screens that move your message everywhere commuters travel.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>SKYLINE-DOMINATING CANVASES</small><h3>Building Wraps</h3><p>Mega-scale facade graphics that turn landmark architecture into brand spectacles.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>SEQUENTIAL STREET CANOPIES</small><h3>Pole Banners</h3><p>Double-sided street banners lining premier avenues for high-repetition reach.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>HIGH-INTENT POINT OF PURCHASE</small><h3>Mall Advertising</h3><p>Atrium screens, kiosks and escalator media at the moment of purchase.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/assets/ph.svg" alt="" loading="lazy"></div><div class="card__body"><small>3D ANAMORPHIC &amp; EXPERIENTIAL</small><h3>Custom Advertising</h3><p>Bespoke 3D displays and activations, built by our own crew to create moments people share.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#30579C;color:#FFFFFF"><span class="card__num">01</span></div><div class="card__body"><small>ULTRA-HD DYNAMIC SCREENS</small><h3>Digital LED Billboards</h3><p>Bright, high-resolution content you can update in real time across high-density corridors.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/sites/sm/s030.webp" alt="U Channel static billboard on EDSA" loading="lazy"><span class="credit">Imagery © Google</span></div><div class="card__body"><small>HIGH-IMPACT HIGHWAY PRESENCE</small><h3>Static Billboards</h3><p>Large-format displays along major transit arteries, delivering brand authority day and night.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#6C97D3;color:#11213D"><span class="card__num">03</span></div><div class="card__body"><small>MOBILE AUDIENCE ENGAGEMENT</small><h3>Transit Advertising</h3><p>Vehicle wraps and screens that move your message everywhere commuters travel.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#FFC49C;color:#11213D"><span class="card__num">04</span></div><div class="card__body"><small>SKYLINE-DOMINATING CANVASES</small><h3>Building Wraps</h3><p>Mega-scale facade graphics that turn landmark architecture into brand spectacles.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#FF8732;color:#FFFFFF"><span class="card__num">05</span></div><div class="card__body"><small>SEQUENTIAL STREET CANOPIES</small><h3>Pole Banners</h3><p>Double-sided street banners lining premier avenues for high-repetition reach.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#11213D;color:#FFFFFF"><span class="card__num">06</span></div><div class="card__body"><small>HIGH-INTENT POINT OF PURCHASE</small><h3>Mall Advertising</h3><p>Atrium screens, kiosks and escalator media at the moment of purchase.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#FFAB72;color:#11213D"><span class="card__num">07</span></div><div class="card__body"><small>3D ANAMORPHIC &amp; EXPERIENTIAL</small><h3>Custom Advertising</h3><p>Bespoke 3D displays and activations, built by our own crew to create moments people share.</p><span class="card__go">View solution →</span></div></a>
       <a class="card card--cta" href="#contact" data-cursor="Let's talk">
         <span style="position:relative;font-size:32px;line-height:.98;font-weight:800;letter-spacing:-.04em">Not sure which fits? <span style="color:var(--orange)">Ask us.</span></span>
         <svg viewBox="0 0 400 400" aria-hidden="true"><rect x="20" y="338" width="62" height="62" rx="14" fill="#6C97D3"/><rect x="94" y="338" width="62" height="62" rx="14" fill="#FFC49C"/><rect x="94" y="264" width="62" height="62" rx="14" fill="#FFC49C"/><rect x="168" y="338" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="168" y="264" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="168" y="190" width="62" height="62" rx="14" fill="#FFAB72"/><rect x="242" y="338" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="264" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="190" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="242" y="116" width="62" height="62" rx="14" fill="#FB9B51"/><rect x="316" y="338" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="264" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="190" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="116" width="62" height="62" rx="14" fill="#FF8732"/><rect x="316" y="42" width="62" height="62" rx="14" fill="#FFFFFF"/></svg>
@@ -494,22 +497,22 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
     <div class="locs__head">
       <div>
         <h2 class="h-xl" style="font-size:clamp(56px,8vw,120px)">Prime<br><span style="color:var(--blue)">Locations.</span></h2>
-        <p class="lede" style="margin-top:20px">From the EDSA corridor in Metro Manila to Cebu's business districts and the Iloilo airport, with Mindanao coming soon.</p>
+        <p class="lede" style="margin-top:20px">172 billboard sites, from EDSA and the expressways of Luzon to Cebu, Bacolod, Davao and Zamboanga.</p>
       </div>
       <div class="counts">
-        <div class="count" style="background:var(--navy);color:#FFFFFF"><b data-count="20">20</b><span>premium sites</span></div>
-        <div class="count" style="background:var(--orange)"><b data-count="13">13</b><span>in the Visayas</span></div>
+        <div class="count" style="background:var(--navy);color:#FFFFFF"><b data-count="172">172</b><span>billboard sites</span></div>
+        <div class="count" style="background:var(--orange)"><b data-count="28">28</b><span>now in Mindanao</span></div>
       </div>
     </div>
     <div class="regions">
       <div>
         <div class="tabs" role="tablist" aria-label="Regions">
-          <button class="tab" role="tab" id="tab-luzon" aria-selected="true" data-r="luzon">Luzon <small>07 sites</small></button>
-          <button class="tab" role="tab" id="tab-visayas" aria-selected="false" data-r="visayas">Visayas <small>13 sites</small></button>
-          <button class="tab" role="tab" id="tab-mindanao" aria-selected="false" data-r="mindanao">Mindanao <small>Soon</small></button>
+          <button class="tab" role="tab" id="tab-luzon" aria-selected="true" data-r="luzon">Luzon <small>98 sites</small></button>
+          <button class="tab" role="tab" id="tab-visayas" aria-selected="false" data-r="visayas">Visayas <small>46 sites</small></button>
+          <button class="tab" role="tab" id="tab-mindanao" aria-selected="false" data-r="mindanao">Mindanao <small>28 sites</small></button>
         </div>
         
-        <a href="/locations" class="pill pill--navy" style="margin-top:18px" data-cursor="Explore">Explore all 20 sites on the map</a>
+        <a href="/locations" class="pill pill--navy" style="margin-top:18px" data-cursor="Explore">Explore all 172 sites on the map</a>
       </div>
       <div>
         <div class="stack" id="stack" role="tabpanel" aria-label="Locations in the selected region" data-cursor="Drag"></div>
@@ -824,12 +827,12 @@ $('#portfolioBtn').addEventListener('click',()=>{ $('#fInterest').value='LED dis
 /* ---------------- locations stack ---------------- */
 (function(){
   const DATA={
-    luzon:[{img:'/assets/ph.svg',name:'EDSA',sub:'Epifanio de los Santos Avenue'},{img:'/assets/ph.svg',name:'Manila',sub:'Metro Manila & surrounding hubs'},{img:'/assets/ph.svg',name:'Pampanga',sub:'Clark Freeport & Special Economic Zone'}],
-    visayas:[{img:'/assets/ph.svg',name:'Cebu',sub:'Queen City of the South'},{img:'/assets/ph.svg',name:'Iloilo',sub:'City of Love · Western Visayas'}],
-    mindanao:[{soon:true}]};
+    luzon:[{img:'/ux/sites/s013.webp',name:'EDSA',sub:'29 sites · EDSA Pasay F.B. Harrison (Frame A)'},{img:'/ux/sites/s083.webp',name:'SLEX',sub:'13 sites · SLEX 1 Calamba Tollgate Laguna'},{img:'/ux/sites/s071.webp',name:'NLEX',sub:'9 sites · NLEX - Borol, Balagtas Bulacan (SB)'}],
+    visayas:[{img:'/ux/sites/s118.webp',name:'Cebu',sub:'29 sites · Cebu- Fuente Osmeña'},{img:'/ux/sites/s162.webp',name:'Bacolod',sub:'7 sites · Bacolod City, Araneta Street (SB)'},{img:'/ux/sites/s157.webp',name:'Iloilo',sub:'4 sites · Iloilo Airport Access Road (Entrance)'}],
+    mindanao:[{img:'/ux/sites/s186.webp',name:'Davao',sub:'16 sites · Davao City, Ecoland Dr.'},{img:'/ux/sites/s188.webp',name:'Cagayan de Oro',sub:'6 sites · National Highway, Lapasan, CDO'},{img:'/ux/sites/s197.webp',name:'Zamboanga',sub:'5 sites · Pilar Street, Zamboanga City'}]};
   const stack=$('#stack'), count=$('#stackCount'); let region='luzon', order=[], idx=0;
   function cardHTML(d){ return d.soon?`<div class="scard scard--soon"><svg width="190" height="44" viewBox="0 0 190 44" aria-hidden="true"><rect x="2" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="50" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="98" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="146" y="2" width="40" height="40" rx="10" fill="#FB9B51"/></svg><div><div style="font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-.05em;line-height:.9">Coming <span style="color:#FB9B51">soon.</span></div><p style="margin:12px 0 0;color:#DCE6F5">Want first pick of Mindanao sites? Tell us and we'll reach out.</p></div><a href="#contact" class="pill pill--orange" style="align-self:flex-start">Notify me</a></div>`
-    :`<div class="scard"><img src="${d.img}" alt="${d.name}, ${d.sub}" draggable="false"><div class="plate"><strong>${d.name}</strong><span>${d.sub}</span></div></div>`; }
+    :`<div class="scard"><img src="${d.img}" alt="${d.name}, ${d.sub}" draggable="false"><span class="credit">Imagery © Google</span><div class="plate"><strong>${d.name}</strong><span>${d.sub}</span></div></div>`; }
   function layout(anim){ const cards=$$('.scard',stack); const n=cards.length;
     cards.forEach((c,i)=>{ const depth=n-1-i; c.style.zIndex=i; const props={x:0,y:depth*-14,scale:1-depth*.05,rotate:depth?(depth%2?-3:3)*depth:0,opacity:depth>2?0:1};
       if(HAS_GSAP&&!REDUCED) gsap.to(c,Object.assign({duration:anim?.6:0,ease:'expo.out',overwrite:true},props)); else c.style.transform=`translateY(${props.y}px) scale(${props.scale})`; });

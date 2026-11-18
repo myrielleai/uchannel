@@ -48,6 +48,9 @@
 .rail a.cur{background:var(--orange);color:var(--navy);transform:scale(1.15)}
 @media (max-width:1240px){.rail{display:none}}
 .chap .media{position:relative;height:clamp(320px,42vw,600px);border-radius:28px;overflow:hidden;background:var(--navy2)}
+.chap .media--plain{height:auto;overflow:visible;background:transparent;border-radius:0}
+.chap .media--plain .plate{position:static;background:transparent;padding:0;color:inherit}
+.chap .media .credit{position:absolute;right:14px;top:12px;z-index:2;font-size:11px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8)}
 .chap .media img,.chap .media video{position:absolute;inset:0;width:100%;height:116%;top:-8%;object-fit:cover}
 .chap .media video{opacity:0;transition:opacity .5s}
 .chap .media.playing video{opacity:1}
@@ -170,10 +173,7 @@
 </section>
 <section class="band chap on-dark" id="digital-led-billboards" data-bg="#11213D" data-fg="#FFFFFF" data-i="0" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Digital LED Billboards example" loading="lazy">
-      <div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">4K LED screens on Metro Manila’s busiest corridors, with content you can change in real time.</p>
@@ -197,10 +197,7 @@
 </section>
 <section class="band chap" id="static-billboards" data-bg="#FFC49C" data-fg="#11213D" data-i="1" style="--bandbg:#FFC49C;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Static Billboards example" loading="lazy">
-      <div class="plate"><span class="num">02</span><h2>Static Billboards.</h2></div>
-    </div>
+    <div class="media"><img src="/ux/sites/s013.webp" alt="Static Billboards example: EDSA Pasay F.B. Harrison" loading="lazy"><span class="credit">Imagery © Google</span><div class="plate"><span class="num">02</span><h2>Static Billboards.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Giant billboards along EDSA, Roxas Boulevard and major expressways, yours alone 24 hours a day.</p>
@@ -224,10 +221,7 @@
 </section>
 <section class="band chap on-dark" id="transit-advertising" data-bg="#30579C" data-fg="#FFFFFF" data-i="2" style="--bandbg:#30579C;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Transit Advertising example" loading="lazy">
-      <div class="plate"><span class="num">03</span><h2>Transit Advertising.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">03</span><h2>Transit Advertising.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Bus and shuttle wraps and onboard screens that carry your brand along commuter routes.</p>
@@ -251,10 +245,7 @@
 </section>
 <section class="band chap" id="building-wraps" data-bg="#FFFFFF" data-fg="#11213D" data-i="3" style="--bandbg:#FFFFFF;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Building Wraps example" loading="lazy">
-      <div class="plate"><span class="num">04</span><h2>Building Wraps.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">04</span><h2>Building Wraps.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Multi-storey facade graphics that turn a landmark building into your billboard.</p>
@@ -278,10 +269,7 @@
 </section>
 <section class="band chap" id="pole-banners" data-bg="#FB9B51" data-fg="#11213D" data-i="4" style="--bandbg:#FB9B51;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Pole Banners example" loading="lazy">
-      <div class="plate"><span class="num">05</span><h2>Pole Banners.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">05</span><h2>Pole Banners.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Double-sided street banners in sequence along shopping and business avenues.</p>
@@ -305,10 +293,7 @@
 </section>
 <section class="band chap" id="mall-advertising" data-bg="#F3F5F9" data-fg="#11213D" data-i="5" style="--bandbg:#F3F5F9;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Mall Advertising example" loading="lazy">
-      <div class="plate"><span class="num">06</span><h2>Mall Advertising.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">06</span><h2>Mall Advertising.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Atrium screens, kiosks and escalator media where shoppers are ready to buy.</p>
@@ -332,10 +317,7 @@
 </section>
 <section class="band chap on-dark" id="custom-advertising" data-bg="#11213D" data-fg="#FFFFFF" data-i="6" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
-    <div class="media">
-      <img src="/assets/ph.svg" alt="Custom Advertising example" loading="lazy">
-      <div class="plate"><span class="num">07</span><h2>Custom Advertising.</h2></div>
-    </div>
+    <div class="media media--plain"><div class="plate"><span class="num">07</span><h2>Custom Advertising.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">3D anamorphic screens and custom installations, designed and built by our own team.</p>
@@ -410,7 +392,7 @@
 <script>
 (function(){
 const {$,$$,HAS_GSAP,REDUCED,FINE}=UC;
-const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "ph.svg", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "ph.svg", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "ph.svg", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "ph.svg", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
+const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "ph.svg", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "/ux/sites/s013.webp", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "ph.svg", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "ph.svg", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
 if(HAS_GSAP&&!REDUCED){
   gsap.from('.blk li',{scale:.6,opacity:0,duration:.8,ease:'back.out(1.7)',stagger:{each:.05,grid:'auto',from:'start'},delay:.3});
   gsap.from('.hero h1',{y:40,opacity:0,duration:1,ease:'expo.out',delay:.2});
