@@ -130,6 +130,12 @@ button{font:inherit;color:inherit}
 .hsteps .col{display:flex;flex-direction:column;gap:var(--sg)}
 .hsteps i{display:block;width:var(--sc);height:var(--sc);border-radius:calc(var(--sc)*.24);background:var(--c);opacity:.92;transition:background .15s,box-shadow .25s,scale .35s cubic-bezier(.34,1.56,.64,1)}
 .hsteps i.lit{background:#FFFFFF;box-shadow:0 0 26px 2px var(--c);scale:1.08}
+.hscat{position:absolute;z-index:2;--u:clamp(20px,2.2vw,36px);--gp:clamp(5px,.5vw,8px);width:calc(var(--u)*4 + var(--gp)*3);height:calc(var(--u)*3 + var(--gp)*2)}
+.hscat i{position:absolute;left:calc(var(--x)*(var(--u) + var(--gp)));top:calc(var(--y)*(var(--u) + var(--gp)));width:var(--u);height:var(--u);border-radius:calc(var(--u)*.24);background:var(--c);opacity:.9;transition:background .15s,box-shadow .25s,scale .35s cubic-bezier(.34,1.56,.64,1)}
+.hscat i.lit,.hsteps i.lit{background:#FFFFFF;box-shadow:0 0 26px 2px var(--c);scale:1.08}
+.hscat--tl{left:calc(max(16px,env(safe-area-inset-left,0px)) + clamp(0px,4vw,72px));top:calc(env(safe-area-inset-top,0px) + clamp(92px,13svh,130px))}
+.hscat--tr{right:calc(max(16px,env(safe-area-inset-right,0px)) + clamp(0px,3vw,56px));top:calc(env(safe-area-inset-top,0px) + clamp(100px,14svh,140px))}
+@media (max-width:700px){ .hscat{--u:16px;--gp:4px} .hscat--tl{left:12px;top:calc(env(safe-area-inset-top,0px) + 84px)} .hscat--tr{right:12px;top:calc(env(safe-area-inset-top,0px) + 96px)} }
 .hero__proof{display:flex;flex-wrap:wrap;gap:8px 0;margin:clamp(14px,2.2vh,22px) 0 0;font-size:14px;font-weight:600;color:#DCE6F5}
 .hero__proof span{display:inline-flex;align-items:center}
 .hero__proof span+span::before{content:"";width:5px;height:5px;border-radius:1.5px;background:var(--orange);margin:0 12px}
@@ -383,6 +389,8 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
     <img class="hero__bg" id="heroBg" src="/ux/photos/hero-night.webp" srcset="/ux/photos/hero-night-sm.webp 1000w, /ux/photos/hero-night.webp 2000w" sizes="100vw" alt="A U Channel billboard lit up at night above a busy intersection" fetchpriority="high" decoding="async">
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hsteps" id="hsteps" aria-hidden="true"></div>
+    <div class="hscat hscat--tl" id="hscatTL" aria-hidden="true"></div>
+    <div class="hscat hscat--tr" id="hscatTR" aria-hidden="true"></div>
     <div class="hero__center" id="heroCenter">
       <h1 id="heroH1"><span class="line"><span>Where brands</span></span><span class="line"><span>are built to</span></span><span class="line"><span>be <span class="seen">seen</span><span class="dot"></span></span></span></h1>
       <p class="hero__sub" id="heroSub">LED screens and billboards across the Philippines.</p>
@@ -678,6 +686,9 @@ if(FINE && !REDUCED){
   COLS.forEach((c,i)=>{ const col=document.createElement('div'); col.className='col';
     for(let k=0;k<=i;k++){ const b=document.createElement('i'); b.style.setProperty('--c',(i===COLS.length-1&&k===0)?'#FFFFFF':c); col.appendChild(b); blocks.push(b); }
     box.appendChild(col); });
+  const scat=(el,list)=>list.forEach(([x,y,c])=>{ const b=document.createElement('i'); b.style.setProperty('--x',x); b.style.setProperty('--y',y); b.style.setProperty('--c',c); el.appendChild(b); blocks.push(b); });
+  scat($('#hscatTL'),[[0,0,'#6C97D3'],[1,0,'#FFC49C'],[1,1,'#FB9B51'],[3,0,'#30579C']]);
+  scat($('#hscatTR'),[[3,0,'#FF8732'],[2,1,'#FFAB72'],[3,1,'#FFC49C'],[0,2,'#6C97D3'],[3,2,'#FFFFFF']]);
   let lastUser=0;
   const light=(b,hold)=>{ if(b._t) clearTimeout(b._t); b.classList.add('lit'); b._t=setTimeout(()=>{ b.classList.remove('lit'); b._t=null; },hold); };
   blocks.forEach(b=>b.addEventListener('pointerenter',()=>{ lastUser=performance.now(); light(b,900); }));
@@ -686,9 +697,9 @@ if(FINE && !REDUCED){
     gsap.from('#heroBg',{scale:1.12,opacity:0,duration:1.6,ease:'expo.out'});
     gsap.from('#heroH1 .line > span',{yPercent:110,duration:1.1,ease:'expo.out',stagger:.1,delay:.3});
     gsap.from('#heroSub, .hero__ctas > *, #heroProof',{y:20,opacity:0,duration:.8,stagger:.08,delay:.7,ease:'expo.out'});
-    gsap.from('#hsteps i',{scale:0,duration:.6,ease:'back.out(2.2)',stagger:.05,delay:.9});
+    gsap.from('#hsteps i, .hscat i',{scale:0,duration:.6,ease:'back.out(2.2)',stagger:{each:.04,from:'random'},delay:.9});
     gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.5}})
-      .to('#hsteps',{y:-60,opacity:0,ease:'none'},0)
+      .to('#hsteps, .hscat',{y:-60,opacity:0,ease:'none'},0)
       .to('#heroBg',{yPercent:6,scale:1.06,ease:'none'},0)
       .to('#heroCenter',{y:-90,opacity:0,ease:'none'},0);
   }
