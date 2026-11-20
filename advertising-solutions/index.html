@@ -49,6 +49,9 @@
 @media (max-width:1240px){.rail{display:none}}
 .chap .media{position:relative;height:clamp(320px,42vw,600px);border-radius:28px;overflow:hidden;background:var(--navy2)}
 .chap .media--plain{height:auto;overflow:visible;background:transparent;border-radius:0}
+.chap .media--trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;background:transparent}
+.chap .media.media--trio img{position:relative;inset:auto;top:auto;width:100%;height:100%;object-fit:cover;border-radius:22px}
+@media (max-width:600px){ .chap .media--trio{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px} .chap .media.media--trio img{border-radius:14px} }
 .chap .media--plain .plate{position:static;background:transparent;padding:0;color:inherit}
 .chap .media .credit{position:absolute;right:14px;top:12px;z-index:2;font-size:11px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8)}
 .chap .media img,.chap .media video{position:absolute;inset:0;width:100%;height:116%;top:-8%;object-fit:cover}
@@ -174,7 +177,7 @@
 </section>
 <section class="band chap on-dark" id="digital-led-billboards" data-bg="#11213D" data-fg="#FFFFFF" data-i="0" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
-    <div class="media media--plain"><div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div></div>
+    <div class="media"><img src="/ux/photos/led-sampaloc-night.webp" alt="LED screen installed by U Channel in Sampaloc, Manila" loading="lazy"><div class="plate"><span class="num">01</span><h2>Digital LED Billboards.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">4K LED screens on Metro Manila’s busiest corridors, with content you can change in real time.</p>
@@ -294,7 +297,7 @@
 </section>
 <section class="band chap" id="mall-advertising" data-bg="#F3F5F9" data-fg="#11213D" data-i="5" style="--bandbg:#F3F5F9;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="media media--plain"><div class="plate"><span class="num">06</span><h2>Mall Advertising.</h2></div></div>
+    <div class="media media--trio"><img src="/ux/photos/mall-greenhills-368.webp" alt="U Channel LED poster displays at Greenhills Shopping Center" loading="lazy"><img src="/ux/photos/mall-greenhills-373.webp" alt="U Channel LED poster displays at Greenhills Shopping Center" loading="lazy"><img src="/ux/photos/mall-greenhills-383.webp" alt="U Channel LED poster displays at Greenhills Shopping Center" loading="lazy"><div class="plate"><span class="num">06</span><h2>Mall Advertising.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">Atrium screens, kiosks and escalator media where shoppers are ready to buy.</p>
@@ -318,7 +321,7 @@
 </section>
 <section class="band chap on-dark" id="custom-advertising" data-bg="#11213D" data-fg="#FFFFFF" data-i="6" style="--bandbg:#11213D;--bandfg:#FFFFFF">
   <div class="wrap"><div class="in">
-    <div class="media media--plain"><div class="plate"><span class="num">07</span><h2>Custom Advertising.</h2></div></div>
+    <div class="media"><img src="/ux/photos/custom-ribshack-college-point.webp" alt="Custom LED facade installed by U Channel at Ribshack College Point" loading="lazy"><div class="plate"><span class="num">07</span><h2>Custom Advertising.</h2></div></div>
     <div class="chap__grid">
       <div>
         <p class="desc">3D anamorphic screens and custom installations, designed and built by our own team.</p>
@@ -393,14 +396,15 @@
 <script>
 (function(){
 const {$,$$,HAS_GSAP,REDUCED,FINE}=UC;
-const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "ph.svg", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "/ux/sites/s013.webp", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "ph.svg", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "ph.svg", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
+const SOL=[{"slug": "digital-led-billboards", "title": "Digital LED Billboards", "img": "/ux/photos/led-sampaloc-night.webp|LED screen installed by U Channel in Sampaloc, Manila", "tag": "ULTRA-HD DYNAMIC SCREENS", "short": "Digital LED"}, {"slug": "static-billboards", "title": "Static Billboards", "img": "/ux/sites/s013.webp", "tag": "HIGH-IMPACT HIGHWAY PRESENCE", "short": "Static"}, {"slug": "transit-advertising", "title": "Transit Advertising", "img": "ph.svg", "tag": "MOBILE AUDIENCE ENGAGEMENT", "short": "Transit"}, {"slug": "building-wraps", "title": "Building Wraps", "img": "ph.svg", "tag": "SKYLINE-DOMINATING CANVASES", "short": "Building Wraps"}, {"slug": "pole-banners", "title": "Pole Banners", "img": "ph.svg", "tag": "SEQUENTIAL STREET CANOPIES", "short": "Pole Banners"}, {"slug": "mall-advertising", "title": "Mall Advertising", "img": "trio:/ux/photos/mall-greenhills-368.webp,/ux/photos/mall-greenhills-373.webp,/ux/photos/mall-greenhills-383.webp|U Channel LED poster displays at Greenhills Shopping Center", "tag": "HIGH-INTENT POINT OF PURCHASE", "short": "Mall"}, {"slug": "custom-advertising", "title": "Custom Advertising", "img": "/ux/photos/custom-ribshack-college-point.webp|Custom LED facade installed by U Channel at Ribshack College Point", "tag": "3D ANAMORPHIC & EXPERIENTIAL", "short": "Custom"}];
 if(HAS_GSAP&&!REDUCED){
   gsap.from('.blk li',{scale:.6,opacity:0,duration:.8,ease:'back.out(1.7)',stagger:{each:.05,grid:'auto',from:'start'},delay:.3});
   gsap.from('.hero h1',{y:40,opacity:0,duration:1,ease:'expo.out',delay:.2});
   $$('.chap').forEach(ch=>{
     const m=$('.media',ch);
     gsap.fromTo(m,{clipPath:'inset(10% 8% 10% 8% round 40px)'},{clipPath:'inset(0% 0% 0% 0% round 28px)',ease:'none',scrollTrigger:{trigger:m,start:'top 95%',end:'top 35%',scrub:true}});
-    gsap.fromTo($$('img,video',m),{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:m,start:'top bottom',end:'bottom top',scrub:true}});
+    if(m.classList.contains('media--trio')) gsap.from($$('img',m),{y:80,rotate:(i)=>[-4,2,5][i%3],opacity:0,duration:.9,ease:'back.out(1.6)',stagger:.1,scrollTrigger:{trigger:m,start:'top 75%'}});
+    else gsap.fromTo($$('img,video',m),{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:m,start:'top bottom',end:'bottom top',scrub:true}});
     gsap.from($('.plate',m),{xPercent:-100,duration:.9,ease:'expo.out',scrollTrigger:{trigger:m,start:'top 60%'}});
     gsap.from($$('.spec',ch),{y:40,rotate:()=>gsap.utils.random(-8,8),opacity:0,duration:.8,ease:'back.out(1.7)',stagger:.08,scrollTrigger:{trigger:$('.specs',ch),start:'top 85%'}});
   });
