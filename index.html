@@ -337,6 +337,14 @@ form.qf{background:var(--white);color:var(--navy);border-radius:24px;padding:cla
 img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 .is-ph::after{content:"Photo coming soon";position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2;padding:9px 16px;border-radius:999px;background:#FFFFFF;color:#5A6785;font-family:var(--label,"Andika"),sans-serif;font-size:12px;font-weight:700;line-height:1;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;pointer-events:none;box-shadow:0 6px 18px -8px rgba(17,33,61,.35)}
 
+.rent__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.rent__side{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.gallery.rent__grid{margin-top:clamp(40px,5vw,64px)}
+.rent__grid .gfig{height:clamp(220px,24vw,340px)}
+@media (max-width:900px){ .rent__head{grid-template-columns:minmax(0,1fr)} .gallery.rent__grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .gallery.rent__grid{grid-template-columns:minmax(0,1fr)} }
+.rent__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:clamp(48px,7vw,96px)}
+.rent__bar + .gallery.rent__grid{margin-top:24px}
 </style>
 
 <!-- shared logo symbol -->
@@ -445,11 +453,14 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <div class="stat" style="background:#FB9B51"><b data-count="177">177</b><span>sites nationwide</span></div>
       <div class="stat" style="background:#11213D;color:#FFFFFF"><b data-count="3">3</b><span>island groups: Luzon, Visayas, Mindanao</span></div>
     </div>
-    <div class="gallery" id="gallery">
-      <figure class="gfig wide" data-cursor="Look"><img src="/ux/sites/s013.webp" alt="EDSA Pasay F.B. Harrison (Frame A) billboard" loading="lazy"><span class="credit">Imagery © Google</span><figcaption><small>EDSA · Luzon</small><strong>EDSA Pasay F.B. Harrison (Frame A)</strong><span>Pasay City, Metro Manila</span></figcaption></figure>
-      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/led-dimasalang.webp" alt="LED screen on a corner building in Dimasalang, Manila" loading="lazy"><figcaption><small>LED installation</small><strong>Dimasalang, Manila</strong><span>Built and installed by U Channel</span></figcaption></figure>
+    <div class="rent__bar" id="rentals"><h3 class="h-m">LED rentals for <span style="color:var(--blue)">your event.</span></h3><a href="#contact" class="pill pill--navy" data-cursor="Let's talk">Rent a screen</a></div>
+    <div class="gallery rent__grid" id="gallery">
+      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-grand-westside.webp" alt="LED poster screens at an event at Grand Westside Hotel" loading="lazy"><figcaption><small>LED rental</small><strong>Grand Westside Hotel</strong><span>LED posters for a hotel event</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-wolfgang-bgc.webp" alt="Curved LED wall set up by U Channel at Wolf Gang, BGC" loading="lazy"><figcaption><small>LED rental</small><strong>Wolf Gang, BGC</strong><span>Curved LED wall for a private party</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-smx.webp" alt="LED screens at an exhibition booth at SMX Convention Center" loading="lazy"><figcaption><small>LED rental</small><strong>SMX Convention Center</strong><span>Exhibition booth screens</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-club-stage.webp" alt="Stage LED wall rented from U Channel at Club House, BGC" loading="lazy"><figcaption><small>LED rental</small><strong>Club House, BGC</strong><span>Stage LED wall for a party</span></figcaption></figure>
+      <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-ballroom-operator.webp" alt="U Channel technician running LED screens at an awards night" loading="lazy"><figcaption><small>LED rental</small><strong>Dr. Toledo Awarding</strong><span>Awards night, run on site by our crew</span></figcaption></figure>
       <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-conrad.webp" alt="U Channel LED screens at an event at Conrad Manila" loading="lazy"><figcaption><small>LED rental</small><strong>Conrad Manila</strong><span>Event screens, set up and run on site</span></figcaption></figure>
-      <figure class="gfig wide" data-cursor="Look"><img src="/ux/photos/led-sampaloc-night.webp" alt="U Channel LED screen on a building in Sampaloc at night" loading="lazy"><figcaption><small>LED installation</small><strong>Sampaloc, Manila</strong><span>Full-colour LED, day and night</span></figcaption></figure>
     </div>
   </div></div>
 </section>
@@ -486,9 +497,9 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       </div>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/photos/led-dimasalang.webp" alt="LED screen installed by U Channel in Dimasalang, Manila" loading="lazy"></div><div class="card__body"><small>ULTRA-HD DYNAMIC SCREENS</small><h3>Digital LED Billboards</h3><p>Bright, high-resolution content you can update in real time across high-density corridors.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/sites/sm/s030.webp" alt="U Channel static billboard on EDSA" loading="lazy"><span class="credit">Imagery © Google</span></div><div class="card__body"><small>HIGH-IMPACT HIGHWAY PRESENCE</small><h3>Static Billboards</h3><p>Large-format displays along major transit arteries, delivering brand authority day and night.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#6C97D3;color:#11213D"><span class="card__num">03</span></div><div class="card__body"><small>MOBILE AUDIENCE ENGAGEMENT</small><h3>Transit Advertising</h3><p>Vehicle wraps and screens that move your message everywhere commuters travel.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/photos/transit-jeepney-topload.webp" alt="Jeepney top-load advertising by U Channel" loading="lazy"></div><div class="card__body"><small>MOBILE AUDIENCE ENGAGEMENT</small><h3>Transit Advertising</h3><p>Vehicle wraps and screens that move your message everywhere commuters travel.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#FFC49C;color:#11213D"><span class="card__num">04</span></div><div class="card__body"><small>SKYLINE-DOMINATING CANVASES</small><h3>Building Wraps</h3><p>Mega-scale facade graphics that turn landmark architecture into brand spectacles.</p><span class="card__go">View solution →</span></div></a>
-      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media card__media--plain" style="background:#FF8732;color:#FFFFFF"><span class="card__num">05</span></div><div class="card__body"><small>SEQUENTIAL STREET CANOPIES</small><h3>Pole Banners</h3><p>Double-sided street banners lining premier avenues for high-repetition reach.</p><span class="card__go">View solution →</span></div></a>
+      <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/photos/pole-lamp-post-banner.webp" alt="Lamp post banner by U Channel" loading="lazy" style="object-position:center 35%"></div><div class="card__body"><small>SEQUENTIAL STREET CANOPIES</small><h3>Pole Banners</h3><p>Double-sided street banners lining premier avenues for high-repetition reach.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/photos/mall-greenhills-373.webp" alt="U Channel LED poster display at Greenhills Shopping Center" loading="lazy"></div><div class="card__body"><small>HIGH-INTENT POINT OF PURCHASE</small><h3>Mall Advertising</h3><p>Atrium screens, kiosks and escalator media at the moment of purchase.</p><span class="card__go">View solution →</span></div></a>
       <a class="card" href="/advertising-solutions/" data-cursor="View"><div class="card__media"><img src="/ux/photos/custom-ribshack-college-point.webp" alt="Custom LED facade by U Channel at Ribshack College Point" loading="lazy"></div><div class="card__body"><small>3D ANAMORPHIC &amp; EXPERIENTIAL</small><h3>Custom Advertising</h3><p>Bespoke 3D displays and activations, built by our own crew to create moments people share.</p><span class="card__go">View solution →</span></div></a>
       <a class="card card--cta" href="#contact" data-cursor="Let's talk">
