@@ -25,7 +25,15 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://uchannel.ph/#organization", "name": "U Channel", "alternateName": "U Channel Advertising Corporation", "url": "https://uchannel.ph/", "logo": "https://uchannel.ph/assets/logo.png", "image": "https://uchannel.ph/ux/og-image.png", "description": "U Channel is a next-generation out-of-home media and advertising company operating premium LED billboards and digital displays across the Philippines.", "telephone": "+639084558946", "email": "sales@uchannel.ph", "address": {"@type": "PostalAddress", "streetAddress": "18th Floor, Octagon Center, San Miguel Avenue", "addressLocality": "Pasig City", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "geo": {"@type": "GeoCoordinates", "latitude": "14.5832", "longitude": "121.0610"}, "areaServed": ["Metro Manila", "Cebu", "Davao", "Iloilo", "Cagayan de Oro", "Philippines"], "serviceType": ["Billboard Advertising", "LED Display Advertising", "Out-of-Home Advertising", "Digital Campaigns", "Brand Activations", "Transit Advertising"], "parentOrganization": {"@type": "Organization", "name": "RUCS Konsult Corp."}, "sameAs": ["https://www.linkedin.com/company/uchannel/"]}, {"@type": "WebSite", "@id": "https://uchannel.ph/#website", "url": "https://uchannel.ph/", "name": "U Channel", "publisher": {"@id": "https://uchannel.ph/#organization"}}]}</script>
 <meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="stylesheet" href="/ux/fonts.css">
+<link rel="preload" href="/ux/fonts/poppins-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/ux/fonts/poppins-latin-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(/ux/fonts/poppins-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(/ux/fonts/poppins-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(/ux/fonts/poppins-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(/ux/fonts/poppins-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url(/ux/fonts/poppins-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:italic;font-weight:700;font-display:swap;src:url(/ux/fonts/poppins-latin-700-italic.woff2) format('woff2')}
+@font-face{font-family:'Andika';font-style:normal;font-weight:700;font-display:swap;src:url(/ux/fonts/andika-latin-700-normal.woff2) format('woff2')}</style>
 <style>
 /* Layout: full-bleed colour bands that the page "drenches" between as you scroll; content on a 1360px track. */
 :root{
@@ -345,6 +353,13 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 @media (max-width:560px){ .gallery.rent__grid{grid-template-columns:minmax(0,1fr)} }
 .rent__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:clamp(48px,7vw,96px)}
 .rent__bar + .gallery.rent__grid{margin-top:24px}
+.hero__center h1 .line:last-child{padding-top:.08em;line-height:1.04}
+.hero__center h1 .mbr{display:none}
+@media (min-width:901px){ .hero__center h1{font-size:min(6.2vw,10vh,108px)} }
+@media (max-width:600px){ .hero__center h1 .mbr{display:inline} }
+.hero__center h1 .hero__hl{font-style:italic;font-weight:700;letter-spacing:-.045em;color:var(--navy);background:var(--orange);padding:0 .12em .02em .05em;white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero__center h1 .hero__hl::before{display:none}
+.mark{font-style:italic;font-weight:700;color:var(--navy);background:var(--orange);padding:0 .12em .02em .05em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 </style>
 
 <!-- shared logo symbol -->
@@ -356,7 +371,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <path d="M260 178 L370 142 V360 A135 135 0 0 1 200 490.4 C212 462 235 430 235 385 A25 25 0 0 0 260 360 Z" fill="#FFFFFF" stroke="#11213D" stroke-width="10" paint-order="stroke" stroke-linejoin="round"/>
     </symbol>
     <symbol id="lockup" viewBox="0 0 540 136">
-      <image href="/ux/logos/u-mark.png" x="0" y="0" width="94" height="135" preserveAspectRatio="xMidYMid meet"/>
+      <image href="/ux/logos/u-mark.webp" x="0" y="0" width="94" height="135" preserveAspectRatio="xMidYMid meet"/>
       <text x="126" y="77" font-family="Poppins, sans-serif" font-weight="600" font-size="76" textLength="400" lengthAdjust="spacing" fill="#FFFFFF">CHANNEL</text>
       <text x="127" y="112" font-family="Poppins, sans-serif" font-weight="500" font-size="30" textLength="398" lengthAdjust="spacing" fill="#FFFFFF">DIGITECH INNOVATION</text>
     </symbol>
@@ -394,13 +409,12 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 <!-- ================= HERO ================= -->
 <section class="hero" id="hero" data-bg="#11213D" data-fg="#FFFFFF" aria-labelledby="heroH1">
   <div class="hero__stage" id="heroStage">
-    <img class="hero__bg" id="heroBg" src="/ux/photos/hero-night.webp" srcset="/ux/photos/hero-night-sm.webp 1000w, /ux/photos/hero-night.webp 2000w" sizes="100vw" alt="A U Channel billboard lit up at night above a busy intersection" fetchpriority="high" decoding="async">
+    <img class="hero__bg" id="heroBg" src="/ux/photos/hero-night.webp" srcset="/ux/photos/hero-night-sm.webp 1000w, /ux/photos/hero-night-md.webp 1500w, /ux/photos/hero-night.webp 2000w" sizes="100vw" alt="A U Channel billboard lit up at night above a busy intersection" fetchpriority="high" decoding="async">
     <div class="hero__shade" aria-hidden="true"></div>
-    <div class="hsteps" id="hsteps" aria-hidden="true"></div>
     <div class="hscat hscat--tl" id="hscatTL" aria-hidden="true"></div>
     <div class="hscat hscat--tr" id="hscatTR" aria-hidden="true"></div>
     <div class="hero__center" id="heroCenter">
-      <h1 id="heroH1"><span class="line"><span>Where brands</span></span><span class="line"><span>are built to</span></span><span class="line"><span>be <span class="seen">seen</span><span class="dot"></span></span></span></h1>
+      <h1 id="heroH1"><span class="line"><span>Where <br class="mbr">brands are</span></span><span class="line"><span><span class="hl hero__hl">built to be seen.</span></span></span></h1>
       <p class="hero__sub" id="heroSub">LED screens and billboards across the Philippines.</p>
       <div class="hero__ctas">
         <a href="#contact" class="pill pill--orange" data-cursor="Let's talk">Get a Quote <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -445,7 +459,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
         <h2 class="h-l">Where brands are <span class="hl" id="aboutHl">built to be seen.</span></h2>
         <p class="about__words" id="aboutWords">Founded in 2022 by Rico Uy, U Channel is built on over 28 years of LED and Out-of-Home experience. We supply, build and run the screens and billboards that help brands meet their audiences across the Philippines.</p>
       </div>
-      <img class="bigU" id="bigU" src="/ux/logos/u-mark.png" alt="U Channel logo" width="244" height="352">
+      <img class="bigU" id="bigU" src="/ux/logos/u-mark.webp" alt="U Channel logo" width="244" height="352">
     </div>
     <div class="stats">
       <div class="stat" style="background:#6C97D3"><b data-count="28" data-suffix="+">28+</b><span>years in LED and OOH</span></div>
@@ -453,7 +467,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <div class="stat" style="background:#FB9B51"><b data-count="177">177</b><span>sites nationwide</span></div>
       <div class="stat" style="background:#11213D;color:#FFFFFF"><b data-count="3">3</b><span>island groups: Luzon, Visayas, Mindanao</span></div>
     </div>
-    <div class="rent__bar" id="rentals"><h3 class="h-m">LED rentals for <span style="color:var(--blue)">your event.</span></h3><a href="#contact" class="pill pill--navy" data-cursor="Let's talk">Rent a screen</a></div>
+    <div class="rent__bar" id="rentals"><h3 class="h-m">LED rentals for <span class="mark">your event.</span></h3><a href="#contact" class="pill pill--navy" data-cursor="Let's talk">Rent a screen</a></div>
     <div class="gallery rent__grid" id="gallery">
       <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-grand-westside.webp" alt="LED poster screens at an event at Grand Westside Hotel" loading="lazy"><figcaption><small>LED rental</small><strong>Grand Westside Hotel</strong><span>LED posters for a hotel event</span></figcaption></figure>
       <figure class="gfig" data-cursor="Look"><img src="/ux/photos/rental-wolfgang-bgc.webp" alt="Curved LED wall set up by U Channel at Wolf Gang, BGC" loading="lazy"><figcaption><small>LED rental</small><strong>Wolf Gang, BGC</strong><span>Curved LED wall for a private party</span></figcaption></figure>
@@ -542,7 +556,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
   <div class="wrap"><div class="in">
     <div class="locs__head">
       <div>
-        <h2 class="h-xl" style="font-size:clamp(56px,8vw,120px)">Prime<br><span style="color:var(--blue)">Locations.</span></h2>
+        <h2 class="h-xl" style="font-size:clamp(56px,8vw,120px)">Prime<br><span class="mark">Locations.</span></h2>
         <p class="lede" style="margin-top:20px">177 sites, including 5 digital LED screens, from EDSA and the expressways of Luzon to Cebu, Bacolod, Davao and Zamboanga.</p>
       </div>
       <div class="counts">
@@ -577,7 +591,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
       <button class="key" type="button" style="background:#FB9B51"><b>01</b><span><strong>Tailored LED Solutions</strong><p>Screens specified for your site, audience and budget.</p></span></button>
       <button class="key" type="button" style="background:#FFC49C"><b>02</b><span><strong>Customer-First Service</strong><p>One team that picks up before, during and long after launch.</p></span></button>
       <button class="key" type="button" style="background:#6C97D3"><b>03</b><span><strong>End-to-End Expertise</strong><p>Consultation, design, supply, installation and maintenance under one roof.</p></span></button>
-      <button class="key" type="button" style="background:#FFFFFF"><b style="color:var(--orange)">04</b><span><strong>Trusted Industry Experience</strong><p>28+ years in LED and OOH behind every campaign.</p></span></button>
+      <button class="key" type="button" style="background:#FFFFFF"><b style="color:var(--blue)">04</b><span><strong>Trusted Industry Experience</strong><p>28+ years in LED and OOH behind every campaign.</p></span></button>
     </div>
   </div></div>
 </section>
@@ -692,11 +706,7 @@ if(FINE && !REDUCED){
 
 /* ---------------- hero: photo + stepped block accent ---------------- */
 (function(){
-  const box=$('#hsteps'); const COLS=['#6C97D3','#FFC49C','#FFAB72','#FB9B51','#FF8732'];
   const blocks=[];
-  COLS.forEach((c,i)=>{ const col=document.createElement('div'); col.className='col';
-    for(let k=0;k<=i;k++){ const b=document.createElement('i'); b.style.setProperty('--c',(i===COLS.length-1&&k===0)?'#FFFFFF':c); col.appendChild(b); blocks.push(b); }
-    box.appendChild(col); });
   const scat=(el,list)=>list.forEach(([x,y,c])=>{ const b=document.createElement('i'); b.style.setProperty('--x',x); b.style.setProperty('--y',y); b.style.setProperty('--c',c); el.appendChild(b); blocks.push(b); });
   scat($('#hscatTL'),[[0,0,'#6C97D3'],[1,0,'#FFC49C'],[1,1,'#FB9B51'],[3,0,'#30579C']]);
   scat($('#hscatTR'),[[3,0,'#FF8732'],[2,1,'#FFAB72'],[3,1,'#FFC49C'],[0,2,'#6C97D3'],[3,2,'#FFFFFF']]);
@@ -708,9 +718,9 @@ if(FINE && !REDUCED){
     gsap.from('#heroBg',{scale:1.12,opacity:0,duration:1.6,ease:'expo.out'});
     gsap.from('#heroH1 .line > span',{yPercent:110,duration:1.1,ease:'expo.out',stagger:.1,delay:.3});
     gsap.from('#heroSub, .hero__ctas > *, #heroProof',{y:20,opacity:0,duration:.8,stagger:.08,delay:.7,ease:'expo.out'});
-    gsap.from('#hsteps i, .hscat i',{scale:0,duration:.6,ease:'back.out(2.2)',stagger:{each:.04,from:'random'},delay:.9});
+    gsap.from('.hscat i',{scale:0,duration:.6,ease:'back.out(2.2)',stagger:{each:.04,from:'random'},delay:.9});
     gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.5}})
-      .to('#hsteps, .hscat',{y:-60,opacity:0,ease:'none'},0)
+      .to('.hscat',{y:-60,opacity:0,ease:'none'},0)
       .to('#heroBg',{yPercent:6,scale:1.06,ease:'none'},0)
       .to('#heroCenter',{y:-90,opacity:0,ease:'none'},0);
   }
