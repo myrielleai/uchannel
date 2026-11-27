@@ -388,6 +388,30 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 @media (max-width:900px){ .lmap{grid-template-columns:minmax(0,1fr)} .lmap__geo{width:min(100%,260px)} }
 @media (max-width:560px){ .lrow{grid-template-columns:88px minmax(0,1fr) auto;gap:12px;padding:10px 14px 10px 10px} .lrow__img{width:88px;height:72px} .pin em{font-size:11px;padding:3px 7px} }
 @media (prefers-reduced-motion:reduce){ .pin--main::after{animation:none} }
+/* ---------- locations: site photo wall ---------- */
+.lwall__filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(28px,4vw,48px)}
+.lf{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;border:2px solid var(--navy);background:transparent;color:var(--navy);font:inherit;font-size:16px;font-weight:800;letter-spacing:-.02em;cursor:pointer;transition:background .2s,color .2s}
+.lf small{font-size:13px;font-weight:700;opacity:.75}
+.lf[aria-pressed="true"]{background:var(--navy);color:#FFFFFF}
+.lf[aria-pressed="true"] small{color:var(--orange);opacity:1}
+.lwall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:22px}
+.site{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#FFFFFF;color:var(--navy);box-shadow:0 20px 40px -30px rgba(17,33,61,.5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.site:hover,.site:focus-visible{transform:translateY(-4px);box-shadow:0 26px 46px -26px rgba(17,33,61,.6)}
+.site__img{position:relative;aspect-ratio:4/3;background:var(--navy2);overflow:hidden}
+.site__img img{width:100%;height:100%;object-fit:cover;display:block}
+.site__tag{position:absolute;left:10px;top:10px;padding:4px 10px;border-radius:999px;background:#FFFFFF;color:var(--navy);font-size:11px;font-weight:800}
+.site__tag--led{background:var(--navy);color:var(--orange)}
+.site__txt{display:flex;flex-direction:column;gap:3px;padding:12px 14px 14px}
+.site__txt strong{font-size:15px;line-height:1.2;font-weight:800;letter-spacing:-.02em}
+.site__txt span{font-size:12px;line-height:1.35;color:var(--ink)}
+.lwall[data-show="all"] .site:not([data-top]),
+.lwall[data-show="luzon"] .site:not([data-r="luzon"]),
+.lwall[data-show="visayas"] .site:not([data-r="visayas"]),
+.lwall[data-show="mindanao"] .site:not([data-r="mindanao"]){display:none}
+.lwall__foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:26px}
+.lwall__credit{font-size:11px;color:var(--muted)}
+@media (max-width:1000px){ .lwall{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:700px){ .lwall{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px} .site__txt{padding:10px 10px 12px} .site__txt strong{font-size:13.5px} .lf{min-height:44px;padding:0 14px;font-size:14px} }
 </style>
 
 <!-- shared logo symbol -->
@@ -587,31 +611,42 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
         <h2 class="h-xl" style="font-size:clamp(56px,8vw,120px)">Prime<br><span class="mark">Locations.</span></h2>
         <p class="lede" style="margin-top:20px">177 sites, including 5 digital LED screens, from EDSA and the expressways of Luzon to Cebu, Bacolod, Davao and Zamboanga.</p>
       </div>
-      <a href="/locations" class="pill pill--navy" data-cursor="Explore">Explore all 177 sites on the map →</a>
     </div>
-    <div class="lmap">
-      <div class="lmap__map">
-        <div class="lmap__geo"><img src="/ux/phmap-navy.webp" alt="Map of the Philippines with U Channel's main billboard hubs marked" width="628" height="999" loading="lazy"><span class="pin pin--luzon pin--main" style="left:43%;top:42%"><em>Metro Manila</em></span><span class="pin pin--luzon" style="left:44%;top:45%" aria-hidden="true"></span><span class="pin pin--luzon" style="left:42%;top:39%" aria-hidden="true"></span><span class="pin pin--visayas pin--main" style="left:65%;top:63%"><em>Cebu</em></span><span class="pin pin--visayas" style="left:58%;top:63%" aria-hidden="true"></span><span class="pin pin--visayas" style="left:53%;top:58%" aria-hidden="true"></span><span class="pin pin--mindanao pin--main" style="left:83%;top:80%"><em>Davao</em></span><span class="pin pin--mindanao" style="left:71%;top:76%" aria-hidden="true"></span><span class="pin pin--mindanao" style="left:53%;top:85%" aria-hidden="true"></span></div>
-        <div class="lmap__legend"><span><b>177</b> sites</span><span><b>5</b> digital LED</span><span><b>3</b> island groups</span></div>
-      </div>
-      <div class="lmap__rows">
-        <a class="lrow lrow--luzon" href="/locations" data-cursor="View">
-          <span class="lrow__img"><img src="/ux/sites/s013.webp" alt="EDSA billboard in Pasay" loading="lazy" width="132" height="96"></span>
-          <span class="lrow__txt"><strong>Luzon</strong><span>EDSA · SLEX · NLEX · C5 · Skyway</span><i class="lrow__bar"><i style="width:100%;background:#6C97D3"></i></i></span>
-          <span class="lrow__n"><b>103</b><small>sites</small></span>
-        </a>
-        <a class="lrow lrow--visayas" href="/locations" data-cursor="View">
-          <span class="lrow__img"><img src="/ux/sites/s118.webp" alt="Billboard at Fuente Osmeña, Cebu" loading="lazy" width="132" height="96"></span>
-          <span class="lrow__txt"><strong>Visayas</strong><span>Cebu · Bacolod · Iloilo · Leyte</span><i class="lrow__bar"><i style="width:45%;background:#FB9B51"></i></i></span>
-          <span class="lrow__n"><b>46</b><small>sites</small></span>
-        </a>
-        <a class="lrow lrow--mindanao" href="/locations" data-cursor="View">
-          <span class="lrow__img"><img src="/ux/sites/s186.webp" alt="Billboard on Ecoland Drive, Davao" loading="lazy" width="132" height="96"></span>
-          <span class="lrow__txt"><strong>Mindanao</strong><span>Davao · Cagayan de Oro · Zamboanga</span><i class="lrow__bar"><i style="width:27%;background:#FF8732"></i></i></span>
-          <span class="lrow__n"><b>28</b><small>sites</small></span>
-        </a>
-        <p class="lmap__credit">Site photos: Imagery © Google</p>
-      </div>
+    <div class="lwall__filters" role="group" aria-label="Show sites by region">
+      <button type="button" class="lf" data-f="all" aria-pressed="true">All <small>177</small></button>
+      <button type="button" class="lf" data-f="luzon" aria-pressed="false">Luzon <small>103</small></button>
+      <button type="button" class="lf" data-f="visayas" aria-pressed="false">Visayas <small>46</small></button>
+      <button type="button" class="lf" data-f="mindanao" aria-pressed="false">Mindanao <small>28</small></button>
+    </div>
+    <div class="lwall" id="lwall" data-show="all">
+      <a class="site" href="/locations" data-r="luzon" data-top><span class="site__img"><img src="/ux/sites/sm/led03.webp" alt="EDSA GA Tower (NB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag site__tag--led">Digital LED</span></span><span class="site__txt"><strong>EDSA GA Tower (NB)</strong><span>Mandaluyong City · 282 × 78 ft per panel</span></span></a>
+      <a class="site" href="/locations" data-r="luzon" data-top><span class="site__img"><img src="/ux/sites/sm/led01.webp" alt="C5 Kalayaan (NB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag site__tag--led">Digital LED</span></span><span class="site__txt"><strong>C5 Kalayaan (NB)</strong><span>Makati City · 40 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="luzon" data-top><span class="site__img"><img src="/ux/sites/sm/s083.webp" alt="SLEX 1 Calamba Tollgate Laguna billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>SLEX 1 Calamba Tollgate Laguna</strong><span>Calamba · 30 × 30 ft</span></span></a>
+      <a class="site" href="/locations" data-r="luzon" data-top><span class="site__img"><img src="/ux/sites/sm/s071.webp" alt="NLEX · Borol, Balagtas Bulacan (SB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>NLEX · Borol, Balagtas Bulacan (SB)</strong><span>Balagtas · 82 × 58 ft</span></span></a>
+      <a class="site" href="/locations" data-r="luzon"><span class="site__img"><img src="/ux/sites/sm/led02.webp" alt="Upper McKinley, Taguig billboard site" loading="lazy" width="400" height="300"><span class="site__tag site__tag--led">Digital LED</span></span><span class="site__txt"><strong>Upper McKinley, Taguig</strong><span>Taguig City · 28.3 × 43 ft</span></span></a>
+      <a class="site" href="/locations" data-r="luzon"><span class="site__img"><img src="/ux/sites/sm/led05.webp" alt="Greenhills Shopping Center LED Posters billboard site" loading="lazy" width="400" height="300"><span class="site__tag site__tag--led">Digital LED</span></span><span class="site__txt"><strong>Greenhills Shopping Center LED Posters</strong><span>San Juan City · 640 × 1,920 mm, 20 units</span></span></a>
+      <a class="site" href="/locations" data-r="luzon"><span class="site__img"><img src="/ux/sites/sm/s046.webp" alt="Skyway Paco to Makati (SB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Skyway Paco to Makati (SB)</strong><span>Manila · 80 × 60 ft</span></span></a>
+      <a class="site" href="/locations" data-r="luzon"><span class="site__img"><img src="/ux/sites/sm/s050.webp" alt="España Blvd. Sampaloc Manila (NB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>España Blvd. Sampaloc Manila (NB)</strong><span>Manila · 60 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas" data-top><span class="site__img"><img src="/ux/sites/sm/s118.webp" alt="Cebu · Fuente Osmeña billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Cebu · Fuente Osmeña</strong><span>Cebu City · 37 × 42 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas" data-top><span class="site__img"><img src="/ux/sites/sm/s162.webp" alt="Bacolod City, Araneta Street (SB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Bacolod City, Araneta Street (SB)</strong><span>Bacolod · 50 × 60 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas" data-top><span class="site__img"><img src="/ux/sites/sm/s157.webp" alt="Iloilo Airport Access Road (Entrance) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Iloilo Airport Access Road (Entrance)</strong><span>Santa Barbara · 30 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas" data-top><span class="site__img"><img src="/ux/sites/sm/s148.webp" alt="Airport Road, Tacloban City billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Airport Road, Tacloban City</strong><span>Tacloban City · 40 × 20 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas"><span class="site__img"><img src="/ux/sites/sm/s153.webp" alt="Tagbilaran Port, Bohol billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Tagbilaran Port, Bohol</strong><span>Tagbilaran City · 22.9 × 32.8 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas"><span class="site__img"><img src="/ux/sites/sm/s155.webp" alt="Calbayog, Samar billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Calbayog, Samar</strong><span>Calbayog · 20 × 20 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas"><span class="site__img"><img src="/ux/sites/sm/s119.webp" alt="Mabolo, Cebu billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Mabolo, Cebu</strong><span>Cebu City · 25 × 41 ft</span></span></a>
+      <a class="site" href="/locations" data-r="visayas"><span class="site__img"><img src="/ux/sites/sm/s120.webp" alt="Cebu Airport Arrival Rd. billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Cebu Airport Arrival Rd.</strong><span>Lapu-Lapu</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao" data-top><span class="site__img"><img src="/ux/sites/sm/s186.webp" alt="Davao City, Ecoland Dr. billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Davao City, Ecoland Dr.</strong><span>Davao City · 40 × 50 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao" data-top><span class="site__img"><img src="/ux/sites/sm/s188.webp" alt="National Highway, Lapasan, CDO billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>National Highway, Lapasan, CDO</strong><span>Cagayan de Oro City · 62 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao" data-top><span class="site__img"><img src="/ux/sites/sm/s197.webp" alt="Pilar Street, Zamboanga City billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Pilar Street, Zamboanga City</strong><span>Zamboanga City · 41 × 36 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao" data-top><span class="site__img"><img src="/ux/sites/sm/s171.webp" alt="Davao City, Agdao Flyover (SB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Davao City, Agdao Flyover (SB)</strong><span>Davao City · 50 × 50 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao"><span class="site__img"><img src="/ux/sites/sm/s195.webp" alt="Pagadian · Estar Building Rizal Ave billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Pagadian · Estar Building Rizal Ave</strong><span>Pagadian City · 40 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao"><span class="site__img"><img src="/ux/sites/sm/s172.webp" alt="Davao City, Agdao Flyover (NB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Davao City, Agdao Flyover (NB)</strong><span>Davao City · 50 × 50 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao"><span class="site__img"><img src="/ux/sites/sm/s173.webp" alt="J.P. Laurel Ave., Davao City billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>J.P. Laurel Ave., Davao City</strong><span>Davao City · 50 × 40 ft</span></span></a>
+      <a class="site" href="/locations" data-r="mindanao"><span class="site__img"><img src="/ux/sites/sm/s174.webp" alt="Davao-MacArthur Hwy. Junction Matina (NB) billboard site" loading="lazy" width="400" height="300"><span class="site__tag">Static</span></span><span class="site__txt"><strong>Davao-MacArthur Hwy. Junction Matina (NB)</strong><span>Davao City · 50 × 40 ft</span></span></a>
+    </div>
+    <div class="lwall__foot">
+      <a href="/locations" class="pill pill--navy" data-cursor="Explore">Explore all 177 sites on the map →</a>
+      <span class="lwall__credit">Site photos: Imagery © Google</span>
     </div>
   </div></div>
 </section>
@@ -758,6 +793,16 @@ if(FINE && !REDUCED){
       .to('#heroBg',{yPercent:6,scale:1.06,ease:'none'},0)
       .to('#heroCenter',{y:-90,opacity:0,ease:'none'},0);
   }
+})();
+
+/* ---------------- locations: site wall filter ---------------- */
+(function(){
+  const wall=$('#lwall'); if(!wall) return;
+  $$('.lf').forEach(b=>b.addEventListener('click',()=>{
+    $$('.lf').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+    wall.dataset.show=b.dataset.f;
+    if(HAS_GSAP&&!REDUCED) gsap.fromTo($$('.site',wall).filter(c=>c.offsetParent),{y:24,opacity:0},{y:0,opacity:1,duration:.5,stagger:.04,ease:'expo.out'});
+  }));
 })();
 
 /* ---------------- marquee ---------------- */
