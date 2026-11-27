@@ -353,13 +353,41 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 @media (max-width:560px){ .gallery.rent__grid{grid-template-columns:minmax(0,1fr)} }
 .rent__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:clamp(48px,7vw,96px)}
 .rent__bar + .gallery.rent__grid{margin-top:24px}
-.hero__center h1 .line:last-child{padding-top:.08em;line-height:1.04}
-.hero__center h1 .mbr{display:none}
-@media (min-width:901px){ .hero__center h1{font-size:min(6.2vw,10vh,108px)} }
-@media (max-width:600px){ .hero__center h1 .mbr{display:inline} }
-.hero__center h1 .hero__hl{font-style:italic;font-weight:700;letter-spacing:-.045em;color:var(--navy);background:var(--orange);padding:0 .12em .02em .05em;white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-.hero__center h1 .hero__hl::before{display:none}
 .mark{font-style:italic;font-weight:700;color:var(--navy);background:var(--orange);padding:0 .12em .02em .05em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* ---------- locations: map board ---------- */
+.locs__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px}
+.locs__top .lede{max-width:52ch}
+.locs__top .h-xl .mark{display:inline-block;line-height:.95;padding:.04em .12em .08em .04em;margin-top:.08em}
+.lmap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);margin-top:clamp(36px,5vw,64px);align-items:stretch}
+.lmap__map{background:#FFFFFF;border-radius:28px;padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px -36px rgba(17,33,61,.45)}
+.lmap__geo{position:relative;width:min(100%,360px);aspect-ratio:628/999;margin-inline:auto}
+.lmap__geo img{width:100%;height:100%;display:block;opacity:.9}
+.pin{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:4px;background:var(--orange);box-shadow:0 0 0 4px rgba(251,155,81,.25);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,opacity .3s}
+.pin--main{width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:6px;background:var(--deep);box-shadow:0 0 0 6px rgba(255,135,50,.25)}
+.pin--main::after{content:"";position:absolute;inset:-6px;border-radius:9px;border:2px solid var(--deep);animation:pinPulse 2.4s ease-out infinite}
+.pin em{position:absolute;left:calc(100% + 10px);top:50%;translate:0 -50%;white-space:nowrap;font-style:normal;font-size:12px;font-weight:800;padding:4px 9px;border-radius:999px;background:var(--navy);color:#FFFFFF}
+@keyframes pinPulse{0%{opacity:.9;transform:scale(.8)}100%{opacity:0;transform:scale(2.2)}}
+.lmap__legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:13px;font-weight:600;color:var(--ink)}
+.lmap__legend b{font-weight:800;color:var(--navy)}
+.lmap__rows{display:flex;flex-direction:column;gap:12px;justify-content:center}
+.lrow{display:grid;grid-template-columns:132px minmax(0,1fr) auto;align-items:center;gap:18px;padding:12px 22px 12px 12px;border-radius:22px;background:rgba(255,255,255,.55);border:2px solid transparent;transition:background .25s,border-color .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.lrow:hover,.lrow:focus-visible{background:#FFFFFF;border-color:var(--navy);transform:translateX(6px)}
+.lrow__img{width:132px;height:96px;border-radius:14px;overflow:hidden;background:var(--navy2)}
+.lrow__img img{width:100%;height:100%;object-fit:cover;display:block}
+.lrow__txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lrow__txt strong{font-size:clamp(24px,2.4vw,32px);line-height:1;font-weight:800;letter-spacing:-.04em;color:var(--navy)}
+.lrow__txt > span{font-size:13px;color:var(--ink)}
+.lrow__bar{display:block;height:8px;border-radius:99px;background:rgba(17,33,61,.12);margin-top:6px;overflow:hidden}
+.lrow__bar i{display:block;height:100%;border-radius:99px}
+.lrow__n{display:flex;flex-direction:column;align-items:flex-end;color:var(--navy)}
+.lrow__n b{font-size:clamp(40px,4.4vw,60px);line-height:.85;font-weight:800;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.lrow__n small{font-size:12px;font-weight:700}
+.lmap__credit{margin:4px 0 0;font-size:11px;color:var(--muted);text-align:right}
+.lmap:has(.lrow:hover) .pin{opacity:.3}
+.lmap:has(.lrow--luzon:hover) .pin--luzon,.lmap:has(.lrow--visayas:hover) .pin--visayas,.lmap:has(.lrow--mindanao:hover) .pin--mindanao{opacity:1;transform:scale(1.5)}
+@media (max-width:900px){ .lmap{grid-template-columns:minmax(0,1fr)} .lmap__geo{width:min(100%,260px)} }
+@media (max-width:560px){ .lrow{grid-template-columns:88px minmax(0,1fr) auto;gap:12px;padding:10px 14px 10px 10px} .lrow__img{width:88px;height:72px} .pin em{font-size:11px;padding:3px 7px} }
+@media (prefers-reduced-motion:reduce){ .pin--main::after{animation:none} }
 </style>
 
 <!-- shared logo symbol -->
@@ -414,7 +442,7 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
     <div class="hscat hscat--tl" id="hscatTL" aria-hidden="true"></div>
     <div class="hscat hscat--tr" id="hscatTR" aria-hidden="true"></div>
     <div class="hero__center" id="heroCenter">
-      <h1 id="heroH1"><span class="line"><span>Where <br class="mbr">brands are</span></span><span class="line"><span><span class="hl hero__hl">built to be seen.</span></span></span></h1>
+      <h1 id="heroH1"><span class="line"><span>Where brands</span></span><span class="line"><span>are built to</span></span><span class="line"><span>be <span class="seen">seen</span><span class="dot"></span></span></span></h1>
       <p class="hero__sub" id="heroSub">LED screens and billboards across the Philippines.</p>
       <div class="hero__ctas">
         <a href="#contact" class="pill pill--orange" data-cursor="Let's talk">Get a Quote <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -554,29 +582,35 @@ img[src$="ph.svg"]{object-fit:fill!important;filter:none!important}
 <!-- ================= LOCATIONS ================= -->
 <section id="locations" class="band" data-bg="#FFC49C" data-fg="#11213D" style="--bandbg:#FFC49C;--bandfg:#11213D">
   <div class="wrap"><div class="in">
-    <div class="locs__head">
+    <div class="locs__top">
       <div>
         <h2 class="h-xl" style="font-size:clamp(56px,8vw,120px)">Prime<br><span class="mark">Locations.</span></h2>
         <p class="lede" style="margin-top:20px">177 sites, including 5 digital LED screens, from EDSA and the expressways of Luzon to Cebu, Bacolod, Davao and Zamboanga.</p>
       </div>
-      <div class="counts">
-        <div class="count" style="background:var(--navy);color:#FFFFFF"><b data-count="177">177</b><span>sites nationwide</span></div>
-        <div class="count" style="background:var(--orange)"><b data-count="28">28</b><span>now in Mindanao</span></div>
-      </div>
+      <a href="/locations" class="pill pill--navy" data-cursor="Explore">Explore all 177 sites on the map →</a>
     </div>
-    <div class="regions">
-      <div>
-        <div class="tabs" role="tablist" aria-label="Regions">
-          <button class="tab" role="tab" id="tab-luzon" aria-selected="true" data-r="luzon">Luzon <small>103 sites</small></button>
-          <button class="tab" role="tab" id="tab-visayas" aria-selected="false" data-r="visayas">Visayas <small>46 sites</small></button>
-          <button class="tab" role="tab" id="tab-mindanao" aria-selected="false" data-r="mindanao">Mindanao <small>28 sites</small></button>
-        </div>
-        
-        <a href="/locations" class="pill pill--navy" style="margin-top:18px" data-cursor="Explore">Explore all 177 sites on the map</a>
+    <div class="lmap">
+      <div class="lmap__map">
+        <div class="lmap__geo"><img src="/ux/phmap-navy.webp" alt="Map of the Philippines with U Channel's main billboard hubs marked" width="628" height="999" loading="lazy"><span class="pin pin--luzon pin--main" style="left:43%;top:42%"><em>Metro Manila</em></span><span class="pin pin--luzon" style="left:44%;top:45%" aria-hidden="true"></span><span class="pin pin--luzon" style="left:42%;top:39%" aria-hidden="true"></span><span class="pin pin--visayas pin--main" style="left:65%;top:63%"><em>Cebu</em></span><span class="pin pin--visayas" style="left:58%;top:63%" aria-hidden="true"></span><span class="pin pin--visayas" style="left:53%;top:58%" aria-hidden="true"></span><span class="pin pin--mindanao pin--main" style="left:83%;top:80%"><em>Davao</em></span><span class="pin pin--mindanao" style="left:71%;top:76%" aria-hidden="true"></span><span class="pin pin--mindanao" style="left:53%;top:85%" aria-hidden="true"></span></div>
+        <div class="lmap__legend"><span><b>177</b> sites</span><span><b>5</b> digital LED</span><span><b>3</b> island groups</span></div>
       </div>
-      <div>
-        <div class="stack" id="stack" role="tabpanel" aria-label="Locations in the selected region" data-cursor="Drag"></div>
-        <div class="stack__ui"><button class="round" id="stackPrev" type="button" aria-label="Previous location">←</button><span id="stackCount" aria-live="polite">1 / 3</span><button class="round" id="stackNext" type="button" aria-label="Next location">→</button></div>
+      <div class="lmap__rows">
+        <a class="lrow lrow--luzon" href="/locations" data-cursor="View">
+          <span class="lrow__img"><img src="/ux/sites/s013.webp" alt="EDSA billboard in Pasay" loading="lazy" width="132" height="96"></span>
+          <span class="lrow__txt"><strong>Luzon</strong><span>EDSA · SLEX · NLEX · C5 · Skyway</span><i class="lrow__bar"><i style="width:100%;background:#6C97D3"></i></i></span>
+          <span class="lrow__n"><b>103</b><small>sites</small></span>
+        </a>
+        <a class="lrow lrow--visayas" href="/locations" data-cursor="View">
+          <span class="lrow__img"><img src="/ux/sites/s118.webp" alt="Billboard at Fuente Osmeña, Cebu" loading="lazy" width="132" height="96"></span>
+          <span class="lrow__txt"><strong>Visayas</strong><span>Cebu · Bacolod · Iloilo · Leyte</span><i class="lrow__bar"><i style="width:45%;background:#FB9B51"></i></i></span>
+          <span class="lrow__n"><b>46</b><small>sites</small></span>
+        </a>
+        <a class="lrow lrow--mindanao" href="/locations" data-cursor="View">
+          <span class="lrow__img"><img src="/ux/sites/s186.webp" alt="Billboard on Ecoland Drive, Davao" loading="lazy" width="132" height="96"></span>
+          <span class="lrow__txt"><strong>Mindanao</strong><span>Davao · Cagayan de Oro · Zamboanga</span><i class="lrow__bar"><i style="width:27%;background:#FF8732"></i></i></span>
+          <span class="lrow__n"><b>28</b><small>sites</small></span>
+        </a>
+        <p class="lmap__credit">Site photos: Imagery © Google</p>
       </div>
     </div>
   </div></div>
@@ -860,44 +894,6 @@ new LedWall($('#panelCanvas'),{cell:innerWidth<600?36:46,gap:8,radius:10,dim:[28
 
 /* ---------------- portfolio request ---------------- */
 $('#portfolioBtn').addEventListener('click',()=>{ $('#fInterest').value='LED display solutions'; if(!$('#fDetails').value.trim()) $('#fDetails').value='Please send me the U Channel LED product portfolio.'; });
-
-/* ---------------- locations stack ---------------- */
-(function(){
-  const DATA={
-    luzon:[{img:'/ux/sites/s013.webp',name:'EDSA',sub:'29 sites · EDSA Pasay F.B. Harrison (Frame A)'},{img:'/ux/sites/s083.webp',name:'SLEX',sub:'13 sites · SLEX 1 Calamba Tollgate Laguna'},{img:'/ux/sites/s071.webp',name:'NLEX',sub:'9 sites · NLEX - Borol, Balagtas Bulacan (SB)'}],
-    visayas:[{img:'/ux/sites/s118.webp',name:'Cebu',sub:'29 sites · Cebu- Fuente Osmeña'},{img:'/ux/sites/s162.webp',name:'Bacolod',sub:'7 sites · Bacolod City, Araneta Street (SB)'},{img:'/ux/sites/s157.webp',name:'Iloilo',sub:'4 sites · Iloilo Airport Access Road (Entrance)'}],
-    mindanao:[{img:'/ux/sites/s186.webp',name:'Davao',sub:'16 sites · Davao City, Ecoland Dr.'},{img:'/ux/sites/s188.webp',name:'Cagayan de Oro',sub:'6 sites · National Highway, Lapasan, CDO'},{img:'/ux/sites/s197.webp',name:'Zamboanga',sub:'5 sites · Pilar Street, Zamboanga City'}]};
-  const stack=$('#stack'), count=$('#stackCount'); let region='luzon', order=[], idx=0;
-  function cardHTML(d){ return d.soon?`<div class="scard scard--soon"><svg width="190" height="44" viewBox="0 0 190 44" aria-hidden="true"><rect x="2" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="50" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="98" y="2" width="40" height="40" rx="10" fill="none" stroke="#6C97D3" stroke-width="3" stroke-dasharray="6 5"/><rect x="146" y="2" width="40" height="40" rx="10" fill="#FB9B51"/></svg><div><div style="font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-.05em;line-height:.9">Coming <span style="color:#FB9B51">soon.</span></div><p style="margin:12px 0 0;color:#DCE6F5">Want first pick of Mindanao sites? Tell us and we'll reach out.</p></div><a href="#contact" class="pill pill--orange" style="align-self:flex-start">Notify me</a></div>`
-    :`<div class="scard"><img src="${d.img}" alt="${d.name}, ${d.sub}" draggable="false"><span class="credit">Imagery © Google</span><div class="plate"><strong>${d.name}</strong><span>${d.sub}</span></div></div>`; }
-  function layout(anim){ const cards=$$('.scard',stack); const n=cards.length;
-    cards.forEach((c,i)=>{ const depth=n-1-i; c.style.zIndex=i; const props={x:0,y:depth*-14,scale:1-depth*.05,rotate:depth?(depth%2?-3:3)*depth:0,opacity:depth>2?0:1};
-      if(HAS_GSAP&&!REDUCED) gsap.to(c,Object.assign({duration:anim?.6:0,ease:'expo.out',overwrite:true},props)); else c.style.transform=`translateY(${props.y}px) scale(${props.scale})`; });
-    count.textContent=(idx+1)+' / '+DATA[region].length; }
-  let busy=false;
-  function next(dir,card){ const cards=$$('.scard',stack); if(busy) return;
-    if(cards.length<2){ if(HAS_GSAP&&!REDUCED) gsap.to(cards[0],{x:0,y:0,rotate:0,duration:.7,ease:'elastic.out(1,.45)',overwrite:true}); return; }
-    busy=true;
-    if(dir>0){ const top=card||cards[cards.length-1]; idx=(idx+1)%cards.length;
-      const done=()=>{ stack.prepend(top); layout(true); busy=false; };
-      if(HAS_GSAP&&!REDUCED) gsap.to(top,{x:(top._d||1)*820,rotate:(top._d||1)*28,duration:.42,ease:'power2.in',overwrite:true,onComplete:done}); else done(); }
-    else { const bottom=cards[0]; idx=(idx-1+cards.length)%cards.length; stack.appendChild(bottom); if(HAS_GSAP&&!REDUCED) gsap.set(bottom,{x:-820,rotate:-28}); layout(true); busy=false; } }
-  function bindDrag(card){ let sx=0,sy=0,dx=0,drag=false,vx=0,lx=0,lt=0;
-    card.addEventListener('pointerdown',e=>{ if(e.target.closest('a')||card!==stack.lastElementChild||busy) return; drag=true; dx=0; sx=e.clientX; sy=e.clientY; lx=sx; lt=performance.now(); card.setPointerCapture(e.pointerId); });
-    card.addEventListener('pointermove',e=>{ if(!drag) return; dx=e.clientX-sx; const now=performance.now(); vx=(e.clientX-lx)/Math.max(1,now-lt); lx=e.clientX; lt=now;
-      if(HAS_GSAP) gsap.set(card,{x:dx,y:(e.clientY-sy)*.3,rotate:dx*.06}); else card.style.transform=`translateX(${dx}px)`; });
-    const end=()=>{ if(!drag) return; drag=false;
-      if(Math.abs(dx)>110||Math.abs(vx)>.6){ card._d=Math.sign(dx||vx)||1; next(1,card); }
-      else if(HAS_GSAP) gsap.to(card,{x:0,y:0,rotate:0,duration:.6,ease:'elastic.out(1,.5)'}); };
-    card.addEventListener('pointerup',end); card.addEventListener('pointercancel',end); }
-  function build(r){ region=r; idx=0; stack.innerHTML=DATA[r].slice().reverse().map(cardHTML).join('');
-    $$('.scard',stack).forEach(bindDrag);
-    layout(false);
-    if(HAS_GSAP&&!REDUCED) gsap.from($$('.scard',stack),{y:80,opacity:0,stagger:.08,duration:.8,ease:'expo.out',clearProps:'opacity'}); }
-  $$('.tab').forEach(t=>t.addEventListener('click',()=>{ $$('.tab').forEach(x=>x.setAttribute('aria-selected',x===t)); build(t.dataset.r); }));
-  $('#stackNext').addEventListener('click',()=>next(1)); $('#stackPrev').addEventListener('click',()=>next(-1));
-  build('luzon');
-})();
 
 /* ---------------- why keys ---------------- */
 $$('.key').forEach(k=>k.addEventListener('click',()=>{ $$('.key').forEach(x=>x!==k&&x.classList.remove('pressed')); k.classList.toggle('pressed'); }));
